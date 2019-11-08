@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<firestorm-project version="4.0.1">
+  <name>MyProject</name>
+  <description />
+  <dbimport-config>
+    <jdbc-datasource>MySQL Datasource</jdbc-datasource>
+    <jdbc-catalog>bd_hulkstore</jdbc-catalog>
+    <jdbc-schema />
+    <sql-import-file />
+    <sql-vendor />
+    <import-tables>true</import-tables>
+    <import-views>true</import-views>
+    <import-procedures>true</import-procedures>
+    <prefer-objects>false</prefer-objects>
+    <sync-new>true</sync-new>
+    <sync-existing>true</sync-existing>
+    <sync-deleted>true</sync-deleted>
+    <map-large-integer-to-bigdecimal>false</map-large-integer-to-bigdecimal>
+    <verbose-logging>false</verbose-logging>
+    <filter-list>
+      <filter>users</filter>
+    </filter-list>
+  </dbimport-config>
+  <database>
+    <platform>MySQL</platform>
+    <catalog-name>bd_hulkstore</catalog-name>
+    <schema-name />
+    <table-list>
+      <table>
+        <sql-name>users</sql-name>
+        <java-name>Users</java-name>
+        <primary-key>
+          <column-list>
+            <column>userId</column>
+          </column-list>
+        </primary-key>
+        <column-list>
+          <column>
+            <java-name>userId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>userId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>true</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>userName</java-name>
+            <java-type>java.lang.String</java-type>
+            <java-default-value />
+            <sql-name>userName</sql-name>
+            <sql-type>VARCHAR</sql-type>
+            <jdbc-type>VARCHAR</jdbc-type>
+            <jdbc-precision>32</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>userPass</java-name>
+            <java-type>java.lang.String</java-type>
+            <java-default-value />
+            <sql-name>userPass</sql-name>
+            <sql-type>CHAR</sql-type>
+            <jdbc-type>CHAR</jdbc-type>
+            <jdbc-precision>32</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>identification</java-name>
+            <java-type>java.lang.String</java-type>
+            <java-default-value />
+            <sql-name>identification</sql-name>
+            <sql-type>CHAR</sql-type>
+            <jdbc-type>CHAR</jdbc-type>
+            <jdbc-precision>8</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>realName</java-name>
+            <java-type>java.lang.String</java-type>
+            <java-default-value />
+            <sql-name>realName</sql-name>
+            <sql-type>VARCHAR</sql-type>
+            <jdbc-type>VARCHAR</jdbc-type>
+            <jdbc-precision>40</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>surname</java-name>
+            <java-type>java.lang.String</java-type>
+            <java-default-value />
+            <sql-name>surname</sql-name>
+            <sql-type>VARCHAR</sql-type>
+            <jdbc-type>VARCHAR</jdbc-type>
+            <jdbc-precision>40</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>userProfile</java-name>
+            <java-type>short</java-type>
+            <java-default-value />
+            <sql-name>userProfile</sql-name>
+            <sql-type>BIT</sql-type>
+            <jdbc-type>BIT</jdbc-type>
+            <jdbc-precision>1</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>state</java-name>
+            <java-type>short</java-type>
+            <java-default-value />
+            <sql-name>state</sql-name>
+            <sql-type>BIT</sql-type>
+            <jdbc-type>BIT</jdbc-type>
+            <jdbc-precision>1</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+        </column-list>
+        <finder-list>
+          <finder>
+            <name>findByPrimaryKey</name>
+            <multi-finder>false</multi-finder>
+            <where>userId = :userId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>userId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findAll</name>
+            <multi-finder>true</multi-finder>
+            <where />
+            <order-by>userId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list />
+          </finder>
+          <finder>
+            <name>findWhereUserIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>userId = :userId</where>
+            <order-by>userId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>userId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereUserNameEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>userName = :userName</where>
+            <order-by>userName</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>userName</java-name>
+                <java-type>java.lang.String</java-type>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <jdbc-precision>32</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereUserPassEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>userPass = :userPass</where>
+            <order-by>userPass</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>userPass</java-name>
+                <java-type>java.lang.String</java-type>
+                <jdbc-type>CHAR</jdbc-type>
+                <jdbc-precision>32</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereIdentificationEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>identification = :identification</where>
+            <order-by>identification</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>identification</java-name>
+                <java-type>java.lang.String</java-type>
+                <jdbc-type>CHAR</jdbc-type>
+                <jdbc-precision>8</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereRealNameEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>realName = :realName</where>
+            <order-by>realName</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>realName</java-name>
+                <java-type>java.lang.String</java-type>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <jdbc-precision>40</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereSurnameEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>surname = :surname</where>
+            <order-by>surname</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>surname</java-name>
+                <java-type>java.lang.String</java-type>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <jdbc-precision>40</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereUserProfileEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>userProfile = :userProfile</where>
+            <order-by>userProfile</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>userProfile</java-name>
+                <java-type>short</java-type>
+                <jdbc-type>BIT</jdbc-type>
+                <jdbc-precision>1</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereStateEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>state = :state</where>
+            <order-by>state</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>state</java-name>
+                <java-type>short</java-type>
+                <jdbc-type>BIT</jdbc-type>
+                <jdbc-precision>1</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+        </finder-list>
+      </table>
+    </table-list>
+    <view-list />
+    <procedure-list />
+    <custom-sql-list />
+  </database>
+  <provider-options>
+    <default-codegen-provider>j2se</default-codegen-provider>
+    <provider name="j2se">
+      <property key="app-name" value="myapp" />
+      <property key="dao-strategy" value="jdbc" />
+      <property key="delete-files" value="false" />
+      <property key="dto-fields-public" value="false" />
+      <property key="generate-dynamic-inserts" value="false" />
+      <property key="generate-dynamic-updates" value="false" />
+      <property key="jdbc-driver" value="com.mysql.cj.jdbc.Driver" />
+      <property key="jdbc-pwd" value="mySql" />
+      <property key="jdbc-table-aliases" value="false" />
+      <property key="jdbc-url" value="jdbc:mysql://localhost:3306/sga?useSSL=false" />
+      <property key="jdbc-user" value="root" />
+      <property key="jdbc30-capable" value="true" />
+      <property key="logging" value="stdout" />
+      <property key="output-dir" value="C:\Users\JDUQUE\Desktop\HulkStore\FireStorm" />
+      <property key="overwrite-resource-manager" value="true" />
+      <property key="package-name" value="com.cidenet.hulkstore" />
+      <property key="prefix-schema-name" value="true" />
+    </provider>
+  </provider-options>
+</firestorm-project>
+

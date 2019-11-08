@@ -1,0 +1,14 @@
+/* DATA DUMP */
+
+-- Unities
+INSERT INTO UNITY VALUES(DEFAULT, 'unidades', 1);
+INSERT INTO UNITY VALUES(DEFAULT, 'cajas', 1);
+INSERT INTO UNITY VALUES(DEFAULT, 'camisetas', 1);
+INSERT INTO UNITY VALUES(DEFAULT, 'vasos', 1);
+INSERT INTO UNITY VALUES(DEFAULT, 'comics', 1);
+
+-- Documents
+INSERT INTO DOCUMENT VALUES(DEFAULT, 'Factura', 1);
+
+-- Creation of admin
+INSERT INTO USERS VALUES(DEFAULT, 'admin', MD5('admin'), '00000000', 'Admin', 'ADMIN', 1, 1);
