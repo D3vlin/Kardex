@@ -18,7 +18,7 @@ public interface ILogin
      * @param txtUser    username
      * @param txtPass    password
      */
-    public void validate(JTextField txtUser, JPasswordField txtPass);
+    public void validate(JTextField txtUser, JPasswordField pwdPass);
     
     /**
      * Access to the database configuration window.

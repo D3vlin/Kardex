@@ -1,7 +1,6 @@
 package com.cidenet.hulkstore.jdbc;
 
 import com.cidenet.hulkstore.dao.*;
-import com.cidenet.hulkstore.factory.*;
 import com.cidenet.hulkstore.dto.*;
 import com.cidenet.hulkstore.exceptions.*;
 import java.sql.Connection;
@@ -10,11 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.util.List;
-import java.util.Iterator;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class UsersDaoImpl extends AbstractDAO implements UsersDao
 {

@@ -1,8 +1,6 @@
 package com.cidenet.hulkstore.dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 /** 
  * This class represents the primary key of the users table.

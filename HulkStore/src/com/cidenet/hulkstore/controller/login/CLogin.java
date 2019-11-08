@@ -1,5 +1,6 @@
 package com.cidenet.hulkstore.controller.login;
 
+import com.cidenet.hulkstore.controller.settings.CSettings;
 import com.cidenet.hulkstore.dao.UsersDao;
 import com.cidenet.hulkstore.factory.UsersDaoFactory;
 import com.cidenet.hulkstore.view.login.UILogin;
@@ -27,11 +28,11 @@ public class CLogin implements ILogin
     }
     
     @Override
-    public void validate(JTextField txtUser, JPasswordField txtPass)
+    public void validate(JTextField txtUser, JPasswordField pwdPass)
     {
         try {
             UsersDao dao = UsersDaoFactory.create();
-            if (dao.validateUser(txtUser.getText(), txtPass.getText())) {
+            if (dao.validateUser(txtUser.getText(), pwdPass.getText())) {
                 //new CKardexMenu();
                 //form.dispose();
                 JOptionPane.showMessageDialog(null, "ingresa!", "ingresa!", JOptionPane.INFORMATION_MESSAGE, null);
@@ -47,8 +48,8 @@ public class CLogin implements ILogin
     @Override
     public void setting()
     {
-//        new CConfiguracion(true);
-//        form.dispose();
+        new CSettings(true);
+        window.dispose();
     }
     
     @Override

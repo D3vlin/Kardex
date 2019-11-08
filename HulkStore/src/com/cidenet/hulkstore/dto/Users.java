@@ -1,10 +1,6 @@
 package com.cidenet.hulkstore.dto;
 
-import com.cidenet.hulkstore.dao.*;
-import com.cidenet.hulkstore.factory.*;
-import com.cidenet.hulkstore.exceptions.*;
 import java.io.Serializable;
-import java.util.*;
 
 public class Users implements Serializable
 {
