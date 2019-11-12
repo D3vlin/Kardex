@@ -3,7 +3,6 @@ package com.cidenet.hulkstore.dao.users;
 import com.cidenet.hulkstore.exceptions.users.UsersDaoException;
 import com.cidenet.hulkstore.dto.users.UsersPk;
 import com.cidenet.hulkstore.dto.users.Users;
-import com.cidenet.hulkstore.exceptions.*;
 
 public interface UsersDao
 {

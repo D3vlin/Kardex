@@ -4,7 +4,6 @@ import com.cidenet.hulkstore.exceptions.users.UsersDaoException;
 import com.cidenet.hulkstore.dto.users.UsersPk;
 import com.cidenet.hulkstore.dto.users.Users;
 import com.cidenet.hulkstore.dao.users.UsersDao;
-import com.cidenet.hulkstore.exceptions.*;
 import com.cidenet.hulkstore.jdbc.AbstractDAO;
 import com.cidenet.hulkstore.jdbc.ResourceManager;
 import java.sql.Connection;
