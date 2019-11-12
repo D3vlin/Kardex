@@ -16,7 +16,7 @@ public interface ILogin
      * Validate the username and password entered,
      * if the data is correct, access the main menu window
      * @param txtUser    username
-     * @param txtPass    password
+     * @param pwdPass    password
      */
     public void validate(JTextField txtUser, JPasswordField pwdPass);
     
