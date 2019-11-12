@@ -1,9 +1,14 @@
 package com.cidenet.hulkstore.controller.settings;
 
 import com.cidenet.hulkstore.controller.login.CLogin;
+import com.cidenet.hulkstore.controller.menu.CMenu;
+import com.cidenet.hulkstore.dao.users.UsersDao;
+import com.cidenet.hulkstore.dto.users.Users;
+import com.cidenet.hulkstore.factory.users.UsersDaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.getDataConnection;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setDataConnection;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.testConnection;
+import com.cidenet.hulkstore.view.menu.UIMenu;
 import com.cidenet.hulkstore.view.settings.UISettings;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -43,12 +48,23 @@ public class CSettings implements ISettings {
     
     @Override
     public void cancel() {
-        //CKardexMenu menu;
         CLogin login;
         if(returnToLogin) {
             login = new CLogin();
         } else {
-            //menu = new CKardexMenu();
+            try {
+                UsersDao dao = UsersDaoFactory.create();
+                Users user = dao.findWhereUserIdEquals(UIMenu.userId)[0];
+
+                if (user != null) {
+                    new CMenu(user);
+                } else  {
+                    JOptionPane.showMessageDialog(null, "Error al cargar el menú", "Error", JOptionPane.ERROR_MESSAGE, null);
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         
         window.dispose();
