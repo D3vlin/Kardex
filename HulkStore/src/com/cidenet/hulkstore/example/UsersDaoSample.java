@@ -3,10 +3,10 @@ package com.cidenet.hulkstore.example;
 import java.math.*;
 import java.util.Date;
 import java.util.Collection;
-import com.cidenet.hulkstore.dao.UsersDao;
-import com.cidenet.hulkstore.dto.Users;
-import com.cidenet.hulkstore.exceptions.UsersDaoException;
-import com.cidenet.hulkstore.factory.UsersDaoFactory;
+import com.cidenet.hulkstore.dao.users.UsersDao;
+import com.cidenet.hulkstore.dto.users.Users;
+import com.cidenet.hulkstore.exceptions.users.UsersDaoException;
+import com.cidenet.hulkstore.factory.users.UsersDaoFactory;
 
 public class UsersDaoSample
 {

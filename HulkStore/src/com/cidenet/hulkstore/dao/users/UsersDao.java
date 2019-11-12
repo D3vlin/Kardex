@@ -1,6 +1,8 @@
-package com.cidenet.hulkstore.dao;
+package com.cidenet.hulkstore.dao.users;
 
-import com.cidenet.hulkstore.dto.*;
+import com.cidenet.hulkstore.exceptions.users.UsersDaoException;
+import com.cidenet.hulkstore.dto.users.UsersPk;
+import com.cidenet.hulkstore.dto.users.Users;
 import com.cidenet.hulkstore.exceptions.*;
 
 public interface UsersDao
@@ -98,6 +100,6 @@ public interface UsersDao
 	/** 
 	 * Validates the entry of a user, verifying its existence in the database
 	 */
-	public boolean validateUser(String userName, String userPass) throws UsersDaoException;
+	public Users validateUser(String userName, String userPass) throws UsersDaoException;
 
 }

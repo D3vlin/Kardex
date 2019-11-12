@@ -1,8 +1,10 @@
 package com.cidenet.hulkstore.controller.login;
 
+import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.settings.CSettings;
-import com.cidenet.hulkstore.dao.UsersDao;
-import com.cidenet.hulkstore.factory.UsersDaoFactory;
+import com.cidenet.hulkstore.dao.users.UsersDao;
+import com.cidenet.hulkstore.dto.users.Users;
+import com.cidenet.hulkstore.factory.users.UsersDaoFactory;
 import com.cidenet.hulkstore.view.login.UILogin;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -32,10 +34,11 @@ public class CLogin implements ILogin
     {
         try {
             UsersDao dao = UsersDaoFactory.create();
-            if (dao.validateUser(txtUser.getText(), pwdPass.getText())) {
-                //new CKardexMenu();
-                //form.dispose();
-                JOptionPane.showMessageDialog(null, "ingresa!", "ingresa!", JOptionPane.INFORMATION_MESSAGE, null);
+            Users user = dao.validateUser(txtUser.getText(), pwdPass.getText());
+            
+            if (user != null) {
+                new CMenu(user);
+                window.dispose();
             }
             else
                 JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE, null);
@@ -57,9 +60,4 @@ public class CLogin implements ILogin
     {
         window.dispose();
     }
-    
-//    public static UsersDao getUsersDao()
-//    {
-//        return UsersDaoFactory.create();
-//    }
 }

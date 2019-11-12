@@ -1,4 +1,6 @@
-package com.cidenet.hulkstore.exceptions;
+package com.cidenet.hulkstore.exceptions.users;
+
+import com.cidenet.hulkstore.exceptions.DaoException;
 
 public class UsersDaoException extends DaoException
 {

@@ -1,8 +1,12 @@
-package com.cidenet.hulkstore.jdbc;
+package com.cidenet.hulkstore.jdbc.users;
 
-import com.cidenet.hulkstore.dao.*;
-import com.cidenet.hulkstore.dto.*;
+import com.cidenet.hulkstore.exceptions.users.UsersDaoException;
+import com.cidenet.hulkstore.dto.users.UsersPk;
+import com.cidenet.hulkstore.dto.users.Users;
+import com.cidenet.hulkstore.dao.users.UsersDao;
 import com.cidenet.hulkstore.exceptions.*;
+import com.cidenet.hulkstore.jdbc.AbstractDAO;
+import com.cidenet.hulkstore.jdbc.ResourceManager;
 import java.sql.Connection;
 import java.util.Collection;
 import java.sql.PreparedStatement;
@@ -521,9 +525,15 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
     
     // Se conservan estos metodos
     @Override
-    public boolean validateUser(String userName, String userPass) throws UsersDaoException {
-        Users ret[] = findByDynamicSelect( SQL_SELECT + " WHERE userName = ? and userPass = MD5(?) ORDER BY userPass", new Object[] { userName, userPass } );        
-        return ret.length != 0;
+    public Users validateUser(String userName, String userPass) throws UsersDaoException {
+        Users rsp[] = findByDynamicWhere( "userName = ? and userPass = MD5(?) ORDER BY userPass", new Object[] { userName, userPass } );  
+        
+        if (rsp.length != 0){
+            return rsp[0];
+            
+        } else {
+            return null;
+        }
     }
 
 }
