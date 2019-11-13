@@ -18,6 +18,7 @@
     <map-large-integer-to-bigdecimal>false</map-large-integer-to-bigdecimal>
     <verbose-logging>false</verbose-logging>
     <filter-list>
+      <filter>store</filter>
       <filter>users</filter>
     </filter-list>
   </dbimport-config>
@@ -303,6 +304,163 @@
           </finder>
         </finder-list>
       </table>
+      <table>
+        <sql-name>store</sql-name>
+        <java-name>Store</java-name>
+        <primary-key>
+          <column-list>
+            <column>storeId</column>
+          </column-list>
+        </primary-key>
+        <column-list>
+          <column>
+            <java-name>storeId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>storeId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>true</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>storeName</java-name>
+            <java-type>java.lang.String</java-type>
+            <java-default-value />
+            <sql-name>storeName</sql-name>
+            <sql-type>VARCHAR</sql-type>
+            <jdbc-type>VARCHAR</jdbc-type>
+            <jdbc-precision>20</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>address</java-name>
+            <java-type>java.lang.String</java-type>
+            <java-default-value />
+            <sql-name>address</sql-name>
+            <sql-type>VARCHAR</sql-type>
+            <jdbc-type>VARCHAR</jdbc-type>
+            <jdbc-precision>40</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>state</java-name>
+            <java-type>short</java-type>
+            <java-default-value />
+            <sql-name>state</sql-name>
+            <sql-type>BIT</sql-type>
+            <jdbc-type>BIT</jdbc-type>
+            <jdbc-precision>1</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+        </column-list>
+        <finder-list>
+          <finder>
+            <name>findByPrimaryKey</name>
+            <multi-finder>false</multi-finder>
+            <where>storeId = :storeId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>storeId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findAll</name>
+            <multi-finder>true</multi-finder>
+            <where />
+            <order-by>storeId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list />
+          </finder>
+          <finder>
+            <name>findWhereStoreIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>storeId = :storeId</where>
+            <order-by>storeId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>storeId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereStoreNameEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>storeName = :storeName</where>
+            <order-by>storeName</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>storeName</java-name>
+                <java-type>java.lang.String</java-type>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <jdbc-precision>20</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereAddressEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>address = :address</where>
+            <order-by>address</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>address</java-name>
+                <java-type>java.lang.String</java-type>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <jdbc-precision>40</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereStateEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>state = :state</where>
+            <order-by>state</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>state</java-name>
+                <java-type>short</java-type>
+                <jdbc-type>BIT</jdbc-type>
+                <jdbc-precision>1</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+        </finder-list>
+      </table>
     </table-list>
     <view-list />
     <procedure-list />
@@ -320,7 +478,7 @@
       <property key="jdbc-driver" value="com.mysql.cj.jdbc.Driver" />
       <property key="jdbc-pwd" value="mySql" />
       <property key="jdbc-table-aliases" value="false" />
-      <property key="jdbc-url" value="jdbc:mysql://localhost:3306/sga?useSSL=false" />
+      <property key="jdbc-url" value="jdbc:mysql://localhost:3306/bd_hulkstore?useSSL=false" />
       <property key="jdbc-user" value="root" />
       <property key="jdbc30-capable" value="true" />
       <property key="logging" value="stdout" />

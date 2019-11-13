@@ -5,7 +5,7 @@ import java.sql.*;
 public class ResourceManager
 {
     private static String JDBC_DRIVER   = "com.mysql.cj.jdbc.Driver";
-    private static String JDBC_URL      = "jdbc:mysql://localhost:3306/sga?useSSL=false";
+    private static String JDBC_URL      = "jdbc:mysql://localhost:3306/bd_hulkstore?useSSL=false";
 
     private static String JDBC_USER     = "root";
     private static String JDBC_PASSWORD = "mySql";
