@@ -52,19 +52,7 @@ public class CSettings implements ISettings {
         if(returnToLogin) {
             login = new CLogin();
         } else {
-            try {
-                UsersDao dao = UsersDaoFactory.create();
-                UsersDto user = dao.findWhereUserIdEquals(UIMenu.userId)[0];
-
-                if (user != null) {
-                    new CMenu(user);
-                } else  {
-                    JOptionPane.showMessageDialog(null, "Error al cargar el menú", "Error", JOptionPane.ERROR_MESSAGE, null);
-                }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+            new CMenu();
         }
         
         window.dispose();
