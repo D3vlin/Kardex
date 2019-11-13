@@ -19,7 +19,7 @@ public class StorePk implements Serializable
 	 */
 	public void setStoreId(int storeId)
 	{
-		this.storeId = storeId;
+		this.storeId = storeId;                
 	}
 
 	/** 
@@ -46,6 +46,7 @@ public class StorePk implements Serializable
 	public StorePk(final int storeId)
 	{
 		this.storeId = storeId;
+                this.storeIdNull = false;
 	}
 
 	/** 
