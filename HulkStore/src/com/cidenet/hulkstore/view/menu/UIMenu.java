@@ -1,7 +1,7 @@
 package com.cidenet.hulkstore.view.menu;
 
 import com.cidenet.hulkstore.controller.menu.IMenu;
-import com.cidenet.hulkstore.dto.users.Users;
+import com.cidenet.hulkstore.users.UsersDto;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -19,7 +19,7 @@ public class UIMenu extends javax.swing.JFrame {
     public static int userId;
     private IMenu Interface;
     
-    public UIMenu(IMenu Interface, Users user) {
+    public UIMenu(IMenu Interface, UsersDto user) {
         initComponents();
         this.setVisible(true);
         this.setTitle("Menú - Sistema de Control de Inventarios");
@@ -70,7 +70,8 @@ public class UIMenu extends javax.swing.JFrame {
         mniManual = new javax.swing.JMenuItem();
         mniAbout = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/inventory_icon.png")).getImage());
         setResizable(false);
         setSize(new java.awt.Dimension(0, 0));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -307,7 +308,7 @@ public class UIMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void btnStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStoreActionPerformed
-        //Interface.validate(this.txtUser, this.pwdPass);
+        Interface.store();
     }//GEN-LAST:event_btnStoreActionPerformed
 
     private void btnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductActionPerformed
