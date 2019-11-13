@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.controller.menu;
 
-import com.cidenet.hulkstore.dto.users.Users;
+import com.cidenet.hulkstore.users.UsersDto;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -28,7 +28,7 @@ public interface IMenu
      * @param btnProductEntry       Product input query button
      * @param btnProductExit        Product Exit Query Button
      */
-    public void upload(Users user, JLabel lblRealName, JLabel lblIdentification, JLabel lblProfile, JButton btnUser, JButton btnProductExistence, JButton btnProductEntry, JButton btnProductExit);
+    public void upload(UsersDto user, JLabel lblRealName, JLabel lblIdentification, JLabel lblProfile, JButton btnUser, JButton btnProductExistence, JButton btnProductEntry, JButton btnProductExit);
     
     /**
      * Log out of the current user, and return to the Login window.
