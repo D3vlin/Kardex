@@ -1,8 +1,8 @@
-package com.cidenet.hulkstore.dto.stores;
+package com.cidenet.hulkstore.stores;
 
 import java.io.Serializable;
 
-public class Store implements Serializable
+public class StoreDto implements Serializable
 {
 	/** 
 	 * This attribute maps to the column storeId in the store table.
@@ -28,7 +28,7 @@ public class Store implements Serializable
 	 * Method 'Store'
 	 * 
 	 */
-	public Store()
+	public StoreDto()
 	{
 	}
 
@@ -128,11 +128,11 @@ public class Store implements Serializable
 			return true;
 		}
 		
-		if (!(_other instanceof Store)) {
+		if (!(_other instanceof StoreDto)) {
 			return false;
 		}
 		
-		final Store _cast = (Store) _other;
+		final StoreDto _cast = (StoreDto) _other;
 		if (storeId != _cast.storeId) {
 			return false;
 		}

@@ -2,9 +2,9 @@ package com.cidenet.hulkstore.controller.login;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.settings.CSettings;
-import com.cidenet.hulkstore.dao.users.UsersDao;
-import com.cidenet.hulkstore.dto.users.Users;
-import com.cidenet.hulkstore.factory.users.UsersDaoFactory;
+import com.cidenet.hulkstore.users.UsersDao;
+import com.cidenet.hulkstore.users.UsersDto;
+import com.cidenet.hulkstore.users.UsersDaoFactory;
 import com.cidenet.hulkstore.view.login.UILogin;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -34,7 +34,7 @@ public class CLogin implements ILogin
     {
         try {
             UsersDao dao = UsersDaoFactory.create();
-            Users user = dao.validateUser(txtUser.getText(), pwdPass.getText());
+            UsersDto user = dao.validateUser(txtUser.getText(), pwdPass.getText());
             
             if (user != null) {
                 new CMenu(user);

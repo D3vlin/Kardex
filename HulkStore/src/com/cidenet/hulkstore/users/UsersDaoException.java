@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.exceptions.users;
+package com.cidenet.hulkstore.users;
 
 import com.cidenet.hulkstore.exceptions.DaoException;
 

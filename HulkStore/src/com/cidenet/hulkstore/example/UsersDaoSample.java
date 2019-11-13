@@ -3,10 +3,10 @@ package com.cidenet.hulkstore.example;
 import java.math.*;
 import java.util.Date;
 import java.util.Collection;
-import com.cidenet.hulkstore.dao.users.UsersDao;
-import com.cidenet.hulkstore.dto.users.Users;
-import com.cidenet.hulkstore.exceptions.users.UsersDaoException;
-import com.cidenet.hulkstore.factory.users.UsersDaoFactory;
+import com.cidenet.hulkstore.users.UsersDao;
+import com.cidenet.hulkstore.users.UsersDto;
+import com.cidenet.hulkstore.users.UsersDaoException;
+import com.cidenet.hulkstore.users.UsersDaoFactory;
 
 public class UsersDaoSample
 {
@@ -39,7 +39,7 @@ public class UsersDaoSample
 	{
 		try {
 			UsersDao _dao = getUsersDao();
-			Users _result[] = _dao.findAll();
+			UsersDto _result[] = _dao.findAll();
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}
@@ -60,7 +60,7 @@ public class UsersDaoSample
 	{
 		try {
 			UsersDao _dao = getUsersDao();
-			Users _result[] = _dao.findWhereUserIdEquals(userId);
+			UsersDto _result[] = _dao.findWhereUserIdEquals(userId);
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}
@@ -81,7 +81,7 @@ public class UsersDaoSample
 	{
 		try {
 			UsersDao _dao = getUsersDao();
-			Users _result[] = _dao.findWhereUserNameEquals(userName);
+			UsersDto _result[] = _dao.findWhereUserNameEquals(userName);
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}
@@ -102,7 +102,7 @@ public class UsersDaoSample
 	{
 		try {
 			UsersDao _dao = getUsersDao();
-			Users _result[] = _dao.findWhereUserPassEquals(userPass);
+			UsersDto _result[] = _dao.findWhereUserPassEquals(userPass);
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}
@@ -123,7 +123,7 @@ public class UsersDaoSample
 	{
 		try {
 			UsersDao _dao = getUsersDao();
-			Users _result[] = _dao.findWhereIdentificationEquals(identification);
+			UsersDto _result[] = _dao.findWhereIdentificationEquals(identification);
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}
@@ -144,7 +144,7 @@ public class UsersDaoSample
 	{
 		try {
 			UsersDao _dao = getUsersDao();
-			Users _result[] = _dao.findWhereRealNameEquals(realName);
+			UsersDto _result[] = _dao.findWhereRealNameEquals(realName);
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}
@@ -165,7 +165,7 @@ public class UsersDaoSample
 	{
 		try {
 			UsersDao _dao = getUsersDao();
-			Users _result[] = _dao.findWhereSurnameEquals(surname);
+			UsersDto _result[] = _dao.findWhereSurnameEquals(surname);
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}
@@ -186,7 +186,7 @@ public class UsersDaoSample
 	{
 		try {
 			UsersDao _dao = getUsersDao();
-			Users _result[] = _dao.findWhereUserProfileEquals(userProfile);
+			UsersDto _result[] = _dao.findWhereUserProfileEquals(userProfile);
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}
@@ -207,7 +207,7 @@ public class UsersDaoSample
 	{
 		try {
 			UsersDao _dao = getUsersDao();
-			Users _result[] = _dao.findWhereStateEquals(state);
+			UsersDto _result[] = _dao.findWhereStateEquals(state);
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}
@@ -234,7 +234,7 @@ public class UsersDaoSample
 	 * 
 	 * @param dto
 	 */
-	public static void display(Users dto)
+	public static void display(UsersDto dto)
 	{
 		StringBuffer buf = new StringBuffer();
 		buf.append( dto.getUserId() );

@@ -1,9 +1,5 @@
-package com.cidenet.hulkstore.jdbc.users;
+package com.cidenet.hulkstore.users;
 
-import com.cidenet.hulkstore.exceptions.users.UsersDaoException;
-import com.cidenet.hulkstore.dto.users.UsersPk;
-import com.cidenet.hulkstore.dto.users.Users;
-import com.cidenet.hulkstore.dao.users.UsersDao;
 import com.cidenet.hulkstore.jdbc.AbstractDAO;
 import com.cidenet.hulkstore.jdbc.ResourceManager;
 import java.sql.Connection;
@@ -102,7 +98,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Inserts a new row in the users table.
 	 */
-	public UsersPk insert(Users dto) throws UsersDaoException
+	public UsersPk insert(UsersDto dto) throws UsersDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -156,7 +152,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Updates a single row in the users table.
 	 */
-	public void update(UsersPk pk, Users dto) throws UsersDaoException
+	public void update(UsersPk pk, UsersDto dto) throws UsersDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -238,7 +234,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns the rows from the users table that matches the specified primary-key value.
 	 */
-	public Users findByPrimaryKey(UsersPk pk) throws UsersDaoException
+	public UsersDto findByPrimaryKey(UsersPk pk) throws UsersDaoException
 	{
 		return findByPrimaryKey( pk.getUserId() );
 	}
@@ -246,16 +242,16 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userId = :userId'.
 	 */
-	public Users findByPrimaryKey(int userId) throws UsersDaoException
+	public UsersDto findByPrimaryKey(int userId) throws UsersDaoException
 	{
-		Users ret[] = findByDynamicSelect( SQL_SELECT + " WHERE userId = ?", new Object[] {  new Integer(userId) } );
+		UsersDto ret[] = findByDynamicSelect( SQL_SELECT + " WHERE userId = ?", new Object[] {  new Integer(userId) } );
 		return ret.length==0 ? null : ret[0];
 	}
 
 	/** 
 	 * Returns all rows from the users table that match the criteria ''.
 	 */
-	public Users[] findAll() throws UsersDaoException
+	public UsersDto[] findAll() throws UsersDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " ORDER BY userId", null );
 	}
@@ -263,7 +259,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userId = :userId'.
 	 */
-	public Users[] findWhereUserIdEquals(int userId) throws UsersDaoException
+	public UsersDto[] findWhereUserIdEquals(int userId) throws UsersDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE userId = ? ORDER BY userId", new Object[] {  new Integer(userId) } );
 	}
@@ -271,7 +267,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userName = :userName'.
 	 */
-	public Users[] findWhereUserNameEquals(String userName) throws UsersDaoException
+	public UsersDto[] findWhereUserNameEquals(String userName) throws UsersDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE userName = ? ORDER BY userName", new Object[] { userName } );
 	}
@@ -279,7 +275,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userPass = :userPass'.
 	 */
-	public Users[] findWhereUserPassEquals(String userPass) throws UsersDaoException
+	public UsersDto[] findWhereUserPassEquals(String userPass) throws UsersDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE userPass = MD5(?) ORDER BY userPass", new Object[] { userPass } );
 	}
@@ -287,7 +283,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the criteria 'identification = :identification'.
 	 */
-	public Users[] findWhereIdentificationEquals(String identification) throws UsersDaoException
+	public UsersDto[] findWhereIdentificationEquals(String identification) throws UsersDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE identification = ? ORDER BY identification", new Object[] { identification } );
 	}
@@ -295,7 +291,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the criteria 'realName = :realName'.
 	 */
-	public Users[] findWhereRealNameEquals(String realName) throws UsersDaoException
+	public UsersDto[] findWhereRealNameEquals(String realName) throws UsersDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE realName = ? ORDER BY realName", new Object[] { realName } );
 	}
@@ -303,7 +299,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the criteria 'surname = :surname'.
 	 */
-	public Users[] findWhereSurnameEquals(String surname) throws UsersDaoException
+	public UsersDto[] findWhereSurnameEquals(String surname) throws UsersDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE surname = ? ORDER BY surname", new Object[] { surname } );
 	}
@@ -311,7 +307,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userProfile = :userProfile'.
 	 */
-	public Users[] findWhereUserProfileEquals(short userProfile) throws UsersDaoException
+	public UsersDto[] findWhereUserProfileEquals(short userProfile) throws UsersDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE userProfile = ? ORDER BY userProfile", new Object[] {  new Short(userProfile) } );
 	}
@@ -319,7 +315,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the criteria 'state = :state'.
 	 */
-	public Users[] findWhereStateEquals(short state) throws UsersDaoException
+	public UsersDto[] findWhereStateEquals(short state) throws UsersDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE state = ? ORDER BY state", new Object[] {  new Short(state) } );
 	}
@@ -371,10 +367,10 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Fetches a single row from the result set
 	 */
-	protected Users fetchSingleResult(ResultSet rs) throws SQLException
+	protected UsersDto fetchSingleResult(ResultSet rs) throws SQLException
 	{
 		if (rs.next()) {
-			Users dto = new Users();
+			UsersDto dto = new UsersDto();
 			populateDto( dto, rs);
 			return dto;
 		} else {
@@ -386,16 +382,16 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Fetches multiple rows from the result set
 	 */
-	protected Users[] fetchMultiResults(ResultSet rs) throws SQLException
+	protected UsersDto[] fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Users dto = new Users();
+			UsersDto dto = new UsersDto();
 			populateDto( dto, rs);
 			resultList.add( dto );
 		}
 		
-		Users ret[] = new Users[ resultList.size() ];
+		UsersDto ret[] = new UsersDto[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
@@ -403,7 +399,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Populates a DTO with data from a ResultSet
 	 */
-	protected void populateDto(Users dto, ResultSet rs) throws SQLException
+	protected void populateDto(UsersDto dto, ResultSet rs) throws SQLException
 	{
 		dto.setUserId( rs.getInt( COLUMN_USER_ID ) );
 		dto.setUserName( rs.getString( COLUMN_USER_NAME ) );
@@ -418,14 +414,14 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Resets the modified attributes in the DTO
 	 */
-	protected void reset(Users dto)
+	protected void reset(UsersDto dto)
 	{
 	}
 
 	/** 
 	 * Returns all rows from the users table that match the specified arbitrary SQL statement
 	 */
-	public Users[] findByDynamicSelect(String sql, Object[] sqlParams) throws UsersDaoException
+	public UsersDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws UsersDaoException
 	{
 		// declare variables
 		final boolean isConnSupplied = (userConn != null);
@@ -475,7 +471,7 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Returns all rows from the users table that match the specified arbitrary SQL statement
 	 */
-	public Users[] findByDynamicWhere(String sql, Object[] sqlParams) throws UsersDaoException
+	public UsersDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws UsersDaoException
 	{
 		// declare variables
 		final boolean isConnSupplied = (userConn != null);
@@ -524,8 +520,8 @@ public class UsersDaoImpl extends AbstractDAO implements UsersDao
     
     // Se conservan estos metodos
     @Override
-    public Users validateUser(String userName, String userPass) throws UsersDaoException {
-        Users rsp[] = findByDynamicWhere( "userName = ? and userPass = MD5(?) ORDER BY userPass", new Object[] { userName, userPass } );  
+    public UsersDto validateUser(String userName, String userPass) throws UsersDaoException {
+        UsersDto rsp[] = findByDynamicWhere( "userName = ? and userPass = MD5(?) ORDER BY userPass", new Object[] { userName, userPass } );  
         
         if (rsp.length != 0){
             return rsp[0];

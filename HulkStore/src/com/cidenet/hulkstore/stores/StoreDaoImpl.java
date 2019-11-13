@@ -1,9 +1,5 @@
-package com.cidenet.hulkstore.jdbc.stores;
+package com.cidenet.hulkstore.stores;
 
-import com.cidenet.hulkstore.exceptions.stores.StoreDaoException;
-import com.cidenet.hulkstore.dto.stores.Store;
-import com.cidenet.hulkstore.dto.stores.StorePk;
-import com.cidenet.hulkstore.dao.stores.StoreDao;
 import com.cidenet.hulkstore.jdbc.AbstractDAO;
 import com.cidenet.hulkstore.jdbc.ResourceManager;
 import java.sql.Connection;
@@ -82,7 +78,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Inserts a new row in the store table.
 	 */
-	public StorePk insert(Store dto) throws StoreDaoException
+	public StorePk insert(StoreDto dto) throws StoreDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -132,7 +128,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Updates a single row in the store table.
 	 */
-	public void update(StorePk pk, Store dto) throws StoreDaoException
+	public void update(StorePk pk, StoreDto dto) throws StoreDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -210,7 +206,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Returns the rows from the store table that matches the specified primary-key value.
 	 */
-	public Store findByPrimaryKey(StorePk pk) throws StoreDaoException
+	public StoreDto findByPrimaryKey(StorePk pk) throws StoreDaoException
 	{
 		return findByPrimaryKey( pk.getStoreId() );
 	}
@@ -218,16 +214,16 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Returns all rows from the store table that match the criteria 'storeId = :storeId'.
 	 */
-	public Store findByPrimaryKey(int storeId) throws StoreDaoException
+	public StoreDto findByPrimaryKey(int storeId) throws StoreDaoException
 	{
-		Store ret[] = findByDynamicSelect( SQL_SELECT + " WHERE storeId = ?", new Object[] {  new Integer(storeId) } );
+		StoreDto ret[] = findByDynamicSelect( SQL_SELECT + " WHERE storeId = ?", new Object[] {  new Integer(storeId) } );
 		return ret.length==0 ? null : ret[0];
 	}
 
 	/** 
 	 * Returns all rows from the store table that match the criteria ''.
 	 */
-	public Store[] findAll() throws StoreDaoException
+	public StoreDto[] findAll() throws StoreDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " ORDER BY storeId", null );
 	}
@@ -235,7 +231,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Returns all rows from the store table that match the criteria 'storeId = :storeId'.
 	 */
-	public Store[] findWhereStoreIdEquals(int storeId) throws StoreDaoException
+	public StoreDto[] findWhereStoreIdEquals(int storeId) throws StoreDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE storeId = ? ORDER BY storeId", new Object[] {  new Integer(storeId) } );
 	}
@@ -243,7 +239,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Returns all rows from the store table that match the criteria 'storeName = :storeName'.
 	 */
-	public Store[] findWhereStoreNameEquals(String storeName) throws StoreDaoException
+	public StoreDto[] findWhereStoreNameEquals(String storeName) throws StoreDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE storeName = ? ORDER BY storeName", new Object[] { storeName } );
 	}
@@ -251,7 +247,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Returns all rows from the store table that match the criteria 'address = :address'.
 	 */
-	public Store[] findWhereAddressEquals(String address) throws StoreDaoException
+	public StoreDto[] findWhereAddressEquals(String address) throws StoreDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE address = ? ORDER BY address", new Object[] { address } );
 	}
@@ -259,7 +255,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Returns all rows from the store table that match the criteria 'state = :state'.
 	 */
-	public Store[] findWhereStateEquals(short state) throws StoreDaoException
+	public StoreDto[] findWhereStateEquals(short state) throws StoreDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE state = ? ORDER BY state", new Object[] {  new Short(state) } );
 	}
@@ -311,10 +307,10 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Fetches a single row from the result set
 	 */
-	protected Store fetchSingleResult(ResultSet rs) throws SQLException
+	protected StoreDto fetchSingleResult(ResultSet rs) throws SQLException
 	{
 		if (rs.next()) {
-			Store dto = new Store();
+			StoreDto dto = new StoreDto();
 			populateDto( dto, rs);
 			return dto;
 		} else {
@@ -326,16 +322,16 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Fetches multiple rows from the result set
 	 */
-	protected Store[] fetchMultiResults(ResultSet rs) throws SQLException
+	protected StoreDto[] fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Store dto = new Store();
+			StoreDto dto = new StoreDto();
 			populateDto( dto, rs);
 			resultList.add( dto );
 		}
 		
-		Store ret[] = new Store[ resultList.size() ];
+		StoreDto ret[] = new StoreDto[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
@@ -343,7 +339,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Populates a DTO with data from a ResultSet
 	 */
-	protected void populateDto(Store dto, ResultSet rs) throws SQLException
+	protected void populateDto(StoreDto dto, ResultSet rs) throws SQLException
 	{
 		dto.setStoreId( rs.getInt( COLUMN_STORE_ID ) );
 		dto.setStoreName( rs.getString( COLUMN_STORE_NAME ) );
@@ -354,14 +350,14 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Resets the modified attributes in the DTO
 	 */
-	protected void reset(Store dto)
+	protected void reset(StoreDto dto)
 	{
 	}
 
 	/** 
 	 * Returns all rows from the store table that match the specified arbitrary SQL statement
 	 */
-	public Store[] findByDynamicSelect(String sql, Object[] sqlParams) throws StoreDaoException
+	public StoreDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws StoreDaoException
 	{
 		// declare variables
 		final boolean isConnSupplied = (userConn != null);
@@ -411,7 +407,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Returns all rows from the store table that match the specified arbitrary SQL statement
 	 */
-	public Store[] findByDynamicWhere(String sql, Object[] sqlParams) throws StoreDaoException
+	public StoreDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws StoreDaoException
 	{
 		// declare variables
 		final boolean isConnSupplied = (userConn != null);

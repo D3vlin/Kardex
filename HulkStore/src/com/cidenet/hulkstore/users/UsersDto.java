@@ -1,8 +1,8 @@
-package com.cidenet.hulkstore.dto.users;
+package com.cidenet.hulkstore.users;
 
 import java.io.Serializable;
 
-public class Users implements Serializable
+public class UsersDto implements Serializable
 {
 	/** 
 	 * This attribute maps to the column userId in the users table.
@@ -48,7 +48,7 @@ public class Users implements Serializable
 	 * Method 'Users'
 	 * 
 	 */
-	public Users()
+	public UsersDto()
 	{
 	}
 
@@ -228,11 +228,11 @@ public class Users implements Serializable
 			return true;
 		}
 		
-		if (!(_other instanceof Users)) {
+		if (!(_other instanceof UsersDto)) {
 			return false;
 		}
 		
-		final Users _cast = (Users) _other;
+		final UsersDto _cast = (UsersDto) _other;
 		if (userId != _cast.userId) {
 			return false;
 		}

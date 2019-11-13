@@ -1,7 +1,6 @@
-package com.cidenet.hulkstore.factory.users;
+package com.cidenet.hulkstore.users;
 
-import com.cidenet.hulkstore.jdbc.users.UsersDaoImpl;
-import com.cidenet.hulkstore.dao.users.UsersDao;
+import com.cidenet.hulkstore.users.UsersDaoImpl;
 import java.sql.Connection;
 
 public class UsersDaoFactory

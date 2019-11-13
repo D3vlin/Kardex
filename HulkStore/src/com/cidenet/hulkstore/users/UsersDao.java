@@ -1,20 +1,20 @@
-package com.cidenet.hulkstore.dao.users;
+package com.cidenet.hulkstore.users;
 
-import com.cidenet.hulkstore.exceptions.users.UsersDaoException;
-import com.cidenet.hulkstore.dto.users.UsersPk;
-import com.cidenet.hulkstore.dto.users.Users;
+import com.cidenet.hulkstore.users.UsersDaoException;
+import com.cidenet.hulkstore.users.UsersPk;
+import com.cidenet.hulkstore.users.UsersDto;
 
 public interface UsersDao
 {
 	/** 
 	 * Inserts a new row in the users table.
 	 */
-	public UsersPk insert(Users dto) throws UsersDaoException;
+	public UsersPk insert(UsersDto dto) throws UsersDaoException;
 
 	/** 
 	 * Updates a single row in the users table.
 	 */
-	public void update(UsersPk pk, Users dto) throws UsersDaoException;
+	public void update(UsersPk pk, UsersDto dto) throws UsersDaoException;
 
 	/** 
 	 * Deletes a single row in the users table.
@@ -24,57 +24,57 @@ public interface UsersDao
 	/** 
 	 * Returns the rows from the users table that matches the specified primary-key value.
 	 */
-	public Users findByPrimaryKey(UsersPk pk) throws UsersDaoException;
+	public UsersDto findByPrimaryKey(UsersPk pk) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userId = :userId'.
 	 */
-	public Users findByPrimaryKey(int userId) throws UsersDaoException;
+	public UsersDto findByPrimaryKey(int userId) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria ''.
 	 */
-	public Users[] findAll() throws UsersDaoException;
+	public UsersDto[] findAll() throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userId = :userId'.
 	 */
-	public Users[] findWhereUserIdEquals(int userId) throws UsersDaoException;
+	public UsersDto[] findWhereUserIdEquals(int userId) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userName = :userName'.
 	 */
-	public Users[] findWhereUserNameEquals(String userName) throws UsersDaoException;
+	public UsersDto[] findWhereUserNameEquals(String userName) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userPass = :userPass'.
 	 */
-	public Users[] findWhereUserPassEquals(String userPass) throws UsersDaoException;
+	public UsersDto[] findWhereUserPassEquals(String userPass) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria 'identification = :identification'.
 	 */
-	public Users[] findWhereIdentificationEquals(String identification) throws UsersDaoException;
+	public UsersDto[] findWhereIdentificationEquals(String identification) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria 'realName = :realName'.
 	 */
-	public Users[] findWhereRealNameEquals(String realName) throws UsersDaoException;
+	public UsersDto[] findWhereRealNameEquals(String realName) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria 'surname = :surname'.
 	 */
-	public Users[] findWhereSurnameEquals(String surname) throws UsersDaoException;
+	public UsersDto[] findWhereSurnameEquals(String surname) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria 'userProfile = :userProfile'.
 	 */
-	public Users[] findWhereUserProfileEquals(short userProfile) throws UsersDaoException;
+	public UsersDto[] findWhereUserProfileEquals(short userProfile) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the criteria 'state = :state'.
 	 */
-	public Users[] findWhereStateEquals(short state) throws UsersDaoException;
+	public UsersDto[] findWhereStateEquals(short state) throws UsersDaoException;
 
 	/** 
 	 * Sets the value of maxRows
@@ -89,16 +89,16 @@ public interface UsersDao
 	/** 
 	 * Returns all rows from the users table that match the specified arbitrary SQL statement
 	 */
-	public Users[] findByDynamicSelect(String sql, Object[] sqlParams) throws UsersDaoException;
+	public UsersDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws UsersDaoException;
 
 	/** 
 	 * Returns all rows from the users table that match the specified arbitrary SQL statement
 	 */
-	public Users[] findByDynamicWhere(String sql, Object[] sqlParams) throws UsersDaoException;
+	public UsersDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws UsersDaoException;
 
 	/** 
 	 * Validates the entry of a user, verifying its existence in the database
 	 */
-	public Users validateUser(String userName, String userPass) throws UsersDaoException;
+	public UsersDto validateUser(String userName, String userPass) throws UsersDaoException;
 
 }

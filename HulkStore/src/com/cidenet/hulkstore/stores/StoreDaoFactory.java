@@ -1,7 +1,6 @@
-package com.cidenet.hulkstore.factory.stores;
+package com.cidenet.hulkstore.stores;
 
-import com.cidenet.hulkstore.jdbc.stores.StoreDaoImpl;
-import com.cidenet.hulkstore.dao.stores.StoreDao;
+import com.cidenet.hulkstore.stores.StoreDaoImpl;
 import java.sql.Connection;
 
 public class StoreDaoFactory

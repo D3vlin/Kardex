@@ -2,9 +2,9 @@ package com.cidenet.hulkstore.controller.settings;
 
 import com.cidenet.hulkstore.controller.login.CLogin;
 import com.cidenet.hulkstore.controller.menu.CMenu;
-import com.cidenet.hulkstore.dao.users.UsersDao;
-import com.cidenet.hulkstore.dto.users.Users;
-import com.cidenet.hulkstore.factory.users.UsersDaoFactory;
+import com.cidenet.hulkstore.users.UsersDao;
+import com.cidenet.hulkstore.users.UsersDto;
+import com.cidenet.hulkstore.users.UsersDaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.getDataConnection;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setDataConnection;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.testConnection;
@@ -54,7 +54,7 @@ public class CSettings implements ISettings {
         } else {
             try {
                 UsersDao dao = UsersDaoFactory.create();
-                Users user = dao.findWhereUserIdEquals(UIMenu.userId)[0];
+                UsersDto user = dao.findWhereUserIdEquals(UIMenu.userId)[0];
 
                 if (user != null) {
                     new CMenu(user);
