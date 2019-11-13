@@ -31,6 +31,14 @@ public class StoreDto implements Serializable
 	public StoreDto()
 	{
 	}
+        
+	public StoreDto(int storeId, String storeName, String address)
+	{
+            this.storeId = storeId;
+            this.storeName = storeName;
+            this.address = address;
+            this.state = 1;
+	}
 
 	/**
 	 * Method 'getStoreId'
