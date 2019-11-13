@@ -225,7 +225,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	 */
 	public StoreDto[] findAll() throws StoreDaoException
 	{
-		return findByDynamicSelect( SQL_SELECT + " ORDER BY storeId", null );
+		return findByDynamicSelect( SQL_SELECT + " ORDER BY state ASC, storeId ASC", null );
 	}
 
 	/** 
@@ -453,5 +453,42 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 		}
 		
 	}
+
+    @Override
+    public String findNextStoreId() throws StoreDaoException {
+        // declare variables
+        final boolean isConnSupplied = (userConn != null);
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // get the user-specified connection or get a connection from the ResourceManager
+            conn = isConnSupplied ? userConn : ResourceManager.getConnection();
+            
+            // construct the SQL statement
+            final String SQL = "SELECT LPAD((SELECT COUNT(*) + 1 FROM " + getTableName() + "), 6, '0') AS nextStoredId";
+            
+            System.out.println( "Executing " + SQL);
+            stmt = conn.prepareStatement( SQL );
+
+            rs = stmt.executeQuery();
+            rs.next();
+            
+            return rs.getString(1);
+        }
+        catch (Exception _e) {
+            _e.printStackTrace();
+            throw new StoreDaoException( "Exception: " + _e.getMessage(), _e );
+        }
+        finally {
+            ResourceManager.close(rs);
+            ResourceManager.close(stmt);
+            if (!isConnSupplied) {
+                ResourceManager.close(conn);
+            }
+
+        }
+    }
 
 }

@@ -76,4 +76,9 @@ public interface StoreDao
 	 */
 	public StoreDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws StoreDaoException;
 
+	/** 
+	 * Returns the next available id for the next record
+	 */
+	public String findNextStoreId() throws StoreDaoException;
+
 }
