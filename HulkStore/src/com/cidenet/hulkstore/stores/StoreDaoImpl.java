@@ -492,4 +492,44 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
         }
     }
 
+    @Override
+    public StoreDto[] getStoreView() throws StoreDaoException {
+        // declare variables
+        final boolean isConnSupplied = (userConn != null);
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+                // get the user-specified connection or get a connection from the ResourceManager
+                conn = isConnSupplied ? userConn : ResourceManager.getConnection();
+
+                // construct the SQL statement
+                final String SQL = "SELECT * FROM bd_hulkstore.vi_store";
+
+
+                System.out.println( "Executing " + SQL );
+                // prepare statement
+                stmt = conn.prepareStatement( SQL );
+                stmt.setMaxRows( maxRows );
+
+                rs = stmt.executeQuery();
+
+                // fetch the results
+                return fetchMultiResults(rs);
+        }
+        catch (Exception _e) {
+                _e.printStackTrace();
+                throw new StoreDaoException( "Exception: " + _e.getMessage(), _e );
+        }
+        finally {
+                ResourceManager.close(rs);
+                ResourceManager.close(stmt);
+                if (!isConnSupplied) {
+                        ResourceManager.close(conn);
+                }
+
+        }
+    }
+
 }

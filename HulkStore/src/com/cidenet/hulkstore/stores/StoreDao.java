@@ -1,9 +1,5 @@
 package com.cidenet.hulkstore.stores;
 
-import com.cidenet.hulkstore.stores.StoreDto;
-import com.cidenet.hulkstore.stores.StorePk;
-import com.cidenet.hulkstore.stores.StoreDaoException;
-
 public interface StoreDao
 {
 	/** 
@@ -35,6 +31,11 @@ public interface StoreDao
 	 * Returns all rows from the store table that match the criteria ''.
 	 */
 	public StoreDto[] findAll() throws StoreDaoException;
+
+	/** 
+	 * Returns all rows from the store view ''.
+	 */
+	public StoreDto[] getStoreView() throws StoreDaoException;
 
 	/** 
 	 * Returns all rows from the store table that match the criteria 'storeId = :storeId'.

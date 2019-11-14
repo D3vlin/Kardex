@@ -81,7 +81,7 @@ public class UIStore extends javax.swing.JFrame {
         };
         btnInsert = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
-        btnInsert2 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnReport = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         chkActive = new javax.swing.JCheckBox();
@@ -101,9 +101,19 @@ public class UIStore extends javax.swing.JFrame {
         jLabel2.setText("Búscar:");
 
         txtSearch.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSearchKeyPressed(evt);
+            }
+        });
 
         cmbField.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
         cmbField.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "Ubicación" }));
+        cmbField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFieldActionPerformed(evt);
+            }
+        });
 
         tblStore.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         tblStore.setModel(new javax.swing.table.DefaultTableModel(
@@ -151,13 +161,13 @@ public class UIStore extends javax.swing.JFrame {
             }
         });
 
-        btnInsert2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btnInsert2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/delete.png"))); // NOI18N
-        btnInsert2.setText("ELIMINAR");
-        btnInsert2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnInsert2.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/delete.png"))); // NOI18N
+        btnDelete.setText("ELIMINAR");
+        btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInsert2ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -181,6 +191,11 @@ public class UIStore extends javax.swing.JFrame {
 
         chkActive.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
         chkActive.setText("ACTIVO");
+        chkActive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkActiveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,7 +219,7 @@ public class UIStore extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnReport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnInsert2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnInsert, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(chkActive)
@@ -229,7 +244,7 @@ public class UIStore extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnInsert2)
+                        .addComponent(btnDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chkActive)
                         .addGap(18, 18, 18)
@@ -251,12 +266,12 @@ public class UIStore extends javax.swing.JFrame {
         Interface.update(tblStore);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnInsert2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnInsert2ActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        Interface.delete(tblStore, chkActive);
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        // TODO add your handling code here:
+        Interface.generateReport();
     }//GEN-LAST:event_btnReportActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -267,10 +282,22 @@ public class UIStore extends javax.swing.JFrame {
         Interface.menu();
     }//GEN-LAST:event_formWindowClosing
 
+    private void chkActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkActiveActionPerformed
+        Interface.enableDisable(tblStore, chkActive);
+    }//GEN-LAST:event_chkActiveActionPerformed
+
+    private void cmbFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFieldActionPerformed
+        Interface.searchStore(cmbField.getSelectedItem().toString(), txtSearch, tblStore);
+    }//GEN-LAST:event_cmbFieldActionPerformed
+
+    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
+        Interface.searchStore(evt.getKeyCode(), cmbField.getSelectedItem().toString(), txtSearch.getText(), tblStore);
+    }//GEN-LAST:event_txtSearchKeyPressed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnInsert;
-    private javax.swing.JButton btnInsert2;
     private javax.swing.JButton btnReport;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBox chkActive;

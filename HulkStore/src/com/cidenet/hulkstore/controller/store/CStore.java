@@ -1,11 +1,17 @@
 package com.cidenet.hulkstore.controller.store;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
+import com.cidenet.hulkstore.controller.reports.CReports;
+import com.cidenet.hulkstore.controller.reports.IReports;
 import com.cidenet.hulkstore.stores.StoreDao;
+import com.cidenet.hulkstore.stores.StoreDaoException;
 import com.cidenet.hulkstore.stores.StoreDaoFactory;
+import com.cidenet.hulkstore.stores.StoreDaoImpl;
 import com.cidenet.hulkstore.stores.StoreDto;
 import com.cidenet.hulkstore.view.store.UIStore;
 import com.mxrck.autocompleter.TextAutoCompleter;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -67,19 +73,25 @@ public class CStore implements IStore{
         
         if(i != -1)
         {
-            chkActive.setEnabled(true);
             StoreDto dto = stores[i];
             
             if(dto.getState() != 3)
-            {
+            {                
+                chkActive.setEnabled(true);
+                
                 if(dto.getState() == 1) {
                     chkActive.setSelected(true);}
                 else {
                     chkActive.setSelected(false);}
+                
             } else {
-                chkActive.setEnabled(false);}
+                chkActive.setEnabled(false);
+                chkActive.setSelected(false);
+            }
         } else {
-            chkActive.setEnabled(false);}
+            chkActive.setEnabled(false);
+            chkActive.setSelected(false);
+        }
     }
 
     @Override
@@ -114,17 +126,77 @@ public class CStore implements IStore{
 
     @Override
     public void enableDisable(JTable tblStore, JCheckBox chkActive) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i = tblStore.getSelectedRow();
+        
+        DefaultTableModel model = (DefaultTableModel) tblStore.getModel();        
+        
+        if(i != -1) {
+            StoreDto dto = stores[i];
+            StoreDao dao = new StoreDaoImpl();
+            
+            if(chkActive.isSelected())
+            {
+                try {
+                    dto.setState((short) 1);
+                    if(dao.update(dto.createPk(), dto)){
+                        model.setValueAt("A", i, 3);}
+                } catch (StoreDaoException ex) {}
+            }
+            else
+            {
+                try {
+                    dto.setState((short) 2);
+                    if(dao.update(dto.createPk(), dto)){
+                        model.setValueAt("I", i, 3);}
+                } catch (StoreDaoException ex) {}
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
     }
 
     @Override
     public void delete(JTable tblStore, JCheckBox chkActive) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i = tblStore.getSelectedRow();
+        
+        if(i != -1)
+        {
+            StoreDto dto = stores[i];
+            if(dto.getState() != 3)
+            {
+                if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                {                    
+                    try {
+                        StoreDao dao = new StoreDaoImpl();
+                        dto.setState((short) 3);
+                        if(dao.update(dto.createPk(), dto)){
+                            DefaultTableModel model = (DefaultTableModel) tblStore.getModel();
+                            model.setValueAt("*", i, 3);
+                            chkActive.setEnabled(false);
+                        }    
+                    } catch (StoreDaoException ex) {}                    
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE);}
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);}
     }
 
     @Override
     public void generateReport() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            StoreDao dao = StoreDaoFactory.create();
+            stores = dao.getStoreView();
+            
+            //ArrayList <ArrayList<String>> lista = Almacen.getVista();
+            
+            ArrayList <String> header = new ArrayList <> ();            
+            header.add("Código");
+            header.add("Nombre Tienda");
+            header.add("Ubicación");
+            
+            IReports report = new CReports();
+            report.generateStoreReport(stores, header);
+        } catch (StoreDaoException ex) {}
     }
 
     @Override
@@ -139,6 +211,7 @@ public class CStore implements IStore{
         
         TableModel tableModel = tblStore.getModel();
         
+        
         int i;
         for(i = 0; i < tableModel.getColumnCount(); i++)
         {
@@ -150,6 +223,33 @@ public class CStore implements IStore{
         {
             textAutoAcompleter.addItem(tableModel.getValueAt(k, i));
         }
+    }
+
+    @Override
+    public void searchStore(int keyCode, String filter, String store, JTable tblStore) {
+        
+
+        if(keyCode == KeyEvent.VK_ENTER) {
+            TableModel tableModel = tblStore.getModel();
+        
+            int i;
+            for(i = 0; i < tableModel.getColumnCount(); i++)
+            {
+                if(filter.compareTo(tableModel.getColumnName(i)) == 0) {
+                    break;}
+            }
+
+            for(int k = 0; k < tableModel.getRowCount(); k++)
+            {
+                if(store.compareToIgnoreCase(tableModel.getValueAt(k, i).toString()) == 0){
+                    tblStore.setRowSelectionInterval(k, k);
+                    break;
+                    
+                } else {
+                    tblStore.clearSelection();
+                }
+            }
+        }        
     }
     
 }

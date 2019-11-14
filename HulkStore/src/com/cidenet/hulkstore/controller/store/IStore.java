@@ -32,4 +32,6 @@ public interface IStore {
     public void generateReport();
     
     public void searchStore(String filter, JTextField txtSearch, JTable tblStore);
+    
+    public void searchStore(int keyCode, String filter, String store, JTable tblStore);
 }
