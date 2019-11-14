@@ -40,9 +40,9 @@ WHERE KD.operation = 0 AND KD.state = 1;
 
 CREATE VIEW
 VI_Store AS
-SELECT storeId, storeName, address
-FROM STORE
-WHERE state = 1;
+SELECT S.storeId, S.storeName, S.address, S.state
+FROM STORE S
+WHERE S.state = 1;
 
 CREATE VIEW
 VI_Product AS
