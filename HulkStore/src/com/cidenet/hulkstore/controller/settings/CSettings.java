@@ -2,13 +2,9 @@ package com.cidenet.hulkstore.controller.settings;
 
 import com.cidenet.hulkstore.controller.login.CLogin;
 import com.cidenet.hulkstore.controller.menu.CMenu;
-import com.cidenet.hulkstore.users.UsersDao;
-import com.cidenet.hulkstore.users.UsersDto;
-import com.cidenet.hulkstore.users.UsersDaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.getDataConnection;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setDataConnection;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.testConnection;
-import com.cidenet.hulkstore.view.menu.UIMenu;
 import com.cidenet.hulkstore.view.settings.UISettings;
 import java.awt.Color;
 import javax.swing.JLabel;

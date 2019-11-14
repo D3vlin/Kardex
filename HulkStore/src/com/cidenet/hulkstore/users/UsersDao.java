@@ -1,9 +1,5 @@
 package com.cidenet.hulkstore.users;
 
-import com.cidenet.hulkstore.users.UsersDaoException;
-import com.cidenet.hulkstore.users.UsersPk;
-import com.cidenet.hulkstore.users.UsersDto;
-
 public interface UsersDao
 {
 	/** 

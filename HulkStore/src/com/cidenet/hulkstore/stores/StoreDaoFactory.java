@@ -1,6 +1,5 @@
 package com.cidenet.hulkstore.stores;
 
-import com.cidenet.hulkstore.stores.StoreDaoImpl;
 import java.sql.Connection;
 
 public class StoreDaoFactory
