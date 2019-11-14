@@ -128,7 +128,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 	/** 
 	 * Updates a single row in the store table.
 	 */
-	public void update(StorePk pk, StoreDto dto) throws StoreDaoException
+	public boolean update(StorePk pk, StoreDto dto) throws StoreDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -152,6 +152,7 @@ public class StoreDaoImpl extends AbstractDAO implements StoreDao
 			reset(dto);
 			long t2 = System.currentTimeMillis();
 			System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
+                        return true;
 		}
 		catch (Exception _e) {
 			_e.printStackTrace();

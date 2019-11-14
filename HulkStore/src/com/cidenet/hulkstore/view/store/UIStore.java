@@ -87,7 +87,7 @@ public class UIStore extends javax.swing.JFrame {
         chkActive = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/inventory_icon.png")).getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/store_icon.png")).getImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -248,7 +248,7 @@ public class UIStore extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        Interface.update(tblStore);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnInsert2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsert2ActionPerformed

@@ -4,10 +4,6 @@ import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoFactory;
 import com.cidenet.hulkstore.stores.StoreDto;
-import com.cidenet.hulkstore.users.UsersDao;
-import com.cidenet.hulkstore.users.UsersDaoFactory;
-import com.cidenet.hulkstore.users.UsersDto;
-import com.cidenet.hulkstore.view.menu.UIMenu;
 import com.cidenet.hulkstore.view.store.UIStore;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import javax.swing.JCheckBox;
@@ -100,7 +96,20 @@ public class CStore implements IStore{
 
     @Override
     public void update(JTable tblStore) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i = tblStore.getSelectedRow();
+        
+        if(i != -1)
+        {
+            StoreDto dto = stores[i];
+            CUpdateStore update;
+            if(dto.getState() == 1)
+            {
+                update = new CUpdateStore(dto.getStoreId());
+                window.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE);}
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE);}
     }
 
     @Override

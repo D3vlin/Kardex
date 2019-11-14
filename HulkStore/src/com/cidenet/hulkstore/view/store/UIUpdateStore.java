@@ -1,26 +1,28 @@
 package com.cidenet.hulkstore.view.store;
 
-import com.cidenet.hulkstore.controller.store.IInsertStore;
+import com.cidenet.hulkstore.controller.store.IUpdateStore;
 
 /**
- * Main view of insert store
+ * Main view of Modify Store
  * 
  * @author Alexis Duque
  * @version 1.0
  * @since 2019-11-12
  */
-public class UIInsertStore extends javax.swing.JFrame {
+public class UIUpdateStore extends javax.swing.JFrame {
 
-    private IInsertStore Interface;
+    private IUpdateStore Interface;
     
-    public UIInsertStore(IInsertStore Interface) {
+    public UIUpdateStore(IUpdateStore Interface)
+    {
+        
         initComponents();
         this.setVisible(true);
-        this.setTitle("Insertar Tienda");
+        this.setTitle("Modificar Tienda");
         setLocationRelativeTo(null);
         
         this.Interface = Interface;
-        Interface.upload(txtStoreId);
+        Interface.upload(txtStoreId, txtStoreName, txtAddress);
     }
 
     /**
@@ -56,7 +58,7 @@ public class UIInsertStore extends javax.swing.JFrame {
         jLabel1.setText("GESTIÓN DE TIENDA");
 
         jLabel2.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
-        jLabel2.setText("INSERTAR");
+        jLabel2.setText("MODIFICAR");
 
         jLabel3.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
         jLabel3.setText("Código:");
@@ -151,7 +153,7 @@ public class UIInsertStore extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.accept(txtStoreId, txtStoreName, txtAddress);
+        Interface.accept(txtStoreName, txtAddress);
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

@@ -14,7 +14,7 @@ public interface StoreDao
 	/** 
 	 * Updates a single row in the store table.
 	 */
-	public void update(StorePk pk, StoreDto dto) throws StoreDaoException;
+	public boolean update(StorePk pk, StoreDto dto) throws StoreDaoException;
 
 	/** 
 	 * Deletes a single row in the store table.
