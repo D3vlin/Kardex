@@ -29,6 +29,7 @@ public class ProductDaoSample
 		// Uncomment one of the lines below to test the generated code
 		
 		// findAll();
+		// findByUnity(0);
 		// findWhereProductIdEquals(0);
 		// findWhereProductNameEquals("");
 		// findWhereUnityIdEquals(0);
@@ -44,6 +45,27 @@ public class ProductDaoSample
 		try {
 			ProductDao _dao = getProductDao();
 			Product _result[] = _dao.findAll();
+			for (int i=0; i<_result.length; i++ ) {
+				display( _result[i] );
+			}
+		
+		}
+		catch (Exception _e) {
+			_e.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * Method 'findByUnity'
+	 * 
+	 * @param unityId
+	 */
+	public static void findByUnity(int unityId)
+	{
+		try {
+			ProductDao _dao = getProductDao();
+			Product _result[] = _dao.findByUnity(unityId);
 			for (int i=0; i<_result.length; i++ ) {
 				display( _result[i] );
 			}

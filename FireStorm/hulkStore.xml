@@ -20,6 +20,7 @@
     <filter-list>
       <filter>product</filter>
       <filter>store</filter>
+      <filter>unity</filter>
       <filter>users</filter>
     </filter-list>
   </dbimport-config>
@@ -470,6 +471,23 @@
             <column>productId</column>
           </column-list>
         </primary-key>
+        <foreign-key-list>
+          <foreign-key>
+            <name>fk_product_unity</name>
+            <parent-table>unity</parent-table>
+            <cardinality>1-many</cardinality>
+            <nav-to-parent-term>Unity</nav-to-parent-term>
+            <nav-to-child-term>Product</nav-to-child-term>
+            <nav-to-parent>true</nav-to-parent>
+            <nav-to-child>false</nav-to-child>
+            <column-list>
+              <column>
+                <column-name>unityId</column-name>
+                <ref-column-name>unityId</ref-column-name>
+              </column>
+            </column-list>
+          </foreign-key>
+        </foreign-key-list>
         <column-list>
           <column>
             <java-name>productId</java-name>
@@ -554,6 +572,22 @@
             <parameter-list />
           </finder>
           <finder>
+            <name>findByUnity</name>
+            <multi-finder>true</multi-finder>
+            <where>unityId = :unityId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>unityId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
             <name>findWhereProductIdEquals</name>
             <multi-finder>true</multi-finder>
             <where>productId = :productId</where>
@@ -597,6 +631,133 @@
                 <java-type>int</java-type>
                 <jdbc-type>INTEGER</jdbc-type>
                 <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereStateEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>state = :state</where>
+            <order-by>state</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>state</java-name>
+                <java-type>short</java-type>
+                <jdbc-type>BIT</jdbc-type>
+                <jdbc-precision>1</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+        </finder-list>
+      </table>
+      <table>
+        <sql-name>unity</sql-name>
+        <java-name>Unity</java-name>
+        <primary-key>
+          <column-list>
+            <column>unityId</column>
+          </column-list>
+        </primary-key>
+        <column-list>
+          <column>
+            <java-name>unityId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>unityId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>true</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>unityDescription</java-name>
+            <java-type>java.lang.String</java-type>
+            <java-default-value />
+            <sql-name>unityDescription</sql-name>
+            <sql-type>VARCHAR</sql-type>
+            <jdbc-type>VARCHAR</jdbc-type>
+            <jdbc-precision>20</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>state</java-name>
+            <java-type>short</java-type>
+            <java-default-value />
+            <sql-name>state</sql-name>
+            <sql-type>BIT</sql-type>
+            <jdbc-type>BIT</jdbc-type>
+            <jdbc-precision>1</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+        </column-list>
+        <finder-list>
+          <finder>
+            <name>findByPrimaryKey</name>
+            <multi-finder>false</multi-finder>
+            <where>unityId = :unityId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>unityId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findAll</name>
+            <multi-finder>true</multi-finder>
+            <where />
+            <order-by>unityId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list />
+          </finder>
+          <finder>
+            <name>findWhereUnityIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>unityId = :unityId</where>
+            <order-by>unityId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>unityId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereUnityDescriptionEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>unityDescription = :unityDescription</where>
+            <order-by>unityDescription</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>unityDescription</java-name>
+                <java-type>java.lang.String</java-type>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <jdbc-precision>20</jdbc-precision>
                 <jdbc-scale>0</jdbc-scale>
               </parameter>
             </parameter-list>

@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
-public class ProductDaoImpl extends AbstractDAO implements ProductDao
+public class UnityDaoImpl extends AbstractDAO implements UnityDao
 {
 	/** 
 	 * The factory class for this DAO has two versions of the create() method - one that
@@ -36,7 +36,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	/** 
 	 * All finder methods in this class use this SELECT constant to build their queries
 	 */
-	protected final String SQL_SELECT = "SELECT productId, productName, unityId, state FROM " + getTableName() + "";
+	protected final String SQL_SELECT = "SELECT unityId, unityDescription, state FROM " + getTableName() + "";
 
 	/** 
 	 * Finder methods will pass this value to the JDBC setMaxRows method
@@ -46,52 +46,47 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	/** 
 	 * SQL INSERT statement for this table
 	 */
-	protected final String SQL_INSERT = "INSERT INTO " + getTableName() + " ( productId, productName, unityId, state ) VALUES ( ?, ?, ?, ? )";
+	protected final String SQL_INSERT = "INSERT INTO " + getTableName() + " ( unityId, unityDescription, state ) VALUES ( ?, ?, ? )";
 
 	/** 
 	 * SQL UPDATE statement for this table
 	 */
-	protected final String SQL_UPDATE = "UPDATE " + getTableName() + " SET productId = ?, productName = ?, unityId = ?, state = ? WHERE productId = ?";
+	protected final String SQL_UPDATE = "UPDATE " + getTableName() + " SET unityId = ?, unityDescription = ?, state = ? WHERE unityId = ?";
 
 	/** 
 	 * SQL DELETE statement for this table
 	 */
-	protected final String SQL_DELETE = "DELETE FROM " + getTableName() + " WHERE productId = ?";
-
-	/** 
-	 * Index of column productId
-	 */
-	protected static final int COLUMN_PRODUCT_ID = 1;
-
-	/** 
-	 * Index of column productName
-	 */
-	protected static final int COLUMN_PRODUCT_NAME = 2;
+	protected final String SQL_DELETE = "DELETE FROM " + getTableName() + " WHERE unityId = ?";
 
 	/** 
 	 * Index of column unityId
 	 */
-	protected static final int COLUMN_UNITY_ID = 3;
+	protected static final int COLUMN_UNITY_ID = 1;
+
+	/** 
+	 * Index of column unityDescription
+	 */
+	protected static final int COLUMN_UNITY_DESCRIPTION = 2;
 
 	/** 
 	 * Index of column state
 	 */
-	protected static final int COLUMN_STATE = 4;
+	protected static final int COLUMN_STATE = 3;
 
 	/** 
 	 * Number of columns
 	 */
-	protected static final int NUMBER_OF_COLUMNS = 4;
+	protected static final int NUMBER_OF_COLUMNS = 3;
 
 	/** 
-	 * Index of primary-key column productId
+	 * Index of primary-key column unityId
 	 */
-	protected static final int PK_COLUMN_PRODUCT_ID = 1;
+	protected static final int PK_COLUMN_UNITY_ID = 1;
 
 	/** 
-	 * Inserts a new row in the product table.
+	 * Inserts a new row in the unity table.
 	 */
-	public ProductPk insert(Product dto) throws ProductDaoException
+	public UnityPk insert(Unity dto) throws UnityDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -106,14 +101,8 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 		
 			stmt = conn.prepareStatement( SQL_INSERT, Statement.RETURN_GENERATED_KEYS );
 			int index = 1;
-			stmt.setInt( index++, dto.getProductId() );
-			stmt.setString( index++, dto.getProductName() );
-			if (dto.isUnityIdNull()) {
-				stmt.setNull( index++, java.sql.Types.INTEGER );
-			} else {
-				stmt.setInt( index++, dto.getUnityId() );
-			}
-		
+			stmt.setInt( index++, dto.getUnityId() );
+			stmt.setString( index++, dto.getUnityDescription() );
 			stmt.setShort( index++, dto.getState() );
 			System.out.println( "Executing " + SQL_INSERT + " with DTO: " + dto );
 			int rows = stmt.executeUpdate();
@@ -123,7 +112,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 			// retrieve values from auto-increment columns
 			rs = stmt.getGeneratedKeys();
 			if (rs != null && rs.next()) {
-				dto.setProductId( rs.getInt( 1 ) );
+				dto.setUnityId( rs.getInt( 1 ) );
 			}
 		
 			reset(dto);
@@ -131,7 +120,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 		}
 		catch (Exception _e) {
 			_e.printStackTrace();
-			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
+			throw new UnityDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
 			ResourceManager.close(stmt);
@@ -144,9 +133,9 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	}
 
 	/** 
-	 * Updates a single row in the product table.
+	 * Updates a single row in the unity table.
 	 */
-	public void update(ProductPk pk, Product dto) throws ProductDaoException
+	public void update(UnityPk pk, Unity dto) throws UnityDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -161,16 +150,10 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 			System.out.println( "Executing " + SQL_UPDATE + " with DTO: " + dto );
 			stmt = conn.prepareStatement( SQL_UPDATE );
 			int index=1;
-			stmt.setInt( index++, dto.getProductId() );
-			stmt.setString( index++, dto.getProductName() );
-			if (dto.isUnityIdNull()) {
-				stmt.setNull( index++, java.sql.Types.INTEGER );
-			} else {
-				stmt.setInt( index++, dto.getUnityId() );
-			}
-		
+			stmt.setInt( index++, dto.getUnityId() );
+			stmt.setString( index++, dto.getUnityDescription() );
 			stmt.setShort( index++, dto.getState() );
-			stmt.setInt( 5, pk.getProductId() );
+			stmt.setInt( 4, pk.getUnityId() );
 			int rows = stmt.executeUpdate();
 			reset(dto);
 			long t2 = System.currentTimeMillis();
@@ -178,7 +161,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 		}
 		catch (Exception _e) {
 			_e.printStackTrace();
-			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
+			throw new UnityDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
 			ResourceManager.close(stmt);
@@ -191,9 +174,9 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	}
 
 	/** 
-	 * Deletes a single row in the product table.
+	 * Deletes a single row in the unity table.
 	 */
-	public void delete(ProductPk pk) throws ProductDaoException
+	public void delete(UnityPk pk) throws UnityDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -207,14 +190,14 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 		
 			System.out.println( "Executing " + SQL_DELETE + " with PK: " + pk );
 			stmt = conn.prepareStatement( SQL_DELETE );
-			stmt.setInt( 1, pk.getProductId() );
+			stmt.setInt( 1, pk.getUnityId() );
 			int rows = stmt.executeUpdate();
 			long t2 = System.currentTimeMillis();
 			System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
 		}
 		catch (Exception _e) {
 			_e.printStackTrace();
-			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
+			throw new UnityDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
 			ResourceManager.close(stmt);
@@ -227,84 +210,68 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	}
 
 	/** 
-	 * Returns the rows from the product table that matches the specified primary-key value.
+	 * Returns the rows from the unity table that matches the specified primary-key value.
 	 */
-	public Product findByPrimaryKey(ProductPk pk) throws ProductDaoException
+	public Unity findByPrimaryKey(UnityPk pk) throws UnityDaoException
 	{
-		return findByPrimaryKey( pk.getProductId() );
+		return findByPrimaryKey( pk.getUnityId() );
 	}
 
 	/** 
-	 * Returns all rows from the product table that match the criteria 'productId = :productId'.
+	 * Returns all rows from the unity table that match the criteria 'unityId = :unityId'.
 	 */
-	public Product findByPrimaryKey(int productId) throws ProductDaoException
+	public Unity findByPrimaryKey(int unityId) throws UnityDaoException
 	{
-		Product ret[] = findByDynamicSelect( SQL_SELECT + " WHERE productId = ?", new Object[] {  new Integer(productId) } );
+		Unity ret[] = findByDynamicSelect( SQL_SELECT + " WHERE unityId = ?", new Object[] {  new Integer(unityId) } );
 		return ret.length==0 ? null : ret[0];
 	}
 
 	/** 
-	 * Returns all rows from the product table that match the criteria ''.
+	 * Returns all rows from the unity table that match the criteria ''.
 	 */
-	public Product[] findAll() throws ProductDaoException
+	public Unity[] findAll() throws UnityDaoException
 	{
-		return findByDynamicSelect( SQL_SELECT + " ORDER BY productId", null );
+		return findByDynamicSelect( SQL_SELECT + " ORDER BY unityId", null );
 	}
 
 	/** 
-	 * Returns all rows from the product table that match the criteria 'unityId = :unityId'.
+	 * Returns all rows from the unity table that match the criteria 'unityId = :unityId'.
 	 */
-	public Product[] findByUnity(int unityId) throws ProductDaoException
-	{
-		return findByDynamicSelect( SQL_SELECT + " WHERE unityId = ?", new Object[] {  new Integer(unityId) } );
-	}
-
-	/** 
-	 * Returns all rows from the product table that match the criteria 'productId = :productId'.
-	 */
-	public Product[] findWhereProductIdEquals(int productId) throws ProductDaoException
-	{
-		return findByDynamicSelect( SQL_SELECT + " WHERE productId = ? ORDER BY productId", new Object[] {  new Integer(productId) } );
-	}
-
-	/** 
-	 * Returns all rows from the product table that match the criteria 'productName = :productName'.
-	 */
-	public Product[] findWhereProductNameEquals(String productName) throws ProductDaoException
-	{
-		return findByDynamicSelect( SQL_SELECT + " WHERE productName = ? ORDER BY productName", new Object[] { productName } );
-	}
-
-	/** 
-	 * Returns all rows from the product table that match the criteria 'unityId = :unityId'.
-	 */
-	public Product[] findWhereUnityIdEquals(int unityId) throws ProductDaoException
+	public Unity[] findWhereUnityIdEquals(int unityId) throws UnityDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE unityId = ? ORDER BY unityId", new Object[] {  new Integer(unityId) } );
 	}
 
 	/** 
-	 * Returns all rows from the product table that match the criteria 'state = :state'.
+	 * Returns all rows from the unity table that match the criteria 'unityDescription = :unityDescription'.
 	 */
-	public Product[] findWhereStateEquals(short state) throws ProductDaoException
+	public Unity[] findWhereUnityDescriptionEquals(String unityDescription) throws UnityDaoException
+	{
+		return findByDynamicSelect( SQL_SELECT + " WHERE unityDescription = ? ORDER BY unityDescription", new Object[] { unityDescription } );
+	}
+
+	/** 
+	 * Returns all rows from the unity table that match the criteria 'state = :state'.
+	 */
+	public Unity[] findWhereStateEquals(short state) throws UnityDaoException
 	{
 		return findByDynamicSelect( SQL_SELECT + " WHERE state = ? ORDER BY state", new Object[] {  new Short(state) } );
 	}
 
 	/**
-	 * Method 'ProductDaoImpl'
+	 * Method 'UnityDaoImpl'
 	 * 
 	 */
-	public ProductDaoImpl()
+	public UnityDaoImpl()
 	{
 	}
 
 	/**
-	 * Method 'ProductDaoImpl'
+	 * Method 'UnityDaoImpl'
 	 * 
 	 * @param userConn
 	 */
-	public ProductDaoImpl(final java.sql.Connection userConn)
+	public UnityDaoImpl(final java.sql.Connection userConn)
 	{
 		this.userConn = userConn;
 	}
@@ -332,16 +299,16 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	 */
 	public String getTableName()
 	{
-		return "bd_hulkstore.product";
+		return "bd_hulkstore.unity";
 	}
 
 	/** 
 	 * Fetches a single row from the result set
 	 */
-	protected Product fetchSingleResult(ResultSet rs) throws SQLException
+	protected Unity fetchSingleResult(ResultSet rs) throws SQLException
 	{
 		if (rs.next()) {
-			Product dto = new Product();
+			Unity dto = new Unity();
 			populateDto( dto, rs);
 			return dto;
 		} else {
@@ -353,16 +320,16 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	/** 
 	 * Fetches multiple rows from the result set
 	 */
-	protected Product[] fetchMultiResults(ResultSet rs) throws SQLException
+	protected Unity[] fetchMultiResults(ResultSet rs) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
-			Product dto = new Product();
+			Unity dto = new Unity();
 			populateDto( dto, rs);
 			resultList.add( dto );
 		}
 		
-		Product ret[] = new Product[ resultList.size() ];
+		Unity ret[] = new Unity[ resultList.size() ];
 		resultList.toArray( ret );
 		return ret;
 	}
@@ -370,29 +337,24 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	/** 
 	 * Populates a DTO with data from a ResultSet
 	 */
-	protected void populateDto(Product dto, ResultSet rs) throws SQLException
+	protected void populateDto(Unity dto, ResultSet rs) throws SQLException
 	{
-		dto.setProductId( rs.getInt( COLUMN_PRODUCT_ID ) );
-		dto.setProductName( rs.getString( COLUMN_PRODUCT_NAME ) );
 		dto.setUnityId( rs.getInt( COLUMN_UNITY_ID ) );
-		if (rs.wasNull()) {
-			dto.setUnityIdNull( true );
-		}
-		
+		dto.setUnityDescription( rs.getString( COLUMN_UNITY_DESCRIPTION ) );
 		dto.setState( rs.getShort( COLUMN_STATE ) );
 	}
 
 	/** 
 	 * Resets the modified attributes in the DTO
 	 */
-	protected void reset(Product dto)
+	protected void reset(Unity dto)
 	{
 	}
 
 	/** 
-	 * Returns all rows from the product table that match the specified arbitrary SQL statement
+	 * Returns all rows from the unity table that match the specified arbitrary SQL statement
 	 */
-	public Product[] findByDynamicSelect(String sql, Object[] sqlParams) throws ProductDaoException
+	public Unity[] findByDynamicSelect(String sql, Object[] sqlParams) throws UnityDaoException
 	{
 		// declare variables
 		final boolean isConnSupplied = (userConn != null);
@@ -426,7 +388,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 		}
 		catch (Exception _e) {
 			_e.printStackTrace();
-			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
+			throw new UnityDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
 			ResourceManager.close(rs);
@@ -440,9 +402,9 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	}
 
 	/** 
-	 * Returns all rows from the product table that match the specified arbitrary SQL statement
+	 * Returns all rows from the unity table that match the specified arbitrary SQL statement
 	 */
-	public Product[] findByDynamicWhere(String sql, Object[] sqlParams) throws ProductDaoException
+	public Unity[] findByDynamicWhere(String sql, Object[] sqlParams) throws UnityDaoException
 	{
 		// declare variables
 		final boolean isConnSupplied = (userConn != null);
@@ -476,7 +438,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 		}
 		catch (Exception _e) {
 			_e.printStackTrace();
-			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
+			throw new UnityDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
 			ResourceManager.close(rs);
