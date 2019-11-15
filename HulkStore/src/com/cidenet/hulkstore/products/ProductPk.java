@@ -46,6 +46,7 @@ public class ProductPk implements Serializable
 	public ProductPk(final int productId)
 	{
 		this.productId = productId;
+                this.productIdNull = false;
 	}
 
 	/** 

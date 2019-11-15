@@ -11,7 +11,7 @@ public interface ProductDao
 	/** 
 	 * Updates a single row in the product table.
 	 */
-	public void update(ProductPk pk, ProductDto dto) throws ProductDaoException;
+	public boolean update(ProductPk pk, ProductDto dto) throws ProductDaoException;
 
 	/** 
 	 * Deletes a single row in the product table.
@@ -77,5 +77,9 @@ public interface ProductDao
 	 * Returns all rows from the product table that match the specified arbitrary SQL statement
 	 */
 	public ProductDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws ProductDaoException;
-
+        
+        /** 
+	 * Returns the next available id for the next record
+	 */
+        public String findNextProductId() throws ProductDaoException;
 }

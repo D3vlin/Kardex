@@ -1,12 +1,15 @@
 package com.cidenet.hulkstore.controller.menu;
 
 import com.cidenet.hulkstore.controller.login.CLogin;
+import com.cidenet.hulkstore.controller.product.CProduct;
 import com.cidenet.hulkstore.controller.settings.CSettings;
 import com.cidenet.hulkstore.controller.store.CStore;
 import com.cidenet.hulkstore.users.UsersDao;
+import com.cidenet.hulkstore.users.UsersDaoException;
 import com.cidenet.hulkstore.users.UsersDaoFactory;
 import com.cidenet.hulkstore.users.UsersDto;
 import com.cidenet.hulkstore.view.menu.UIMenu;
+import java.awt.HeadlessException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,9 +40,7 @@ public class CMenu implements IMenu{
                 JOptionPane.showMessageDialog(null, "Error al cargar el menú", "Error", JOptionPane.ERROR_MESSAGE, null);
             }
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }        
+        catch (UsersDaoException | HeadlessException e) {}        
     }
     
     public CMenu(UsersDto user)
@@ -94,7 +95,8 @@ public class CMenu implements IMenu{
 
     @Override
     public void product() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        new CProduct();
+        window.dispose();
     }
 
     @Override

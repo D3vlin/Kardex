@@ -117,7 +117,6 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 			return dto.createPk();
 		}
 		catch (Exception _e) {
-			_e.printStackTrace();
 			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
@@ -133,7 +132,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	/** 
 	 * Updates a single row in the product table.
 	 */
-	public void update(ProductPk pk, ProductDto dto) throws ProductDaoException
+	public boolean update(ProductPk pk, ProductDto dto) throws ProductDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -162,9 +161,9 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 			reset(dto);
 			long t2 = System.currentTimeMillis();
 			System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
+                        return true;
 		}
 		catch (Exception _e) {
-			_e.printStackTrace();
 			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
@@ -200,7 +199,6 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 			System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
 		}
 		catch (Exception _e) {
-			_e.printStackTrace();
 			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
@@ -412,7 +410,6 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 			return fetchMultiResults(rs);
 		}
 		catch (Exception _e) {
-			_e.printStackTrace();
 			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
@@ -462,7 +459,6 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 			return fetchMultiResults(rs);
 		}
 		catch (Exception _e) {
-			_e.printStackTrace();
 			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
 		}
 		finally {
@@ -475,5 +471,40 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 		}
 		
 	}
+        
+    public String findNextProductId() throws ProductDaoException {
+        // declare variables
+        final boolean isConnSupplied = (userConn != null);
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // get the user-specified connection or get a connection from the ResourceManager
+            conn = isConnSupplied ? userConn : ResourceManager.getConnection();
+            
+            // construct the SQL statement
+            final String SQL = "SELECT LPAD((SELECT COUNT(*) + 1 FROM " + getTableName() + "), 6, '0') AS nextProductId";
+            
+            System.out.println( "Executing " + SQL);
+            stmt = conn.prepareStatement( SQL );
+
+            rs = stmt.executeQuery();
+            rs.next();
+            
+            return rs.getString(1);
+        }
+        catch (Exception _e) {
+            throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
+        }
+        finally {
+            ResourceManager.close(rs);
+            ResourceManager.close(stmt);
+            if (!isConnSupplied) {
+                ResourceManager.close(conn);
+            }
+
+        }
+    }
 
 }

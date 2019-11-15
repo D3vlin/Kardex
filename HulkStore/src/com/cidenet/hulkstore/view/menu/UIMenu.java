@@ -95,7 +95,7 @@ public class UIMenu extends javax.swing.JFrame {
 
         btnStore.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btnStore.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/store_img.png"))); // NOI18N
-        btnStore.setText("ALMACEN");
+        btnStore.setText("TIENDA");
         btnStore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStoreActionPerformed(evt);
@@ -312,7 +312,7 @@ public class UIMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStoreActionPerformed
 
     private void btnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductActionPerformed
-        // TODO add your handling code here:
+        Interface.product();
     }//GEN-LAST:event_btnProductActionPerformed
 
     private void btnUnityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnityActionPerformed
