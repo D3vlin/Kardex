@@ -47,7 +47,8 @@ public class CInsertStore implements IInsertStore
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
                 new CStore();
                 window.dispose();
-            }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
         } catch (StoreDaoException ex) {
         }
     }
