@@ -34,6 +34,11 @@ public interface ProductDao
 	public ProductDto[] findAll() throws ProductDaoException;
 
 	/** 
+	 * Returns all rows from the product table that match the criteria 'unityId = :unityId'.
+	 */
+        public ProductDto[] findByUnity(int unityId) throws ProductDaoException;
+
+	/** 
 	 * Returns all rows from the product table that match the criteria 'productId = :productId'.
 	 */
 	public ProductDto[] findWhereProductIdEquals(int productId) throws ProductDaoException;
