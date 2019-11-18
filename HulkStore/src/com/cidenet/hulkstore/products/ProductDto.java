@@ -20,6 +20,11 @@ public class ProductDto implements Serializable
 	protected int unityId;
 
 	/** 
+	 * This attribute maps to the column unityDescription in the unity table.
+	 */
+	protected String unityDescription;
+
+	/** 
 	 * This attribute represents whether the primitive attribute unityId is null.
 	 */
 	protected boolean unityIdNull = true;
@@ -105,6 +110,26 @@ public class ProductDto implements Serializable
 	{
 		this.unityId = unityId;
 		this.unityIdNull = false;
+	}
+
+	/**
+	 * Method 'getUnityDescription'
+	 * 
+	 * @return string
+	 */
+	public String getUnityDescription()
+	{
+		return unityDescription;
+	}
+
+	/**
+	 * Method 'setUnityDescription'
+	 * 
+	 * @param unityDescription
+	 */
+	public void setUnityDescription(String unityDescription)
+	{
+		this.unityDescription = unityDescription;
 	}
 
 	/**

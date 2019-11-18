@@ -61,6 +61,11 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	protected static final int COLUMN_UNITY_ID = 3;
 
 	/** 
+	 * Index of column unityDescription on view
+	 */
+	protected static final int COLUMN_VIEW_UNITY_DESCRIPTION = 3;
+
+	/** 
 	 * Index of column state
 	 */
 	protected static final int COLUMN_STATE = 4;
@@ -235,7 +240,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	{
 		return findByDynamicSelect( SQL_SELECT + " ORDER BY productId", null );
 	}
-
+        
         /** 
 	 * Returns all rows from the product table that match the criteria 'unityId = :unityId'.
 	 */
@@ -338,12 +343,18 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 	/** 
 	 * Fetches multiple rows from the result set
 	 */
-	protected ProductDto[] fetchMultiResults(ResultSet rs) throws SQLException
+	protected ProductDto[] fetchMultiResults(ResultSet rs, boolean view) throws SQLException
 	{
 		Collection resultList = new ArrayList();
 		while (rs.next()) {
 			ProductDto dto = new ProductDto();
-			populateDto( dto, rs);
+                        
+                        if(view) {
+                            populateViewDto( dto, rs);
+                        } else {
+                            populateDto( dto, rs);
+                        }
+			
 			resultList.add( dto );
 		}
 		
@@ -365,6 +376,19 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 		}
 		
 		dto.setState( rs.getShort( COLUMN_STATE ) );
+	}
+
+	/** 
+	 * Populates a DTO with data from a ResultSet
+	 */
+	protected void populateViewDto(ProductDto dto, ResultSet rs) throws SQLException
+	{
+		dto.setProductId( rs.getInt( COLUMN_PRODUCT_ID ) );
+		dto.setProductName( rs.getString( COLUMN_PRODUCT_NAME ) );
+		dto.setUnityDescription( rs.getString( COLUMN_VIEW_UNITY_DESCRIPTION ) );
+		if (rs.wasNull()) {
+			dto.setUnityIdNull( true );
+		}
 	}
 
 	/** 
@@ -407,7 +431,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 			rs = stmt.executeQuery();
 		
 			// fetch the results
-			return fetchMultiResults(rs);
+			return fetchMultiResults(rs, false);
 		}
 		catch (Exception _e) {
 			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
@@ -456,7 +480,7 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
 			rs = stmt.executeQuery();
 		
 			// fetch the results
-			return fetchMultiResults(rs);
+			return fetchMultiResults(rs, false);
 		}
 		catch (Exception _e) {
 			throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
@@ -503,6 +527,46 @@ calls to this DAO, otherwise a new Connection will be allocated for each operati
             if (!isConnSupplied) {
                 ResourceManager.close(conn);
             }
+
+        }
+    }
+        
+    @Override
+    public ProductDto[] getProductView() throws ProductDaoException {
+        // declare variables
+        final boolean isConnSupplied = (userConn != null);
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+                // get the user-specified connection or get a connection from the ResourceManager
+                conn = isConnSupplied ? userConn : ResourceManager.getConnection();
+
+                // construct the SQL statement
+                final String SQL = "SELECT * FROM bd_hulkstore.vi_Product";
+
+
+                System.out.println( "Executing " + SQL );
+                // prepare statement
+                stmt = conn.prepareStatement( SQL );
+                stmt.setMaxRows( maxRows );
+
+                rs = stmt.executeQuery();
+
+                // fetch the results
+                return fetchMultiResults(rs, true);
+        }
+        catch (Exception _e) {
+                _e.printStackTrace();
+                throw new ProductDaoException( "Exception: " + _e.getMessage(), _e );
+        }
+        finally {
+                ResourceManager.close(rs);
+                ResourceManager.close(stmt);
+                if (!isConnSupplied) {
+                        ResourceManager.close(conn);
+                }
 
         }
     }

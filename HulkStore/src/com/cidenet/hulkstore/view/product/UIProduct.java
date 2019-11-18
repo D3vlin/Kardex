@@ -84,7 +84,7 @@ public class UIProduct extends javax.swing.JFrame {
         btnReport = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         chkActive = new javax.swing.JCheckBox();
-        jBSearch = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/product_icon.png")).getImage());
@@ -101,11 +101,6 @@ public class UIProduct extends javax.swing.JFrame {
         jLabel2.setText("Búscar:");
 
         txtSearch.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtSearchKeyPressed(evt);
-            }
-        });
 
         tblProduct.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         tblProduct.setModel(new javax.swing.table.DefaultTableModel(
@@ -189,10 +184,10 @@ public class UIProduct extends javax.swing.JFrame {
             }
         });
 
-        jBSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/search_icon.png"))); // NOI18N
-        jBSearch.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/search_icon.png"))); // NOI18N
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBSearchActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -211,7 +206,7 @@ public class UIProduct extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -236,7 +231,7 @@ public class UIProduct extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jBSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -286,22 +281,18 @@ public class UIProduct extends javax.swing.JFrame {
         Interface.enableDisable(tblProduct, chkActive);
     }//GEN-LAST:event_chkActiveActionPerformed
 
-    private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        //Interface.searchStore(evt.getKeyCode(), cmbField.getSelectedItem().toString(), txtSearch.getText(), tblProduct);
-    }//GEN-LAST:event_txtSearchKeyPressed
-
-    private void jBSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSearchActionPerformed
-        //interfaz.seleccionarFila(jTfBuscar, tblRegistros);
-    }//GEN-LAST:event_jBSearchActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        Interface.selectRow(txtSearch, tblProduct);
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnInsert;
     private javax.swing.JButton btnReport;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBox chkActive;
-    private javax.swing.JButton jBSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

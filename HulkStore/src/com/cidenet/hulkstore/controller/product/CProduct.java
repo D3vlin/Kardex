@@ -1,7 +1,10 @@
 package com.cidenet.hulkstore.controller.product;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
+import com.cidenet.hulkstore.controller.reports.CReports;
+import com.cidenet.hulkstore.controller.reports.IReports;
 import com.cidenet.hulkstore.products.ProductDao;
+import com.cidenet.hulkstore.products.ProductDaoException;
 import com.cidenet.hulkstore.products.ProductDaoFactory;
 import com.cidenet.hulkstore.products.ProductDto;
 import com.cidenet.hulkstore.view.product.UIProduct;
@@ -125,17 +128,72 @@ public class CProduct implements IProduct
 
     @Override
     public void enableDisable(JTable tblProduct, JCheckBox chkActive) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i = tblProduct.getSelectedRow();
+        
+        DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
+        
+        if(i != -1) {
+            ProductDto dto = products[i];
+            ProductDao dao = ProductDaoFactory.create();
+            
+            if(chkActive.isSelected())
+            {      
+                try {
+                    dto.setState((short) 1);
+                    if(dao.update(dto.createPk(), dto)){
+                        model.setValueAt("A", i, 3);}
+                } catch (ProductDaoException e) {}
+            } 
+            else
+            {
+                try {
+                    dto.setState((short) 2);
+                    if(dao.update(dto.createPk(), dto)){
+                        model.setValueAt("I", i, 3);}
+                } catch (ProductDaoException e) {}
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione un registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
     }
 
     @Override
     public void delete(JTable tblProduct, JCheckBox chkActive) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int i = tblProduct.getSelectedRow();
+        
+        if(i != -1)
+        {
+            ProductDto dto = products[i];
+            if(dto.getState() != 3)
+            {
+                if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+                {
+                    try {
+                        ProductDao dao =  ProductDaoFactory.create();
+                        dto.setState((short) 3);
+                        if(dao.update(dto.createPk(), dto)){
+                            DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
+                            model.setValueAt("*", i, 3);
+                            chkActive.setEnabled(false);
+                        } 
+                    } catch (Exception e) {}
+                }
+            }
+            else
+                JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
-    public void generateReport() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void generateReport() {        
+        try {
+            ProductDao dao = ProductDaoFactory.create();
+            products = dao.getProductView();
+            
+            IReports report = new CReports();
+            report.generateProductReport(products);
+        } catch (ProductDaoException ex) {ex.printStackTrace();}
     }
 
     @Override
@@ -160,8 +218,35 @@ public class CProduct implements IProduct
     }
 
     @Override
-    public void selectRow(JTextField search, JTable tblProduct) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void selectRow(JTextField search, JTable tblProduct)
+    {        
+        TableModel tableModel = tblProduct.getModel();
+        String dato = search.getText();
+        String filter = "Nombre";
+        
+        int column;
+        int columns = tableModel.getColumnCount();
+            
+        for(column = 0; column < columns; column++)
+            if(filter.compareTo(tableModel.getColumnName(column)) == 0) { break; }
+        
+        int row;
+        try
+        {
+            int rows = tableModel.getRowCount();
+            for(row = 0; row < rows; row++)
+                if(dato.compareTo((String) tableModel.getValueAt(row, column)) == 0)
+                    break;
+
+            if(row == 0)
+                { tblProduct.changeSelection(0,0,false,true); }
+            else
+                { tblProduct.getSelectionModel().setSelectionInterval(row - 1, row); }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, "No se encontraron los datos buscados", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
 }
