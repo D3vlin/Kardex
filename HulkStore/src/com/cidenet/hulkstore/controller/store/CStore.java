@@ -11,7 +11,6 @@ import com.cidenet.hulkstore.stores.StoreDto;
 import com.cidenet.hulkstore.view.store.UIStore;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -166,7 +165,7 @@ public class CStore implements IStore{
                 if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {                    
                     try {
-                        StoreDao dao = new StoreDaoImpl();
+                        StoreDao dao = StoreDaoFactory.create();
                         dto.setState((short) 3);
                         if(dao.update(dto.createPk(), dto)){
                             DefaultTableModel model = (DefaultTableModel) tblStore.getModel();
@@ -187,15 +186,8 @@ public class CStore implements IStore{
             StoreDao dao = StoreDaoFactory.create();
             stores = dao.getStoreView();
             
-            //ArrayList <ArrayList<String>> lista = Almacen.getVista();
-            
-            ArrayList <String> header = new ArrayList <> ();            
-            header.add("Código");
-            header.add("Nombre Tienda");
-            header.add("Ubicación");
-            
             IReports report = new CReports();
-            report.generateStoreReport(stores, header);
+            report.generateStoreReport(stores);
         } catch (StoreDaoException ex) {}
     }
 

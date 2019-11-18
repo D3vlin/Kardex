@@ -1,7 +1,7 @@
 package com.cidenet.hulkstore.controller.reports;
 
+import com.cidenet.hulkstore.products.ProductDto;
 import com.cidenet.hulkstore.stores.StoreDto;
-import java.util.ArrayList;
 
 /**
  * Reports Interface
@@ -14,5 +14,7 @@ import java.util.ArrayList;
  */
 public interface IReports {
     
-    public void generateStoreReport(StoreDto[] stores, ArrayList<String> header);
+    public void generateStoreReport(StoreDto[] stores);
+    
+    public void generateProductReport(ProductDto[] products);
 }
