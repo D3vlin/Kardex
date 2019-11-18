@@ -48,7 +48,7 @@ public class CProduct implements IProduct
     public void upload(JTable tblProduct)
     {
         DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
-        model.setRowCount(0);
+        model.setRowCount(0);        
         String state;
 		
         for (ProductDto product : products) {
@@ -197,8 +197,8 @@ public class CProduct implements IProduct
     }
 
     @Override
-    public void searchProduct(JTextField search, JTable tblProduct) {
-        TextAutoCompleter textAutoAcompleter = new TextAutoCompleter( search );
+    public void searchProduct(JTextField txtSearch, JTable tblProduct) {
+        TextAutoCompleter textAutoAcompleter = new TextAutoCompleter( txtSearch );
         textAutoAcompleter.setMode(0);
         textAutoAcompleter.setCaseSensitive(false);
         TableModel tableModel = tblProduct.getModel();
@@ -218,25 +218,24 @@ public class CProduct implements IProduct
     }
 
     @Override
-    public void selectRow(JTextField search, JTable tblProduct)
+    public void selectRow(JTextField txtSearch, JTable tblProduct)
     {        
         TableModel tableModel = tblProduct.getModel();
-        String dato = search.getText();
+        String fact = txtSearch.getText();
         String filter = "Nombre";
         
         int column;
         int columns = tableModel.getColumnCount();
             
         for(column = 0; column < columns; column++)
-            if(filter.compareTo(tableModel.getColumnName(column)) == 0) { break; }
+            { if(filter.compareTo(tableModel.getColumnName(column)) == 0) { break; } }
         
         int row;
         try
         {
             int rows = tableModel.getRowCount();
             for(row = 0; row < rows; row++)
-                if(dato.compareTo((String) tableModel.getValueAt(row, column)) == 0)
-                    break;
+                { if(fact.compareTo((String) tableModel.getValueAt(row, column)) == 0) { break; } }
 
             if(row == 0)
                 { tblProduct.changeSelection(0,0,false,true); }
