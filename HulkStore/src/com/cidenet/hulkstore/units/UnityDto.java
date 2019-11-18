@@ -15,6 +15,11 @@ public class UnityDto implements Serializable
 	protected String unityDescription;
 
 	/** 
+	 * This attribute represents whether the primitive attribute unityId is null.
+	 */
+	protected boolean unityIdNull = true;
+
+	/** 
 	 * This attribute maps to the column state in the unity table.
 	 */
 	protected short state;
@@ -25,6 +30,14 @@ public class UnityDto implements Serializable
 	 */
 	public UnityDto()
 	{
+	}
+        
+	public UnityDto(int unityId, String unityDescription)
+	{
+            this.unityId = unityId;
+            this.unityDescription = unityDescription;
+            this.unityIdNull = false;
+            this.state = (short) 1;
 	}
 
 	/**

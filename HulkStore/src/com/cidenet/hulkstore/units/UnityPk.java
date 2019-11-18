@@ -46,6 +46,7 @@ public class UnityPk implements Serializable
 	public UnityPk(final int unityId)
 	{
 		this.unityId = unityId;
+                this.unityIdNull = false;
 	}
 
 	/** 

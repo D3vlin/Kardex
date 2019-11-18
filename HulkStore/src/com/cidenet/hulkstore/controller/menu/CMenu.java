@@ -4,6 +4,7 @@ import com.cidenet.hulkstore.controller.login.CLogin;
 import com.cidenet.hulkstore.controller.product.CProduct;
 import com.cidenet.hulkstore.controller.settings.CSettings;
 import com.cidenet.hulkstore.controller.store.CStore;
+import com.cidenet.hulkstore.controller.unity.CUnity;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoException;
 import com.cidenet.hulkstore.users.UsersDaoFactory;
@@ -85,7 +86,8 @@ public class CMenu implements IMenu{
 
     @Override
     public void unity() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        new CUnity();
+        window.dispose();
     }
 
     @Override

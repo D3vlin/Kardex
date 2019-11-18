@@ -10,7 +10,7 @@ public interface UnityDao
 	/** 
 	 * Updates a single row in the unity table.
 	 */
-	public void update(UnityPk pk, UnityDto dto) throws UnityDaoException;
+	public boolean update(UnityPk pk, UnityDto dto) throws UnityDaoException;
 
 	/** 
 	 * Deletes a single row in the unity table.
@@ -66,5 +66,10 @@ public interface UnityDao
 	 * Returns all rows from the unity table that match the specified arbitrary SQL statement
 	 */
 	public UnityDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws UnityDaoException;
+        
+        /** 
+	 * Returns the next available id for the next record
+	 */
+        public String findNextUnityId() throws UnityDaoException;
 
 }
