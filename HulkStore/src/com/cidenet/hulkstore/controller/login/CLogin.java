@@ -2,10 +2,12 @@ package com.cidenet.hulkstore.controller.login;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.settings.CSettings;
+import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
+import com.cidenet.hulkstore.users.UsersDaoException;
 import com.cidenet.hulkstore.users.UsersDto;
-import com.cidenet.hulkstore.users.UsersDaoFactory;
 import com.cidenet.hulkstore.view.login.UILogin;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -20,7 +22,7 @@ import javax.swing.JTextField;
  * @since 2019-11-06
  */
 
-public class CLogin implements ILogin
+public final class CLogin
 {
     private UILogin window;
     
@@ -29,11 +31,10 @@ public class CLogin implements ILogin
         this.window = new UILogin(this);
     }
     
-    @Override
     public void validate(JTextField txtUser, JPasswordField pwdPass)
     {
         try {
-            UsersDao dao = UsersDaoFactory.create();
+            UsersDao dao = DaoFactory.createUsersDao();
             UsersDto user = dao.validateUser(txtUser.getText(), pwdPass.getText());
             
             if (user != null) {
@@ -43,19 +44,17 @@ public class CLogin implements ILogin
             else
                 JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE, null);
         }
-        catch (Exception e) {
+        catch (UsersDaoException | HeadlessException e) {
             e.printStackTrace();
         }
     }
     
-    @Override
     public void setting()
     {
         new CSettings(true);
         window.dispose();
     }
     
-    @Override
     public void close()
     {
         window.dispose();

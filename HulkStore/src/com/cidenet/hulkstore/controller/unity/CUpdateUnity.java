@@ -1,8 +1,8 @@
 package com.cidenet.hulkstore.controller.unity;
 
+import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.units.UnityDao;
 import com.cidenet.hulkstore.units.UnityDaoException;
-import com.cidenet.hulkstore.units.UnityDaoFactory;
 import com.cidenet.hulkstore.units.UnityDto;
 import com.cidenet.hulkstore.view.unity.UIUpdateUnity;
 import javax.swing.JOptionPane;
@@ -17,10 +17,10 @@ import javax.swing.JTextField;
  * @version 1.0
  * @since 2019-11-18
  */
-public class CUpdateUnity implements IUpdateUnity
+public class CUpdateUnity
 {
     private UIUpdateUnity window;
-    private UnityDao unityDao = UnityDaoFactory.create();
+    private UnityDao unityDao = DaoFactory.createUnityDao();
     private UnityDto unity;
     
     public CUpdateUnity(int unityId)
@@ -32,14 +32,12 @@ public class CUpdateUnity implements IUpdateUnity
         } catch (Exception e) {}
     }
 
-    @Override
     public void upload(JTextField txtUnityId, JTextField txtUnityDescription)
     {
         txtUnityId.setText(String.valueOf(unity.getUnityId()));
         txtUnityDescription.setText(unity.getUnityDescription());
     }
 
-    @Override
     public void accept(JTextField txtUnityDescription) {
         
         try {
@@ -55,7 +53,6 @@ public class CUpdateUnity implements IUpdateUnity
         } catch (UnityDaoException e) {}
     }
 
-    @Override
     public void cancel() {
         new CUnity();
         window.dispose();

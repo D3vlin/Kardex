@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.store;
 
-import com.cidenet.hulkstore.controller.store.IInsertStore;
+import com.cidenet.hulkstore.controller.store.CInsertStore;
 
 /**
  * Main view of insert store
@@ -11,16 +11,16 @@ import com.cidenet.hulkstore.controller.store.IInsertStore;
  */
 public class UIInsertStore extends javax.swing.JFrame {
 
-    private IInsertStore Interface;
+    private CInsertStore controller;
     
-    public UIInsertStore(IInsertStore Interface) {
+    public UIInsertStore(CInsertStore controller) {
         initComponents();
         this.setVisible(true);
         this.setTitle("Insertar Tienda");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(txtStoreId);
+        this.controller = controller;
+        controller.upload(txtStoreId);
     }
 
     /**
@@ -151,15 +151,15 @@ public class UIInsertStore extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.accept(txtStoreId, txtStoreName, txtAddress);
+        controller.accept(txtStoreId, txtStoreName, txtAddress);
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

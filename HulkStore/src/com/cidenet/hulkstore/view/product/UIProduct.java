@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.product;
 
-import com.cidenet.hulkstore.controller.product.IProduct;
+import com.cidenet.hulkstore.controller.product.CProduct;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ListSelectionModel;
@@ -17,18 +17,18 @@ import javax.swing.table.TableCellRenderer;
  */
 public class UIProduct extends javax.swing.JFrame {
     
-    private IProduct Interface;
+    private CProduct controller;
     private ListSelectionModel cellSelectionModel;
         
-    public UIProduct(IProduct Interface)
+    public UIProduct(CProduct controller)
     {
         initComponents();
         this.setVisible(true);
         this.setTitle("GESTIÓN DE PRODUCTO");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(tblProduct);
+        this.controller = controller;
+        controller.upload(tblProduct);
         
         cellSelectionModel = tblProduct.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -40,12 +40,12 @@ public class UIProduct extends javax.swing.JFrame {
                 @Override
                 public void valueChanged(ListSelectionEvent e)
                 {
-                    Interface.updateState(tblProduct, chkActive);
+                    controller.updateState(tblProduct, chkActive);
                 }
             }
         );
         
-        Interface.searchProduct(txtSearch, tblProduct);
+        controller.searchProduct(txtSearch, tblProduct);
     }
 
     /**
@@ -254,35 +254,35 @@ public class UIProduct extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.insert();
+        controller.insert();
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Interface.update(tblProduct);
+        controller.update(tblProduct);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        Interface.delete(tblProduct, chkActive);
+        controller.delete(tblProduct, chkActive);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        Interface.generateReport();
+        controller.generateReport();
     }//GEN-LAST:event_btnReportActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        Interface.menu();
+        controller.menu();
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.menu();
+        controller.menu();
     }//GEN-LAST:event_formWindowClosing
 
     private void chkActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkActiveActionPerformed
-        Interface.enableDisable(tblProduct, chkActive);
+        controller.enableDisable(tblProduct, chkActive);
     }//GEN-LAST:event_chkActiveActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        Interface.selectRow(txtSearch, tblProduct);
+        controller.selectRow(txtSearch, tblProduct);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

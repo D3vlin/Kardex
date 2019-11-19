@@ -1,9 +1,9 @@
 package com.cidenet.hulkstore.controller.unity;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
+import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.units.UnityDao;
 import com.cidenet.hulkstore.units.UnityDaoException;
-import com.cidenet.hulkstore.units.UnityDaoFactory;
 import com.cidenet.hulkstore.units.UnityDto;
 import com.cidenet.hulkstore.view.unity.UIUnity;
 import com.mxrck.autocompleter.TextAutoCompleter;
@@ -25,7 +25,7 @@ import javax.swing.table.TableModel;
  * @version 1.0
  * @since 2019-11-18
  */
-public class CUnity implements IUnity 
+public class CUnity
 {
     private UIUnity window;
     private UnityDto[] units; 
@@ -33,7 +33,7 @@ public class CUnity implements IUnity
     public CUnity()
     {
         try {
-            UnityDao dao = UnityDaoFactory.create();
+            UnityDao dao = DaoFactory.createUnityDao();
             units = dao.findAll();
         } catch (UnityDaoException ex) {}
         
@@ -41,7 +41,6 @@ public class CUnity implements IUnity
         window = new UIUnity(this);
     }
 
-    @Override
     public void upload(JTable tblUnit)
     {
         DefaultTableModel model = (DefaultTableModel) tblUnit.getModel();
@@ -60,7 +59,6 @@ public class CUnity implements IUnity
         }
     }
 
-    @Override
     public void updateState(JTable tblUnit, JCheckBox chkActive)
     {
         int i = tblUnit.getSelectedRow();
@@ -88,19 +86,16 @@ public class CUnity implements IUnity
         }
     }
 
-    @Override
     public void menu() {
         new CMenu();
         window.dispose();
     }
 
-    @Override
     public void insert() {
         new CInsertUnity();
         window.dispose();
     }
 
-    @Override
     public void update(JTable tblUnit)
     {
         int i = tblUnit.getSelectedRow();
@@ -121,7 +116,6 @@ public class CUnity implements IUnity
             JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
 
-    @Override
     public void delete(JTable tblUnit, JCheckBox chkActive) {        
         int i = tblUnit.getSelectedRow();
         
@@ -133,7 +127,7 @@ public class CUnity implements IUnity
                 if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {
                     try {
-                        UnityDao dao = UnityDaoFactory.create();
+                        UnityDao dao = DaoFactory.createUnityDao();
                         dto.setState((short) 3);
                         if(dao.update(dto.createPk(), dto)){
                             DefaultTableModel model = (DefaultTableModel) tblUnit.getModel();
@@ -150,7 +144,6 @@ public class CUnity implements IUnity
             JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
 
-    @Override
     public void enableDisable(JTable tblUnit, JCheckBox chkActive) {
         int i = tblUnit.getSelectedRow();
         
@@ -158,7 +151,7 @@ public class CUnity implements IUnity
         
         if(i != -1) {
             UnityDto dto = units[i];
-            UnityDao dao = UnityDaoFactory.create();
+            UnityDao dao = DaoFactory.createUnityDao();
             
             if(chkActive.isSelected())
             {
@@ -180,7 +173,6 @@ public class CUnity implements IUnity
             JOptionPane.showMessageDialog(null, "Seleccione un registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
 
-    @Override
     public void searchUnity(JTextField txtSearch, JTable tblUnit) {
         TextAutoCompleter textAutoAcompleter = new TextAutoCompleter( txtSearch );
         textAutoAcompleter.setMode(0);
@@ -201,7 +193,6 @@ public class CUnity implements IUnity
         }
     }
 
-    @Override
     public void selectRow(JTextField txtSearch, JTable tblUnit)
     {
         TableModel tableModel = tblUnit.getModel();

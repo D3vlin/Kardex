@@ -2,10 +2,9 @@ package com.cidenet.hulkstore.controller.store;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.reports.CReports;
-import com.cidenet.hulkstore.controller.reports.IReports;
+import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
-import com.cidenet.hulkstore.stores.StoreDaoFactory;
 import com.cidenet.hulkstore.stores.StoreDaoImpl;
 import com.cidenet.hulkstore.stores.StoreDto;
 import com.cidenet.hulkstore.view.store.UIStore;
@@ -30,15 +29,15 @@ import javax.swing.table.TableModel;
  * @version 1.0
  * @since 2019-11-13
  */
-public class CStore implements IStore{
-
+public class CStore
+{
     private UIStore window;
     private StoreDto[] stores;
     
     public CStore()
     {
         try {
-            StoreDao dao = StoreDaoFactory.create();
+            StoreDao dao = DaoFactory.createStoreDao();
             stores = dao.findAll();            
         }
         catch (Exception e) {
@@ -47,7 +46,6 @@ public class CStore implements IStore{
         window = new UIStore(this);
     }
     
-    @Override
     public void upload(JTable tblStore, JTextField txtSearch)
     {
         DefaultTableModel model = (DefaultTableModel) tblStore.getModel();
@@ -66,7 +64,6 @@ public class CStore implements IStore{
         }
     }
 
-    @Override
     public void updateState(JTable tblStore, JCheckBox chkActive) {
         int i = tblStore.getSelectedRow();
         
@@ -93,19 +90,16 @@ public class CStore implements IStore{
         }
     }
 
-    @Override
     public void menu() {
         new CMenu();        
         window.dispose();
     }
 
-    @Override
     public void insert() {
         new CInsertStore();
         window.dispose();
     }
 
-    @Override
     public void update(JTable tblStore) {
         int i = tblStore.getSelectedRow();
         
@@ -123,7 +117,6 @@ public class CStore implements IStore{
             JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE);}
     }
 
-    @Override
     public void enableDisable(JTable tblStore, JCheckBox chkActive) {
         int i = tblStore.getSelectedRow();
         
@@ -153,7 +146,6 @@ public class CStore implements IStore{
             JOptionPane.showMessageDialog(null, "Seleccione un registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
     }
 
-    @Override
     public void delete(JTable tblStore, JCheckBox chkActive) {
         int i = tblStore.getSelectedRow();
         
@@ -165,7 +157,7 @@ public class CStore implements IStore{
                 if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {                    
                     try {
-                        StoreDao dao = StoreDaoFactory.create();
+                        StoreDao dao = DaoFactory.createStoreDao();
                         dto.setState((short) 3);
                         if(dao.update(dto.createPk(), dto)){
                             DefaultTableModel model = (DefaultTableModel) tblStore.getModel();
@@ -180,18 +172,16 @@ public class CStore implements IStore{
             JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);}
     }
 
-    @Override
     public void generateReport() {
         try {
-            StoreDao dao = StoreDaoFactory.create();
+            StoreDao dao = DaoFactory.createStoreDao();
             stores = dao.getStoreView();
             
-            IReports report = new CReports();
+            CReports report = new CReports();
             report.generateStoreReport(stores);
         } catch (StoreDaoException ex) {}
     }
 
-    @Override
     public void searchStore(String filter, JTextField txtSearch, JTable tblStore) {
         
         txtSearch.setText("");      
@@ -217,7 +207,6 @@ public class CStore implements IStore{
         }
     }
 
-    @Override
     public void searchStore(int keyCode, String filter, String store, JTable tblStore) {
         
 

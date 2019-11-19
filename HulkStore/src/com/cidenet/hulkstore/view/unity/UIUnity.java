@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.unity;
 
-import com.cidenet.hulkstore.controller.unity.IUnity;
+import com.cidenet.hulkstore.controller.unity.CUnity;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ListSelectionModel;
@@ -17,18 +17,18 @@ import javax.swing.table.TableCellRenderer;
  */
 public class UIUnity extends javax.swing.JFrame {
     
-    private IUnity Interface;
+    private CUnity controller;
     private ListSelectionModel cellSelectionModel;
         
-    public UIUnity(IUnity Interface)
+    public UIUnity(CUnity controller)
     {
         initComponents();
         this.setVisible(true);
         this.setTitle("GESTIÓN DE UNIDAD");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(tblUnity);
+        this.controller = controller;
+        controller.upload(tblUnity);
         
         cellSelectionModel = tblUnity.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -40,12 +40,12 @@ public class UIUnity extends javax.swing.JFrame {
                 @Override
                 public void valueChanged(ListSelectionEvent e)
                 {
-                    Interface.updateState(tblUnity, chkActive);
+                    controller.updateState(tblUnity, chkActive);
                 }
             }
         );
         
-        Interface.searchUnity(txtSearch, tblUnity);
+        controller.searchUnity(txtSearch, tblUnity);
     }
 
     /**
@@ -243,31 +243,31 @@ public class UIUnity extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.insert();
+        controller.insert();
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Interface.update(tblUnity);
+        controller.update(tblUnity);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        Interface.delete(tblUnity, chkActive);
+        controller.delete(tblUnity, chkActive);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        Interface.menu();
+        controller.menu();
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.menu();
+        controller.menu();
     }//GEN-LAST:event_formWindowClosing
 
     private void chkActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkActiveActionPerformed
-        Interface.enableDisable(tblUnity, chkActive);
+        controller.enableDisable(tblUnity, chkActive);
     }//GEN-LAST:event_chkActiveActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        Interface.selectRow(txtSearch, tblUnity);
+        controller.selectRow(txtSearch, tblUnity);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.login;
 
-import com.cidenet.hulkstore.controller.login.ILogin;
+import com.cidenet.hulkstore.controller.login.CLogin;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -14,15 +14,15 @@ import javax.swing.JOptionPane;
 
 public class UILogin extends javax.swing.JFrame {
 
-    private ILogin Interface;
+    private CLogin controller;
     
-    public UILogin(ILogin Interface) {
+    public UILogin(CLogin controller) {
         initComponents();
         this.setVisible(true);
         this.setTitle("LOGIN - HulkStore");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
+        this.controller = controller;
     }
 
     /**
@@ -141,19 +141,19 @@ public class UILogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        Interface.validate(this.txtUser, this.pwdPass);
+        controller.validate(this.txtUser, this.pwdPass);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        Interface.close();
+        controller.close();
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.close();
+        controller.close();
     }//GEN-LAST:event_formWindowClosing
 
     private void mniCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCloseActionPerformed
-        Interface.close();
+        controller.close();
     }//GEN-LAST:event_mniCloseActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
@@ -162,7 +162,7 @@ public class UILogin extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void mniSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSettingsActionPerformed
-        Interface.setting();
+        controller.setting();
     }//GEN-LAST:event_mniSettingsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

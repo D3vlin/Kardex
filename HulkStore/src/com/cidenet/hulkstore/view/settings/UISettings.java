@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.settings;
 
-import com.cidenet.hulkstore.controller.settings.ISettings;
+import com.cidenet.hulkstore.controller.settings.CSettings;
 
 /**
  * Main view of the settings
@@ -12,16 +12,16 @@ import com.cidenet.hulkstore.controller.settings.ISettings;
 
 public class UISettings extends javax.swing.JFrame {
 
-    private ISettings Interface;
+    private CSettings controller;
     
-    public UISettings(ISettings Interface) {
+    public UISettings(CSettings controller) {
         initComponents();
         this.setVisible(true);
         this.setTitle("Configuración");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(this.txtHost, this.txtUser);
+        this.controller = controller;
+        controller.upload(this.txtHost, this.txtUser);
     }
 
     /**
@@ -192,19 +192,19 @@ public class UISettings extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTestConnectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestConnectionActionPerformed
-        Interface.validate(this.txtHost, this.txtUser, this.pwdPass, this.lblState);
+        controller.validate(this.txtHost, this.txtUser, this.pwdPass, this.lblState);
     }//GEN-LAST:event_btnTestConnectionActionPerformed
 
     private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
-        Interface.accept(this.txtHost, this.txtUser, this.pwdPass, this.lblState);
+        controller.accept(this.txtHost, this.txtUser, this.pwdPass, this.lblState);
     }//GEN-LAST:event_btnAcceptActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

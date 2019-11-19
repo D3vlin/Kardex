@@ -5,9 +5,9 @@ import com.cidenet.hulkstore.controller.product.CProduct;
 import com.cidenet.hulkstore.controller.settings.CSettings;
 import com.cidenet.hulkstore.controller.store.CStore;
 import com.cidenet.hulkstore.controller.unity.CUnity;
+import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoException;
-import com.cidenet.hulkstore.users.UsersDaoFactory;
 import com.cidenet.hulkstore.users.UsersDto;
 import com.cidenet.hulkstore.view.menu.UIMenu;
 import java.awt.HeadlessException;
@@ -25,14 +25,14 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @since 2019-11-12
  */
-public class CMenu implements IMenu{
-
+public class CMenu
+{
     private UIMenu window;
     
     public CMenu()
     {
         try {
-            UsersDao dao = UsersDaoFactory.create();
+            UsersDao dao = DaoFactory.createUsersDao();
             UsersDto user = dao.findWhereUserIdEquals(UIMenu.userId)[0];
 
             if (user != null) {
@@ -49,7 +49,6 @@ public class CMenu implements IMenu{
         window = new UIMenu(this, user);
     }
     
-    @Override
     public void upload(UsersDto user, JLabel lblRealName, JLabel lblIdentification, JLabel lblProfile, JButton btnUser, JButton btnProductExistence, JButton btnProductEntry, JButton btnProductExit) {
         UIMenu.userId = user.getUserId();
         lblRealName.setText(user.getRealName() + " " + user.getSurname());
@@ -67,67 +66,55 @@ public class CMenu implements IMenu{
         }
     }
 
-    @Override
     public void logOut() {
         new CLogin();
         window.dispose();
     }
 
-    @Override
     public void store() {
         new CStore();
         window.dispose();
     }
 
-    @Override
     public void user() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void unity() {
         new CUnity();
         window.dispose();
     }
 
-    @Override
     public void document() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void product() {
         new CProduct();
         window.dispose();
     }
 
-    @Override
     public void setting() {
         new CSettings(false);
         window.dispose();
     }
 
-    @Override
     public void kardex() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void productExistence() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void productExit() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void producEntry() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void showForm() {
         window.setVisible(true);
     }

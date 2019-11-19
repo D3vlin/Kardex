@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.menu;
 
-import com.cidenet.hulkstore.controller.menu.IMenu;
+import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.users.UsersDto;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -12,21 +12,22 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @since 2019-11-12
  */
-public class UIMenu extends javax.swing.JFrame {
+public class UIMenu extends javax.swing.JFrame
+{
     /**
      * Store the user id that uses the menu
      */
     public static int userId;
-    private IMenu Interface;
+    private CMenu controller;
     
-    public UIMenu(IMenu Interface, UsersDto user) {
+    public UIMenu(CMenu controller, UsersDto user) {
         initComponents();
         this.setVisible(true);
         this.setTitle("Menú - Sistema de Control de Inventarios");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(
+        this.controller = controller;
+        controller.upload(
             user,
             this.lblRealName,
             this.lblIdentification,
@@ -295,11 +296,11 @@ public class UIMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSettingsActionPerformed
-        Interface.setting();
+        controller.setting();
     }//GEN-LAST:event_mniSettingsActionPerformed
 
     private void mniCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCloseActionPerformed
-        Interface.logOut();
+        controller.logOut();
     }//GEN-LAST:event_mniCloseActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
@@ -308,15 +309,15 @@ public class UIMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAboutActionPerformed
 
     private void btnStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStoreActionPerformed
-        Interface.store();
+        controller.store();
     }//GEN-LAST:event_btnStoreActionPerformed
 
     private void btnProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductActionPerformed
-        Interface.product();
+        controller.product();
     }//GEN-LAST:event_btnProductActionPerformed
 
     private void btnUnityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnityActionPerformed
-        Interface.unity();
+        controller.unity();
     }//GEN-LAST:event_btnUnityActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
@@ -344,7 +345,7 @@ public class UIMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductExitActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.logOut();
+        controller.logOut();
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

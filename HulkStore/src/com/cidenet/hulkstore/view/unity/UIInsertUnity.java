@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.unity;
 
-import com.cidenet.hulkstore.controller.unity.IInsertUnity;
+import com.cidenet.hulkstore.controller.unity.CInsertUnity;
 
 /**
  * Main view of insert unit
@@ -11,17 +11,17 @@ import com.cidenet.hulkstore.controller.unity.IInsertUnity;
  */
 public class UIInsertUnity extends javax.swing.JFrame {
 
-    private IInsertUnity Interface;
+    private CInsertUnity controller;
     
-    public UIInsertUnity(IInsertUnity Interface)
+    public UIInsertUnity(CInsertUnity controller)
     {
         initComponents();
         this.setVisible(true);
         this.setTitle("Insertar Unidad");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(txtUnityId);
+        this.controller = controller;
+        controller.upload(txtUnityId);
     }
 
     /**
@@ -140,15 +140,15 @@ public class UIInsertUnity extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.accept(txtUnityId, txtDescription);
+        controller.accept(txtUnityId, txtDescription);
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

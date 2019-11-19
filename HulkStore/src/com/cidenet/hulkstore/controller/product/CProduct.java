@@ -2,10 +2,9 @@ package com.cidenet.hulkstore.controller.product;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.reports.CReports;
-import com.cidenet.hulkstore.controller.reports.IReports;
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDaoException;
-import com.cidenet.hulkstore.products.ProductDaoFactory;
+import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.products.ProductDto;
 import com.cidenet.hulkstore.view.product.UIProduct;
 import com.mxrck.autocompleter.TextAutoCompleter;
@@ -28,7 +27,7 @@ import javax.swing.table.TableModel;
  * @version 1.0
  * @since 2019-11-14
  */
-public class CProduct implements IProduct
+public class CProduct
 {
     private UIProduct window;
     private ProductDto[] products;
@@ -36,7 +35,7 @@ public class CProduct implements IProduct
     public CProduct()
     {
         try {
-            ProductDao dao = ProductDaoFactory.create();
+            ProductDao dao = DaoFactory.createProductDao();
             products = dao.findAll();
         } catch (Exception e) {}
         
@@ -44,7 +43,6 @@ public class CProduct implements IProduct
         window = new UIProduct(this);
     }
 
-    @Override
     public void upload(JTable tblProduct)
     {
         DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
@@ -63,7 +61,6 @@ public class CProduct implements IProduct
         }
     }
 
-    @Override
     public void updateState(JTable tblProduct, JCheckBox chkActive)
     {
         int i = tblProduct.getSelectedRow();
@@ -91,21 +88,18 @@ public class CProduct implements IProduct
         }
     }
 
-    @Override
     public void menu()
     {
         new CMenu();
         window.dispose();
     }
 
-    @Override
     public void insert()
     {
         new CInsertProduct();
         window.dispose();
     }
 
-    @Override
     public void update(JTable tblProduct)
     {
         int i = tblProduct.getSelectedRow();
@@ -126,7 +120,6 @@ public class CProduct implements IProduct
             JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE);}
     }
 
-    @Override
     public void enableDisable(JTable tblProduct, JCheckBox chkActive) {
         int i = tblProduct.getSelectedRow();
         
@@ -134,7 +127,7 @@ public class CProduct implements IProduct
         
         if(i != -1) {
             ProductDto dto = products[i];
-            ProductDao dao = ProductDaoFactory.create();
+            ProductDao dao = DaoFactory.createProductDao();
             
             if(chkActive.isSelected())
             {      
@@ -156,7 +149,6 @@ public class CProduct implements IProduct
             JOptionPane.showMessageDialog(null, "Seleccione un registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
     }
 
-    @Override
     public void delete(JTable tblProduct, JCheckBox chkActive) {
         int i = tblProduct.getSelectedRow();
         
@@ -168,7 +160,7 @@ public class CProduct implements IProduct
                 if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {
                     try {
-                        ProductDao dao =  ProductDaoFactory.create();
+                        ProductDao dao =  DaoFactory.createProductDao();
                         dto.setState((short) 3);
                         if(dao.update(dto.createPk(), dto)){
                             DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
@@ -185,18 +177,16 @@ public class CProduct implements IProduct
             JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);
     }
 
-    @Override
     public void generateReport() {        
         try {
-            ProductDao dao = ProductDaoFactory.create();
+            ProductDao dao = DaoFactory.createProductDao();
             products = dao.getProductView();
             
-            IReports report = new CReports();
+            CReports report = new CReports();
             report.generateProductReport(products);
         } catch (ProductDaoException ex) {ex.printStackTrace();}
     }
 
-    @Override
     public void searchProduct(JTextField txtSearch, JTable tblProduct) {
         TextAutoCompleter textAutoAcompleter = new TextAutoCompleter( txtSearch );
         textAutoAcompleter.setMode(0);
@@ -217,7 +207,6 @@ public class CProduct implements IProduct
         }
     }
 
-    @Override
     public void selectRow(JTextField txtSearch, JTable tblProduct)
     {        
         TableModel tableModel = tblProduct.getModel();

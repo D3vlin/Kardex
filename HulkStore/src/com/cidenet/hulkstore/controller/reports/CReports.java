@@ -32,8 +32,8 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @since 2019-11-14
  */
-public class CReports implements IReports {
-    
+public class CReports
+{    
     private Document document;
     private PdfPTable pdfTable;
     
@@ -135,7 +135,6 @@ public class CReports implements IReports {
         } else { return ""; }
     }
     
-    @Override
     public void generateStoreReport(StoreDto[] stores) {        
                     
         ArrayList <String> header = new ArrayList <> ();            
@@ -189,7 +188,6 @@ public class CReports implements IReports {
         finishReport();
     }
 
-    @Override
     public void generateProductReport(ProductDto[] products) {
         
         ArrayList <String> header = new ArrayList <> ();            

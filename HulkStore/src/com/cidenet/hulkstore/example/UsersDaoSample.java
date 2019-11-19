@@ -1,12 +1,8 @@
 package com.cidenet.hulkstore.example;
 
-import java.math.*;
-import java.util.Date;
-import java.util.Collection;
+import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDto;
-import com.cidenet.hulkstore.users.UsersDaoException;
-import com.cidenet.hulkstore.users.UsersDaoFactory;
 
 public class UsersDaoSample
 {
@@ -226,7 +222,7 @@ public class UsersDaoSample
 	 */
 	public static UsersDao getUsersDao()
 	{
-		return UsersDaoFactory.create();
+		return DaoFactory.createUsersDao();
 	}
 
 	/**

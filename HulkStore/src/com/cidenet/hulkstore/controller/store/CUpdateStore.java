@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @version 1.0
  * @since 2019-11-13
  */
-public class CUpdateStore implements IUpdateStore
+public class CUpdateStore
 {
     private UIUpdateStore window;
     private StoreDao dao = new StoreDaoImpl();
@@ -34,14 +34,12 @@ public class CUpdateStore implements IUpdateStore
         }       
     }
 
-    @Override
     public void upload(JTextField txtstoreId, JTextField txtStoreName, JTextField txtAddress) {
         txtstoreId.setText(String.valueOf(dto.getStoreId()));
         txtStoreName.setText(dto.getStoreName());
         txtAddress.setText(dto.getAddress());
     }
 
-    @Override
     public void accept(JTextField txtStoreName, JTextField txtAddress) {
         try {
             dto.setStoreName(txtStoreName.getText());
@@ -57,7 +55,6 @@ public class CUpdateStore implements IUpdateStore
         }
     }
 
-    @Override
     public void cancel() {
         new CStore();
         window.dispose();

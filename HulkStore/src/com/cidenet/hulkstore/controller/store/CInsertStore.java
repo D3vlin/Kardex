@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @version 1.0
  * @since 2019-11-13
  */
-public class CInsertStore implements IInsertStore
+public class CInsertStore
 {
     private UIInsertStore window;
     
@@ -26,7 +26,6 @@ public class CInsertStore implements IInsertStore
         window = new UIInsertStore(this);
     }
 
-    @Override
     public void upload(JTextField txtStoreId) {        
         try {
             StoreDao dao = new StoreDaoImpl();
@@ -36,7 +35,6 @@ public class CInsertStore implements IInsertStore
         }
     }
 
-    @Override
     public void accept(JTextField txtStoreId, JTextField txtStoreName, JTextField txtAddress) {        
         
         try {
@@ -53,7 +51,6 @@ public class CInsertStore implements IInsertStore
         }
     }
 
-    @Override
     public void cancel() {
         new CStore();
         window.dispose();

@@ -23,8 +23,8 @@ import javax.swing.JTextField;
  * @since 2019-11-08
  */
 
-public class CSettings implements ISettings {
-
+public class CSettings
+{
     private UISettings window;
     private boolean returnToLogin;
     
@@ -34,7 +34,6 @@ public class CSettings implements ISettings {
         window = new UISettings(this);
     }
 
-    @Override
     public void upload(JTextField txtHost, JTextField txtUser) {
         String[] dataConection = getDataConnection();
 
@@ -42,7 +41,6 @@ public class CSettings implements ISettings {
         txtUser.setText(dataConection[1]);
     }
     
-    @Override
     public void cancel() {
         CLogin login;
         if(returnToLogin) {
@@ -54,7 +52,6 @@ public class CSettings implements ISettings {
         window.dispose();
     }
 
-    @Override
     public void validate(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState) {        
         
         if(testConnection(txtHost.getText(), txtUser.getText(), pwdPass.getText()))
@@ -69,7 +66,6 @@ public class CSettings implements ISettings {
         }
     }
 
-    @Override
     public void accept(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState) {
         if(lblState.getText().equals("Configuración correcta")) {
             setDataConnection(txtHost.getText(), txtUser.getText(), pwdPass.getText());

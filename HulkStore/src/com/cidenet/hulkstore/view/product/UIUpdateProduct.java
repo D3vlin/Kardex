@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.product;
 
-import com.cidenet.hulkstore.controller.product.IUpdateProduct;
+import com.cidenet.hulkstore.controller.product.CUpdateProduct;
 
 /**
  * Main view of modify product
@@ -11,17 +11,17 @@ import com.cidenet.hulkstore.controller.product.IUpdateProduct;
  */
 public class UIUpdateProduct extends javax.swing.JFrame {
 
-    private IUpdateProduct Interface;
+    private CUpdateProduct controller;
     
-    public UIUpdateProduct(IUpdateProduct Interface)
+    public UIUpdateProduct(CUpdateProduct controller)
     {
         initComponents();
         this.setVisible(true);
         this.setTitle("Modificar Producto");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(txtProductId, txtProductName, txtUnity, cmbUnity);
+        this.controller = controller;
+        controller.upload(txtProductId, txtProductName, txtUnity, cmbUnity);
     }
 
     /**
@@ -166,19 +166,19 @@ public class UIUpdateProduct extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.accept(txtProductId, txtProductName, txtUnity);
+        controller.accept(txtProductId, txtProductName, txtUnity);
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_formWindowClosing
 
     private void cmbUnityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUnityActionPerformed
-        Interface.seeUnity(cmbUnity, txtUnity);
+        controller.seeUnity(cmbUnity, txtUnity);
     }//GEN-LAST:event_cmbUnityActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

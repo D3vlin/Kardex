@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.unity;
 
-import com.cidenet.hulkstore.controller.unity.IUpdateUnity;
+import com.cidenet.hulkstore.controller.unity.CUpdateUnity;
 
 /**
  * Main view of Modify Unit
@@ -11,17 +11,17 @@ import com.cidenet.hulkstore.controller.unity.IUpdateUnity;
  */
 public class UIUpdateUnity extends javax.swing.JFrame {
 
-    private IUpdateUnity Interface;
+    private CUpdateUnity controller;
     
-    public UIUpdateUnity(IUpdateUnity Interface)
+    public UIUpdateUnity(CUpdateUnity controller)
     {
         initComponents();
         this.setVisible(true);
         this.setTitle("Modificar Unidad");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(txtUnityId, txtUnityDescription);
+        this.controller = controller;
+        controller.upload(txtUnityId, txtUnityDescription);
     }
 
     /**
@@ -140,15 +140,15 @@ public class UIUpdateUnity extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.accept(txtUnityDescription);
+        controller.accept(txtUnityDescription);
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

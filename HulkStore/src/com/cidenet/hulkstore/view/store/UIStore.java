@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.store;
 
-import com.cidenet.hulkstore.controller.store.IStore;
+import com.cidenet.hulkstore.controller.store.CStore;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ListSelectionModel;
@@ -17,18 +17,18 @@ import javax.swing.table.TableCellRenderer;
  */
 public class UIStore extends javax.swing.JFrame {
     
-    private IStore Interface;
+    private CStore controller;
     private ListSelectionModel cellSelectionModel;
         
-    public UIStore(IStore Interface)
+    public UIStore(CStore controller)
     {
         initComponents();
         this.setVisible(true);
         this.setTitle("GESTIÓN DE TIENDA");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(tblStore, txtSearch);
+        this.controller = controller;
+        controller.upload(tblStore, txtSearch);
         
         cellSelectionModel = tblStore.getSelectionModel();
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -40,12 +40,12 @@ public class UIStore extends javax.swing.JFrame {
                 @Override
                 public void valueChanged(ListSelectionEvent e)
                 {
-                    Interface.updateState(tblStore, chkActive);
+                    controller.updateState(tblStore, chkActive);
                 }
             }
         );
         
-        Interface.searchStore(cmbField.getSelectedItem().toString(), txtSearch, tblStore);
+        controller.searchStore(cmbField.getSelectedItem().toString(), txtSearch, tblStore);
     }
 
     /**
@@ -259,39 +259,39 @@ public class UIStore extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.insert();
+        controller.insert();
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        Interface.update(tblStore);
+        controller.update(tblStore);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        Interface.delete(tblStore, chkActive);
+        controller.delete(tblStore, chkActive);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        Interface.generateReport();
+        controller.generateReport();
     }//GEN-LAST:event_btnReportActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        Interface.menu();
+        controller.menu();
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.menu();
+        controller.menu();
     }//GEN-LAST:event_formWindowClosing
 
     private void chkActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkActiveActionPerformed
-        Interface.enableDisable(tblStore, chkActive);
+        controller.enableDisable(tblStore, chkActive);
     }//GEN-LAST:event_chkActiveActionPerformed
 
     private void cmbFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFieldActionPerformed
-        Interface.searchStore(cmbField.getSelectedItem().toString(), txtSearch, tblStore);
+        controller.searchStore(cmbField.getSelectedItem().toString(), txtSearch, tblStore);
     }//GEN-LAST:event_cmbFieldActionPerformed
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        Interface.searchStore(evt.getKeyCode(), cmbField.getSelectedItem().toString(), txtSearch.getText(), tblStore);
+        controller.searchStore(evt.getKeyCode(), cmbField.getSelectedItem().toString(), txtSearch.getText(), tblStore);
     }//GEN-LAST:event_txtSearchKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

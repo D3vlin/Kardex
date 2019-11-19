@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.product;
 
-import com.cidenet.hulkstore.controller.product.IInsertProduct;
+import com.cidenet.hulkstore.controller.product.CInsertProduct;
 
 /**
  * Main view of insert product
@@ -11,17 +11,17 @@ import com.cidenet.hulkstore.controller.product.IInsertProduct;
  */
 public class UIInsertProduct extends javax.swing.JFrame {
 
-    private IInsertProduct Interface;
+    private CInsertProduct controller;
     
-    public UIInsertProduct(IInsertProduct Interface)
+    public UIInsertProduct(CInsertProduct controller)
     {
         initComponents();
         this.setVisible(true);
         this.setTitle("Insertar Producto");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(txtProductId, cmbUnity);
+        this.controller = controller;
+        controller.upload(txtProductId, cmbUnity);
     }
 
     /**
@@ -166,19 +166,19 @@ public class UIInsertProduct extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.accept(txtProductId, txtProductName, txtUnity);
+        controller.accept(txtProductId, txtProductName, txtUnity);
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_formWindowClosing
 
     private void cmbUnityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUnityActionPerformed
-        Interface.seeUnity(cmbUnity, txtUnity);
+        controller.seeUnity(cmbUnity, txtUnity);
     }//GEN-LAST:event_cmbUnityActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

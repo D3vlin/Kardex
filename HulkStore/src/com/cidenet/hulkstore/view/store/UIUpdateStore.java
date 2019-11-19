@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.store;
 
-import com.cidenet.hulkstore.controller.store.IUpdateStore;
+import com.cidenet.hulkstore.controller.store.CUpdateStore;
 
 /**
  * Main view of Modify Store
@@ -11,9 +11,9 @@ import com.cidenet.hulkstore.controller.store.IUpdateStore;
  */
 public class UIUpdateStore extends javax.swing.JFrame {
 
-    private IUpdateStore Interface;
+    private CUpdateStore controller;
     
-    public UIUpdateStore(IUpdateStore Interface)
+    public UIUpdateStore(CUpdateStore controller)
     {
         
         initComponents();
@@ -21,8 +21,8 @@ public class UIUpdateStore extends javax.swing.JFrame {
         this.setTitle("Modificar Tienda");
         setLocationRelativeTo(null);
         
-        this.Interface = Interface;
-        Interface.upload(txtStoreId, txtStoreName, txtAddress);
+        this.controller = controller;
+        controller.upload(txtStoreId, txtStoreName, txtAddress);
     }
 
     /**
@@ -153,15 +153,15 @@ public class UIUpdateStore extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertActionPerformed
-        Interface.accept(txtStoreName, txtAddress);
+        controller.accept(txtStoreName, txtAddress);
     }//GEN-LAST:event_btnInsertActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        Interface.cancel();
+        controller.cancel();
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
