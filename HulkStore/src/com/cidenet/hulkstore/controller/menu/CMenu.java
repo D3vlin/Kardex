@@ -5,6 +5,7 @@ import com.cidenet.hulkstore.controller.product.CProduct;
 import com.cidenet.hulkstore.controller.settings.CSettings;
 import com.cidenet.hulkstore.controller.store.CStore;
 import com.cidenet.hulkstore.controller.unity.CUnity;
+import com.cidenet.hulkstore.controller.user.CUser;
 import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoException;
@@ -77,7 +78,8 @@ public final class CMenu
     }
 
     public void user() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        new CUser();
+        window.dispose();
     }
 
     public void unity() {

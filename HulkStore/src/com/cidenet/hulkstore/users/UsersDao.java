@@ -10,7 +10,7 @@ public interface UsersDao
 	/** 
 	 * Updates a single row in the users table.
 	 */
-	public void update(UsersPk pk, UsersDto dto) throws UsersDaoException;
+	public boolean update(UsersPk pk, UsersDto dto) throws UsersDaoException;
 
 	/** 
 	 * Deletes a single row in the users table.
@@ -96,5 +96,10 @@ public interface UsersDao
 	 * Validates the entry of a user, verifying its existence in the database
 	 */
 	public UsersDto validateUser(String userName, String userPass) throws UsersDaoException;
+        
+        /** 
+	 * Returns the next available id for the next record
+	 */
+        public String findNextUserId() throws UsersDaoException;
 
 }

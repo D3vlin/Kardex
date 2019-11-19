@@ -33,7 +33,7 @@ public final class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * SQL INSERT statement for this table
 	 */
-	protected final String SQL_INSERT = "INSERT INTO " + getTableName() + " ( userId, userName, userPass, identification, realName, surname, userProfile, state ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )";
+	protected final String SQL_INSERT = "INSERT INTO " + getTableName() + " ( userId, userName, userPass, identification, realName, surname, userProfile, state ) VALUES ( ?, ?, MD5(?), ?, ?, ?, ?, ? )";
 
 	/** 
 	 * SQL UPDATE statement for this table
@@ -152,7 +152,7 @@ public final class UsersDaoImpl extends AbstractDAO implements UsersDao
 	/** 
 	 * Updates a single row in the users table.
 	 */
-	public void update(UsersPk pk, UsersDto dto) throws UsersDaoException
+	public boolean update(UsersPk pk, UsersDto dto) throws UsersDaoException
 	{
 		long t1 = System.currentTimeMillis();
 		// declare variables
@@ -180,6 +180,7 @@ public final class UsersDaoImpl extends AbstractDAO implements UsersDao
 			reset(dto);
 			long t2 = System.currentTimeMillis();
 			System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
+                        return true;
 		}
 		catch (Exception _e) {
 			_e.printStackTrace();
@@ -531,4 +532,38 @@ public final class UsersDaoImpl extends AbstractDAO implements UsersDao
         }
     }
 
+    public String findNextUserId() throws UsersDaoException {
+        // declare variables
+        final boolean isConnSupplied = (userConn != null);
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            // get the user-specified connection or get a connection from the ResourceManager
+            conn = isConnSupplied ? userConn : ResourceManager.getConnection();
+            
+            // construct the SQL statement
+            final String SQL = "SELECT LPAD((SELECT COUNT(*) + 1 FROM " + getTableName() + "), 6, '0') AS nextUserId";
+            
+            System.out.println( "Executing " + SQL);
+            stmt = conn.prepareStatement( SQL );
+
+            rs = stmt.executeQuery();
+            rs.next();
+            
+            return rs.getString(1);
+        }
+        catch (Exception _e) {
+            throw new UsersDaoException( "Exception: " + _e.getMessage(), _e );
+        }
+        finally {
+            ResourceManager.close(rs);
+            ResourceManager.close(stmt);
+            if (!isConnSupplied) {
+                ResourceManager.close(conn);
+            }
+
+        }
+    }
 }

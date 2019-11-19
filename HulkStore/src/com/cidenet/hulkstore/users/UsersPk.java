@@ -46,6 +46,7 @@ public final class UsersPk implements Serializable
 	public UsersPk(final int userId)
 	{
 		this.userId = userId;
+                this.userIdNull = false;
 	}
 
 	/** 

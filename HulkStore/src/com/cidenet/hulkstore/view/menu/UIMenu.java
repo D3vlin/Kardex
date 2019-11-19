@@ -321,7 +321,7 @@ public class UIMenu extends javax.swing.JFrame
     }//GEN-LAST:event_btnUnityActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-        // TODO add your handling code here:
+        controller.user();
     }//GEN-LAST:event_btnUserActionPerformed
 
     private void btnDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocumentActionPerformed

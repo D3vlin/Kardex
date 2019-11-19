@@ -51,6 +51,17 @@ public final class UsersDto implements Serializable
 	public UsersDto()
 	{
 	}
+        
+	public UsersDto(int userId, String userName, String identification, String realName, String surname, short userProfile, short state)
+	{
+            this.userId = userId;
+            this.userName = userName;
+            this.identification = identification;
+            this.realName = realName;
+            this.surname = surname;
+            this.userProfile = userProfile;
+            this.state = state;
+	}
 
 	/**
 	 * Method 'getUserId'
