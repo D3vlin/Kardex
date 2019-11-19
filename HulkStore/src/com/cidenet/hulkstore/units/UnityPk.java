@@ -5,7 +5,7 @@ import java.io.Serializable;
 /** 
  * This class represents the primary key of the unity table.
  */
-public class UnityPk implements Serializable
+public final class UnityPk implements Serializable
 {
 	protected int unityId;
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /** 
  * This class represents the primary key of the users table.
  */
-public class UsersPk implements Serializable
+public final class UsersPk implements Serializable
 {
 	protected int userId;
 

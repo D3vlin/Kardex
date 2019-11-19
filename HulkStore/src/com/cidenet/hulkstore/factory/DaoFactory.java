@@ -10,7 +10,7 @@ import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoImpl;
 import java.sql.Connection;
 
-public class DaoFactory
+public final class DaoFactory
 {
 	/**
 	 * Method 'create'

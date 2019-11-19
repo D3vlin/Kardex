@@ -2,7 +2,7 @@ package com.cidenet.hulkstore.units;
 
 import java.io.Serializable;
 
-public class UnityDto implements Serializable
+public final class UnityDto implements Serializable
 {
 	/** 
 	 * This attribute maps to the column unityId in the unity table.

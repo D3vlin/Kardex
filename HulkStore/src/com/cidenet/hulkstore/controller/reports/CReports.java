@@ -32,7 +32,7 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @since 2019-11-14
  */
-public class CReports
+public final class CReports
 {    
     private Document document;
     private PdfPTable pdfTable;

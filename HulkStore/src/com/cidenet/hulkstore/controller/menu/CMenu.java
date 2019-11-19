@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @since 2019-11-12
  */
-public class CMenu
+public final class CMenu
 {
     private UIMenu window;
     

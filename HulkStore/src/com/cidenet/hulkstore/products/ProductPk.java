@@ -5,7 +5,7 @@ import java.io.Serializable;
 /** 
  * This class represents the primary key of the product table.
  */
-public class ProductPk implements Serializable
+public final class ProductPk implements Serializable
 {
 	protected int productId;
 

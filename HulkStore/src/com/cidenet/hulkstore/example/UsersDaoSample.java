@@ -4,7 +4,7 @@ import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDto;
 
-public class UsersDaoSample
+public final class UsersDaoSample
 {
 	/**
 	 * Method 'main'

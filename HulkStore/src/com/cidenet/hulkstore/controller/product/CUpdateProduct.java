@@ -21,7 +21,7 @@ import javax.swing.JTextField;
  * @version 1.0
  * @since 2019-11-15
  */
-public class CUpdateProduct
+public final class CUpdateProduct
 {
     private UIUpdateProduct window;
     private ProductDao productDao = DaoFactory.createProductDao();

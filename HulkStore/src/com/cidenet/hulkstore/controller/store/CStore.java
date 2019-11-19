@@ -29,7 +29,7 @@ import javax.swing.table.TableModel;
  * @version 1.0
  * @since 2019-11-13
  */
-public class CStore
+public final class CStore
 {
     private UIStore window;
     private StoreDto[] stores;

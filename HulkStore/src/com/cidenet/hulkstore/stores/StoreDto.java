@@ -2,7 +2,7 @@ package com.cidenet.hulkstore.stores;
 
 import java.io.Serializable;
 
-public class StoreDto implements Serializable
+public final class StoreDto implements Serializable
 {
 	/** 
 	 * This attribute maps to the column storeId in the store table.

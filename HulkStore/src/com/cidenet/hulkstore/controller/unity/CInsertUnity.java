@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @version 1.0
  * @since 2019-11-18
  */
-public class CInsertUnity
+public final class CInsertUnity
 {
     private UIInsertUnity window;
     

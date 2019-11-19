@@ -2,7 +2,7 @@ package com.cidenet.hulkstore.users;
 
 import com.cidenet.hulkstore.exceptions.DaoException;
 
-public class UsersDaoException extends DaoException
+public final class UsersDaoException extends DaoException
 {
 	/**
 	 * Method 'UsersDaoException'

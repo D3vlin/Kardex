@@ -27,7 +27,7 @@ import javax.swing.table.TableModel;
  * @version 1.0
  * @since 2019-11-14
  */
-public class CProduct
+public final class CProduct
 {
     private UIProduct window;
     private ProductDto[] products;

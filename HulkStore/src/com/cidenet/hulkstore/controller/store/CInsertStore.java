@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @version 1.0
  * @since 2019-11-13
  */
-public class CInsertStore
+public final class CInsertStore
 {
     private UIInsertStore window;
     

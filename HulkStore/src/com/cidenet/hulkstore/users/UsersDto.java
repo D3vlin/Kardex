@@ -2,7 +2,7 @@ package com.cidenet.hulkstore.users;
 
 import java.io.Serializable;
 
-public class UsersDto implements Serializable
+public final class UsersDto implements Serializable
 {
 	/** 
 	 * This attribute maps to the column userId in the users table.

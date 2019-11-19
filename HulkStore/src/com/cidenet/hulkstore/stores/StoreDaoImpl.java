@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class StoreDaoImpl extends AbstractDAO implements StoreDao
+public final class StoreDaoImpl extends AbstractDAO implements StoreDao
 {
 	/** 
 	 * The factory class for this DAO has two versions of the create() method - one that

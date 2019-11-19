@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UnityDaoImpl extends AbstractDAO implements UnityDao
+public final class UnityDaoImpl extends AbstractDAO implements UnityDao
 {
 	/** 
 	 * The factory class for this DAO has two versions of the create() method - one that

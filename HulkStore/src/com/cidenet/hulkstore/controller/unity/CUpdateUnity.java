@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @version 1.0
  * @since 2019-11-18
  */
-public class CUpdateUnity
+public final class CUpdateUnity
 {
     private UIUpdateUnity window;
     private UnityDao unityDao = DaoFactory.createUnityDao();

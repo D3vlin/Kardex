@@ -25,7 +25,7 @@ import javax.swing.table.TableModel;
  * @version 1.0
  * @since 2019-11-18
  */
-public class CUnity
+public final class CUnity
 {
     private UIUnity window;
     private UnityDto[] units; 

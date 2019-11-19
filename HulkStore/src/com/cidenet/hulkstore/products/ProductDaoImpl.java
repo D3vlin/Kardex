@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ProductDaoImpl extends AbstractDAO implements ProductDao
+public final class ProductDaoImpl extends AbstractDAO implements ProductDao
 {
 	/** 
 	 * The factory class for this DAO has two versions of the create() method - one that

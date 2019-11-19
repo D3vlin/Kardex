@@ -5,7 +5,7 @@ import java.io.Serializable;
 /** 
  * This class represents the primary key of the store table.
  */
-public class StorePk implements Serializable
+public final class StorePk implements Serializable
 {
 	protected int storeId;
 

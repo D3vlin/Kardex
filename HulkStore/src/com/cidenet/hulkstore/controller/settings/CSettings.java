@@ -23,7 +23,7 @@ import javax.swing.JTextField;
  * @since 2019-11-08
  */
 
-public class CSettings
+public final class CSettings
 {
     private UISettings window;
     private boolean returnToLogin;

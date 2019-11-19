@@ -8,9 +8,9 @@ import java.io.PrintWriter;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
-public class ResourceManager
+public final class ResourceManager
 {
-    private static String JDBC_DRIVER   = "com.mysql.cj.jdbc.Driver";
+    private final static String JDBC_DRIVER   = "com.mysql.cj.jdbc.Driver";
     private static String JDBC_URL;
     private static String JDBC_USER;
     private static String JDBC_PASSWORD;
