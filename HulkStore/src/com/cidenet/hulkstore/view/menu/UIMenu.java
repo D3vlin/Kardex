@@ -325,7 +325,7 @@ public class UIMenu extends javax.swing.JFrame
     }//GEN-LAST:event_btnUserActionPerformed
 
     private void btnDocumentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocumentActionPerformed
-        // TODO add your handling code here:
+        controller.document();
     }//GEN-LAST:event_btnDocumentActionPerformed
 
     private void btnKardexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKardexActionPerformed

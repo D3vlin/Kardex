@@ -10,7 +10,7 @@ public interface DocumentDao
 	/** 
 	 * Updates a single row in the document table.
 	 */
-	public void update(DocumentPk pk, DocumentDto dto) throws DocumentDaoException;
+	public boolean update(DocumentPk pk, DocumentDto dto) throws DocumentDaoException;
 
 	/** 
 	 * Deletes a single row in the document table.
@@ -66,5 +66,10 @@ public interface DocumentDao
 	 * Returns all rows from the document table that match the specified arbitrary SQL statement
 	 */
 	public DocumentDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws DocumentDaoException;
+        
+        /** 
+	 * Returns the next available id for the next record
+	 */
+        public String findNextDocumentId() throws DocumentDaoException;
 
 }

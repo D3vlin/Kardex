@@ -46,6 +46,7 @@ public class DocumentPk implements Serializable
 	public DocumentPk(final int documentId)
 	{
 		this.documentId = documentId;
+                this.documentIdNull = false;
 	}
 
 	/** 

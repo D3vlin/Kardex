@@ -1,5 +1,6 @@
 package com.cidenet.hulkstore.controller.menu;
 
+import com.cidenet.hulkstore.controller.document.CDocument;
 import com.cidenet.hulkstore.controller.login.CLogin;
 import com.cidenet.hulkstore.controller.product.CProduct;
 import com.cidenet.hulkstore.controller.settings.CSettings;
@@ -88,7 +89,8 @@ public final class CMenu
     }
 
     public void document() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        new CDocument();
+        window.dispose();
     }
 
     public void product() {

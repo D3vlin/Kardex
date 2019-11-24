@@ -15,6 +15,11 @@ public class DocumentDto implements Serializable
 	protected String documentDescription;
 
 	/** 
+	 * This attribute represents whether the primitive attribute documentId is null.
+	 */
+	protected boolean documentIdNull = true;
+
+	/** 
 	 * This attribute maps to the column state in the document table.
 	 */
 	protected short state;
@@ -25,6 +30,14 @@ public class DocumentDto implements Serializable
 	 */
 	public DocumentDto()
 	{
+	}
+        
+	public DocumentDto(int documentId, String documentDescription)
+	{
+            this.documentId = documentId;
+            this.documentDescription = documentDescription;
+            this.documentIdNull = false;
+            this.state = (short) 1;
 	}
 
 	/**
