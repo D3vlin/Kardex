@@ -1,5 +1,7 @@
 package com.cidenet.hulkstore.factory;
 
+import com.cidenet.hulkstore.documents.DocumentDao;
+import com.cidenet.hulkstore.documents.DocumentDaoImpl;
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDaoImpl;
 import com.cidenet.hulkstore.stores.StoreDao;
@@ -94,6 +96,27 @@ public final class DaoFactory
 	public static UsersDao createUsersDao(Connection conn)
 	{
 		return new UsersDaoImpl( conn );
+	}
+        
+        /**
+	 * Method 'create'
+	 * 
+	 * @return DocumentDao
+	 */
+	public static DocumentDao createDocumentDao()
+	{
+		return new DocumentDaoImpl();
+	}
+
+	/**
+	 * Method 'create'
+	 * 
+	 * @param conn
+	 * @return DocumentDao
+	 */
+	public static DocumentDao createDocumentDao(Connection conn)
+	{
+		return new DocumentDaoImpl( conn );
 	}
 
 }
