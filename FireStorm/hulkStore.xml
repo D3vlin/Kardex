@@ -19,6 +19,8 @@
     <verbose-logging>false</verbose-logging>
     <filter-list>
       <filter>document</filter>
+      <filter>kardex</filter>
+      <filter>kardex_detail</filter>
       <filter>product</filter>
       <filter>store</filter>
       <filter>unity</filter>
@@ -886,6 +888,904 @@
                 <java-type>java.lang.String</java-type>
                 <jdbc-type>LONGVARCHAR</jdbc-type>
                 <jdbc-precision>65535</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereStateEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>state = :state</where>
+            <order-by>state</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>state</java-name>
+                <java-type>short</java-type>
+                <jdbc-type>BIT</jdbc-type>
+                <jdbc-precision>1</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+        </finder-list>
+      </table>
+      <table>
+        <sql-name>kardex</sql-name>
+        <java-name>Kardex</java-name>
+        <primary-key>
+          <column-list>
+            <column>productId</column>
+            <column>storeId</column>
+          </column-list>
+        </primary-key>
+        <foreign-key-list>
+          <foreign-key>
+            <name>fk_kardex_product</name>
+            <parent-table>product</parent-table>
+            <cardinality>1-many</cardinality>
+            <nav-to-parent-term>Product</nav-to-parent-term>
+            <nav-to-child-term>Kardex</nav-to-child-term>
+            <nav-to-parent>true</nav-to-parent>
+            <nav-to-child>false</nav-to-child>
+            <column-list>
+              <column>
+                <column-name>productId</column-name>
+                <ref-column-name>productId</ref-column-name>
+              </column>
+            </column-list>
+          </foreign-key>
+          <foreign-key>
+            <name>fk_kardex_store</name>
+            <parent-table>store</parent-table>
+            <cardinality>1-many</cardinality>
+            <nav-to-parent-term>Store</nav-to-parent-term>
+            <nav-to-child-term>Kardex1</nav-to-child-term>
+            <nav-to-parent>true</nav-to-parent>
+            <nav-to-child>false</nav-to-child>
+            <column-list>
+              <column>
+                <column-name>storeId</column-name>
+                <ref-column-name>storeId</ref-column-name>
+              </column>
+            </column-list>
+          </foreign-key>
+        </foreign-key-list>
+        <column-list>
+          <column>
+            <java-name>productId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>productId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>storeId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>storeId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>quantity</java-name>
+            <java-type>double</java-type>
+            <java-default-value />
+            <sql-name>quantity</sql-name>
+            <sql-type>DOUBLE</sql-type>
+            <jdbc-type>DOUBLE</jdbc-type>
+            <jdbc-precision>9</jdbc-precision>
+            <jdbc-scale>2</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>unityValue</java-name>
+            <java-type>double</java-type>
+            <java-default-value />
+            <sql-name>unityValue</sql-name>
+            <sql-type>DOUBLE</sql-type>
+            <jdbc-type>DOUBLE</jdbc-type>
+            <jdbc-precision>9</jdbc-precision>
+            <jdbc-scale>2</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>totalValue</java-name>
+            <java-type>double</java-type>
+            <java-default-value />
+            <sql-name>totalValue</sql-name>
+            <sql-type>DOUBLE</sql-type>
+            <jdbc-type>DOUBLE</jdbc-type>
+            <jdbc-precision>9</jdbc-precision>
+            <jdbc-scale>2</jdbc-scale>
+            <nullable>true</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>state</java-name>
+            <java-type>short</java-type>
+            <java-default-value />
+            <sql-name>state</sql-name>
+            <sql-type>BIT</sql-type>
+            <jdbc-type>BIT</jdbc-type>
+            <jdbc-precision>1</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+        </column-list>
+        <finder-list>
+          <finder>
+            <name>findByPrimaryKey</name>
+            <multi-finder>false</multi-finder>
+            <where>productId = :productId AND storeId = :storeId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>productId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+              <parameter>
+                <java-name>storeId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findAll</name>
+            <multi-finder>true</multi-finder>
+            <where />
+            <order-by>productId, storeId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list />
+          </finder>
+          <finder>
+            <name>findByProduct</name>
+            <multi-finder>true</multi-finder>
+            <where>productId = :productId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>productId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findByStore</name>
+            <multi-finder>true</multi-finder>
+            <where>storeId = :storeId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>storeId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereProductIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>productId = :productId</where>
+            <order-by>productId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>productId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereStoreIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>storeId = :storeId</where>
+            <order-by>storeId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>storeId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereQuantityEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>quantity = :quantity</where>
+            <order-by>quantity</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>quantity</java-name>
+                <java-type>double</java-type>
+                <jdbc-type>DOUBLE</jdbc-type>
+                <jdbc-precision>9</jdbc-precision>
+                <jdbc-scale>2</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereUnityValueEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>unityValue = :unityValue</where>
+            <order-by>unityValue</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>unityValue</java-name>
+                <java-type>double</java-type>
+                <jdbc-type>DOUBLE</jdbc-type>
+                <jdbc-precision>9</jdbc-precision>
+                <jdbc-scale>2</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereTotalValueEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>totalValue = :totalValue</where>
+            <order-by>totalValue</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>totalValue</java-name>
+                <java-type>double</java-type>
+                <jdbc-type>DOUBLE</jdbc-type>
+                <jdbc-precision>9</jdbc-precision>
+                <jdbc-scale>2</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereStateEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>state = :state</where>
+            <order-by>state</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>state</java-name>
+                <java-type>short</java-type>
+                <jdbc-type>BIT</jdbc-type>
+                <jdbc-precision>1</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+        </finder-list>
+      </table>
+      <table>
+        <sql-name>kardex_detail</sql-name>
+        <java-name>KardexDetail</java-name>
+        <primary-key>
+          <column-list>
+            <column>detailId</column>
+            <column>productId</column>
+            <column>storeId</column>
+          </column-list>
+        </primary-key>
+        <foreign-key-list>
+          <foreign-key>
+            <name>fk_kardexDetail_document</name>
+            <parent-table>document</parent-table>
+            <cardinality>1-many</cardinality>
+            <nav-to-parent-term>Document</nav-to-parent-term>
+            <nav-to-child-term>KardexDetail</nav-to-child-term>
+            <nav-to-parent>true</nav-to-parent>
+            <nav-to-child>false</nav-to-child>
+            <column-list>
+              <column>
+                <column-name>documentId</column-name>
+                <ref-column-name>documentId</ref-column-name>
+              </column>
+            </column-list>
+          </foreign-key>
+          <foreign-key>
+            <name>fk_kardexDetail_kardex</name>
+            <parent-table>kardex</parent-table>
+            <cardinality>1-many</cardinality>
+            <nav-to-parent-term>Kardex</nav-to-parent-term>
+            <nav-to-child-term>KardexDetail1</nav-to-child-term>
+            <nav-to-parent>true</nav-to-parent>
+            <nav-to-child>false</nav-to-child>
+            <column-list>
+              <column>
+                <column-name>productId</column-name>
+                <ref-column-name>productId</ref-column-name>
+              </column>
+              <column>
+                <column-name>storeId</column-name>
+                <ref-column-name>storeId</ref-column-name>
+              </column>
+            </column-list>
+          </foreign-key>
+          <foreign-key>
+            <name>fk_kardexDetail_users</name>
+            <parent-table>users</parent-table>
+            <cardinality>1-many</cardinality>
+            <nav-to-parent-term>Users</nav-to-parent-term>
+            <nav-to-child-term>KardexDetail2</nav-to-child-term>
+            <nav-to-parent>true</nav-to-parent>
+            <nav-to-child>false</nav-to-child>
+            <column-list>
+              <column>
+                <column-name>userId</column-name>
+                <ref-column-name>userId</ref-column-name>
+              </column>
+            </column-list>
+          </foreign-key>
+        </foreign-key-list>
+        <column-list>
+          <column>
+            <java-name>detailId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>detailId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>true</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>productId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>productId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>storeId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>storeId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>kardexDetailYear</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>kardexDetailYear</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>kardexDetailMonth</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>kardexDetailMonth</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>kardexDetailday</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>kardexDetailday</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>userId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>userId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>true</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>documentId</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>documentId</sql-name>
+            <sql-type>INT UNSIGNED</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>documentNumber</java-name>
+            <java-type>int</java-type>
+            <java-default-value />
+            <sql-name>documentNumber</sql-name>
+            <sql-type>INT</sql-type>
+            <jdbc-type>INTEGER</jdbc-type>
+            <jdbc-precision>10</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>operation</java-name>
+            <java-type>short</java-type>
+            <java-default-value />
+            <sql-name>operation</sql-name>
+            <sql-type>BIT</sql-type>
+            <jdbc-type>BIT</jdbc-type>
+            <jdbc-precision>1</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>quantity</java-name>
+            <java-type>double</java-type>
+            <java-default-value />
+            <sql-name>quantity</sql-name>
+            <sql-type>DOUBLE</sql-type>
+            <jdbc-type>DOUBLE</jdbc-type>
+            <jdbc-precision>9</jdbc-precision>
+            <jdbc-scale>2</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>unityValue</java-name>
+            <java-type>double</java-type>
+            <java-default-value />
+            <sql-name>unityValue</sql-name>
+            <sql-type>DOUBLE</sql-type>
+            <jdbc-type>DOUBLE</jdbc-type>
+            <jdbc-precision>9</jdbc-precision>
+            <jdbc-scale>2</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>totalValue</java-name>
+            <java-type>double</java-type>
+            <java-default-value />
+            <sql-name>totalValue</sql-name>
+            <sql-type>DOUBLE</sql-type>
+            <jdbc-type>DOUBLE</jdbc-type>
+            <jdbc-precision>9</jdbc-precision>
+            <jdbc-scale>2</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>observations</java-name>
+            <java-type>java.lang.String</java-type>
+            <java-default-value />
+            <sql-name>observations</sql-name>
+            <sql-type>VARCHAR</sql-type>
+            <jdbc-type>VARCHAR</jdbc-type>
+            <jdbc-precision>100</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>true</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+          <column>
+            <java-name>state</java-name>
+            <java-type>short</java-type>
+            <java-default-value />
+            <sql-name>state</sql-name>
+            <sql-type>BIT</sql-type>
+            <jdbc-type>BIT</jdbc-type>
+            <jdbc-precision>1</jdbc-precision>
+            <jdbc-scale>0</jdbc-scale>
+            <nullable>false</nullable>
+            <unique>false</unique>
+            <auto-increment>false</auto-increment>
+            <sequence-name />
+          </column>
+        </column-list>
+        <finder-list>
+          <finder>
+            <name>findByPrimaryKey</name>
+            <multi-finder>false</multi-finder>
+            <where>detailId = :detailId AND productId = :productId AND storeId = :storeId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>detailId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+              <parameter>
+                <java-name>productId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+              <parameter>
+                <java-name>storeId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findAll</name>
+            <multi-finder>true</multi-finder>
+            <where />
+            <order-by>detailId, productId, storeId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list />
+          </finder>
+          <finder>
+            <name>findByDocument</name>
+            <multi-finder>true</multi-finder>
+            <where>documentId = :documentId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>documentId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findByKardex</name>
+            <multi-finder>true</multi-finder>
+            <where>productId = :productId AND storeId = :storeId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>productId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+              <parameter>
+                <java-name>storeId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findByUsers</name>
+            <multi-finder>true</multi-finder>
+            <where>userId = :userId</where>
+            <order-by />
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>userId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereDetailIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>detailId = :detailId</where>
+            <order-by>detailId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>detailId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereProductIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>productId = :productId</where>
+            <order-by>productId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>productId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereStoreIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>storeId = :storeId</where>
+            <order-by>storeId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>storeId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereKardexDetailYearEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>kardexDetailYear = :kardexDetailYear</where>
+            <order-by>kardexDetailYear</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>kardexDetailYear</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereKardexDetailMonthEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>kardexDetailMonth = :kardexDetailMonth</where>
+            <order-by>kardexDetailMonth</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>kardexDetailMonth</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereKardexDetaildayEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>kardexDetailday = :kardexDetailday</where>
+            <order-by>kardexDetailday</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>kardexDetailday</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereUserIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>userId = :userId</where>
+            <order-by>userId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>userId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereDocumentIdEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>documentId = :documentId</where>
+            <order-by>documentId</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>documentId</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereDocumentNumberEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>documentNumber = :documentNumber</where>
+            <order-by>documentNumber</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>documentNumber</java-name>
+                <java-type>int</java-type>
+                <jdbc-type>INTEGER</jdbc-type>
+                <jdbc-precision>10</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereOperationEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>operation = :operation</where>
+            <order-by>operation</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>operation</java-name>
+                <java-type>short</java-type>
+                <jdbc-type>BIT</jdbc-type>
+                <jdbc-precision>1</jdbc-precision>
+                <jdbc-scale>0</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereQuantityEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>quantity = :quantity</where>
+            <order-by>quantity</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>quantity</java-name>
+                <java-type>double</java-type>
+                <jdbc-type>DOUBLE</jdbc-type>
+                <jdbc-precision>9</jdbc-precision>
+                <jdbc-scale>2</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereUnityValueEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>unityValue = :unityValue</where>
+            <order-by>unityValue</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>unityValue</java-name>
+                <java-type>double</java-type>
+                <jdbc-type>DOUBLE</jdbc-type>
+                <jdbc-precision>9</jdbc-precision>
+                <jdbc-scale>2</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereTotalValueEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>totalValue = :totalValue</where>
+            <order-by>totalValue</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>totalValue</java-name>
+                <java-type>double</java-type>
+                <jdbc-type>DOUBLE</jdbc-type>
+                <jdbc-precision>9</jdbc-precision>
+                <jdbc-scale>2</jdbc-scale>
+              </parameter>
+            </parameter-list>
+          </finder>
+          <finder>
+            <name>findWhereObservationsEquals</name>
+            <multi-finder>true</multi-finder>
+            <where>observations = :observations</where>
+            <order-by>observations</order-by>
+            <query-type>WHERE</query-type>
+            <parameter-list>
+              <parameter>
+                <java-name>observations</java-name>
+                <java-type>java.lang.String</java-type>
+                <jdbc-type>VARCHAR</jdbc-type>
+                <jdbc-precision>100</jdbc-precision>
                 <jdbc-scale>0</jdbc-scale>
               </parameter>
             </parameter-list>
