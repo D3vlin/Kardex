@@ -2,37 +2,12 @@ package com.cidenet.hulkstore.products;
 
 import java.io.Serializable;
 
-public final class ProductDto implements Serializable
+public final class ProductDto extends Product implements Serializable
 {
-	/** 
-	 * This attribute maps to the column productId in the product table.
-	 */
-	protected int productId;
-
-	/** 
-	 * This attribute maps to the column productName in the product table.
-	 */
-	protected String productName;
-
-	/** 
-	 * This attribute maps to the column unityId in the product table.
-	 */
-	protected int unityId;
-
-	/** 
-	 * This attribute maps to the column unityDescription in the unity table.
-	 */
-	protected String unityDescription;
-
 	/** 
 	 * This attribute represents whether the primitive attribute unityId is null.
 	 */
 	protected boolean unityIdNull = true;
-
-	/** 
-	 * This attribute maps to the column state in the product table.
-	 */
-	protected short state;
 
 	/**
 	 * Method 'Product'
@@ -49,87 +24,6 @@ public final class ProductDto implements Serializable
             this.unityId = unityId;
             this.unityIdNull = false;
             this.state = (short) 1;
-	}
-
-	/**
-	 * Method 'getProductId'
-	 * 
-	 * @return int
-	 */
-	public int getProductId()
-	{
-		return productId;
-	}
-
-	/**
-	 * Method 'setProductId'
-	 * 
-	 * @param productId
-	 */
-	public void setProductId(int productId)
-	{
-		this.productId = productId;
-	}
-
-	/**
-	 * Method 'getProductName'
-	 * 
-	 * @return String
-	 */
-	public String getProductName()
-	{
-		return productName;
-	}
-
-	/**
-	 * Method 'setProductName'
-	 * 
-	 * @param productName
-	 */
-	public void setProductName(String productName)
-	{
-		this.productName = productName;
-	}
-
-	/**
-	 * Method 'getUnityId'
-	 * 
-	 * @return int
-	 */
-	public int getUnityId()
-	{
-		return unityId;
-	}
-
-	/**
-	 * Method 'setUnityId'
-	 * 
-	 * @param unityId
-	 */
-	public void setUnityId(int unityId)
-	{
-		this.unityId = unityId;
-		this.unityIdNull = false;
-	}
-
-	/**
-	 * Method 'getUnityDescription'
-	 * 
-	 * @return string
-	 */
-	public String getUnityDescription()
-	{
-		return unityDescription;
-	}
-
-	/**
-	 * Method 'setUnityDescription'
-	 * 
-	 * @param unityDescription
-	 */
-	public void setUnityDescription(String unityDescription)
-	{
-		this.unityDescription = unityDescription;
 	}
 
 	/**
@@ -153,23 +47,13 @@ public final class ProductDto implements Serializable
 	}
 
 	/**
-	 * Method 'getState'
+	 * Method 'createPk'
 	 * 
-	 * @return short
+	 * @return ProductPk
 	 */
-	public short getState()
+	public ProductPk createPk()
 	{
-		return state;
-	}
-
-	/**
-	 * Method 'setState'
-	 * 
-	 * @param state
-	 */
-	public void setState(short state)
-	{
-		this.state = state;
+		return new ProductPk(productId);
 	}
 
 	/**
@@ -233,16 +117,6 @@ public final class ProductDto implements Serializable
 		_hashCode = 29 * _hashCode + (unityIdNull ? 1 : 0);
 		_hashCode = 29 * _hashCode + (int) state;
 		return _hashCode;
-	}
-
-	/**
-	 * Method 'createPk'
-	 * 
-	 * @return ProductPk
-	 */
-	public ProductPk createPk()
-	{
-		return new ProductPk(productId);
 	}
 
 	/**

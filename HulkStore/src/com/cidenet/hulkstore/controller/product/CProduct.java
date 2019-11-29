@@ -6,6 +6,7 @@ import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDaoException;
 import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.products.ProductDto;
+import com.cidenet.hulkstore.products.ProductView;
 import com.cidenet.hulkstore.view.product.UIProduct;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import javax.swing.JCheckBox;
@@ -180,10 +181,10 @@ public final class CProduct
     public void generateReport() {        
         try {
             ProductDao dao = DaoFactory.createProductDao();
-            products = dao.getProductView();
+            ProductView[] viewProducts = dao.getViewProduct();
             
             CReports report = new CReports();
-            report.generateProductReport(products);
+            report.generateProductReport(viewProducts);
         } catch (ProductDaoException ex) {ex.printStackTrace();}
     }
 

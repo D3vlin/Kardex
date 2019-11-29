@@ -1,6 +1,7 @@
 package com.cidenet.hulkstore.controller.reports;
 
 import com.cidenet.hulkstore.products.ProductDto;
+import com.cidenet.hulkstore.products.ProductView;
 import com.cidenet.hulkstore.stores.StoreDto;
 import java.awt.Font;
 import java.io.FileOutputStream;
@@ -188,7 +189,7 @@ public final class CReports
         finishReport();
     }
 
-    public void generateProductReport(ProductDto[] products) {
+    public void generateProductReport(ProductView[] viewProducts) {
         
         ArrayList <String> header = new ArrayList <> ();            
         header.add("Código");
@@ -198,22 +199,22 @@ public final class CReports
         startReport("REPORTE DE PRODUCTOS ACTIVOS", "PRODUCTOS", header);
         
         // DATA TABLE
-        for(int i = 0; i < products.length; i++)
+        for(int i = 0; i < viewProducts.length; i++)
         {
             for(int j = 0; j <= 2; j++)
             {
                 String fact = "";
                 switch(j){
                     case 0:
-                        fact = String.valueOf(products[i].getProductId());
+                        fact = String.valueOf(viewProducts[i].getProductId());
                         break;
 
                     case 1:
-                        fact = products[i].getProductName();
+                        fact = viewProducts[i].getProductName();
                         break;
 
                     case 2:
-                        fact = String.valueOf(products[i].getUnityDescription());
+                        fact = String.valueOf(viewProducts[i].getUnityDescription());
                         break;
                 }
 
