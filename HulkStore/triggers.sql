@@ -174,9 +174,11 @@ CREATE TRIGGER TR_RegisterNewKardexDetail
 			SET @unityValue = 0;
 		END IF;
 		
-		IF(@quantity < 0 OR @totalValue < 0 OR @unityValue < 0) THEN
+		IF(@quantity < 0 OR @totalValue < 0) THEN
 			SIGNAL SQLSTATE '45000' set  MESSAGE_TEXT = 'Cantidad excedida';
-    END IF;
+		ELSEIF(@unityValue < 0) THEN
+			SIGNAL SQLSTATE '45000' set  MESSAGE_TEXT = 'Valor unitario excedido';
+    	END IF;
 	END;
 $$
 
@@ -224,6 +226,75 @@ CREATE TRIGGER TR_ModifyKardexDetail
 			IF(@quantity < 0 OR @totalValue < 0 OR @unityValue < 0) THEN
 				SIGNAL SQLSTATE '45000' set  MESSAGE_TEXT = 'Cantidad excedida';
 			END IF;
-    END IF;
+    	END IF;
+	END;
+$$
+
+/* KARDEX TRIGGER UPDATE  */
+
+DELIMITER $$
+CREATE TRIGGER TR_UpdateKardex
+	AFTER INSERT ON KARDEX_DETAIL FOR EACH ROW
+	BEGIN
+		SET @quantity = 0;
+		SET @unityValue = 0;
+		SET @totalValue = 0;
+		IF NEW.operation = 1 THEN
+			SET @quantity = (SELECT quantity FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) + NEW.quantity;
+			SET @totalValue = (SELECT totalValue FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) + NEW.totalValue;	
+			IF (@totalValue IS null) THEN
+				SET @totalValue = NEW.totalValue;
+			END IF;		
+		ELSEIF NEW.operation = 0 THEN
+			SET @quantity = (SELECT quantity FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) - NEW.quantity;
+			SET @totalValue = (SELECT totalValue FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) - NEW.totalValue;			
+		END IF;		
+		SET @unityValue = @totalValue/@quantity;
+		IF (@unityValue IS null) THEN
+			SET @unityValue = 0;
+		END IF;
+		UPDATE KARDEX SET quantity = @quantity, unityValue = @unityValue, totalValue = @totalValue WHERE productId = New.productId AND storeId = NEW.storeId;
+	END;
+$$
+
+DELIMITER $$
+CREATE TRIGGER TR_AfterUpdateKardex
+	AFTER UPDATE ON KARDEX_DETAIL FOR EACH ROW
+	BEGIN
+		SET @quantity = 0;
+		SET @unityValue = 0;
+		SET @totalValue = 0;
+		IF NEW.state = 1 THEN
+			IF NEW.operation <> OLD.operation THEN
+				IF NEW.operation = 1 AND OLD.operation = 0 THEN
+					SET @quantity = (SELECT quantity FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) + OLD.quantity + NEW.quantity;
+					SET @totalValue = (SELECT totalValue FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) + OLD.totalValue + NEW.totalValue;			
+				ELSEIF NEW.operation = 0 AND OLD.operation = 1 THEN
+					SET @quantity = (SELECT quantity FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) - OLD.quantity - NEW.quantity;
+					SET @totalValue = (SELECT totalValue FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) - OLD.totalValue - NEW.totalValue;			
+				END IF;
+			ELSEIF NEW.operation = NEW.operation THEN
+				IF NEW.operation = 1 THEN
+					SET @quantity = (SELECT quantity FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) - OLD.quantity + NEW.quantity;
+					SET @totalValue = (SELECT totalValue FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) - OLD.totalValue + NEW.totalValue;		
+				ELSEIF NEW.operation = 0 THEN
+					SET @quantity = (SELECT quantity FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) + OLD.quantity - NEW.quantity;
+					SET @totalValue = (SELECT totalValue FROM KARDEX WHERE productId = New.productId AND storeId = NEW.storeId) + OLD.totalValue - NEW.totalValue;
+				END IF;				
+			END IF;
+		ELSEIF NEW.state = 3 THEN			
+			IF OLD.operation = 1 THEN
+				SET @quantity = (SELECT quantity FROM KARDEX WHERE productId = NEW.productId AND storeId = NEW.storeId) - OLD.quantity;
+				SET @totalValue = (SELECT totalValue FROM KARDEX WHERE productId = NEW.productId AND storeId = NEW.storeId) - OLD.totalValue;
+			ELSEIF OLD.operation = 0 THEN
+				SET @quantity = (SELECT quantity FROM KARDEX WHERE productId = NEW.productId AND storeId = NEW.storeId) + OLD.quantity;
+				SET @totalValue = (SELECT totalValue FROM KARDEX WHERE productId = NEW.productId AND storeId = NEW.storeId) + OLD.totalValue;
+            END IF;
+    	END IF;			
+		SET @unityValue = @totalValue/@quantity;
+		IF (@unityValue IS null) THEN
+			SET @unityValue = 0;
+		END IF;
+		UPDATE KARDEX SET quantity = @quantity, unityValue = @unityValue, totalValue = @totalValue WHERE productId = New.productId AND storeId = NEW.storeId;							
 	END;
 $$
