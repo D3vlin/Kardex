@@ -2,7 +2,7 @@ package com.cidenet.hulkstore.controller.store;
 
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
-import com.cidenet.hulkstore.stores.StoreDaoImpl;
+import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDto;
 import com.cidenet.hulkstore.view.store.UIUpdateStore;
 import javax.swing.JOptionPane;
@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 public final class CUpdateStore
 {
     private UIUpdateStore window;
-    private StoreDao dao = new StoreDaoImpl();
+    private StoreDao dao = new StoreDao();
     private StoreDto dto;
     
     public CUpdateStore(int storeId)

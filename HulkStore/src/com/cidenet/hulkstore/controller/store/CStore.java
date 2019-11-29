@@ -5,7 +5,7 @@ import com.cidenet.hulkstore.controller.reports.CReports;
 import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
-import com.cidenet.hulkstore.stores.StoreDaoImpl;
+import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDto;
 import com.cidenet.hulkstore.view.store.UIStore;
 import com.mxrck.autocompleter.TextAutoCompleter;
@@ -124,7 +124,7 @@ public final class CStore
         
         if(i != -1) {
             StoreDto dto = stores[i];
-            StoreDao dao = new StoreDaoImpl();
+            StoreDao dao = new StoreDao();
             
             if(chkActive.isSelected())
             {
@@ -175,7 +175,7 @@ public final class CStore
     public void generateReport() {
         try {
             StoreDao dao = DaoFactory.createStoreDao();
-            stores = dao.getStoreView();
+            stores = dao.getViewStore();
             
             CReports report = new CReports();
             report.generateStoreReport(stores);

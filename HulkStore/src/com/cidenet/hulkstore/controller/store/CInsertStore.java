@@ -2,7 +2,7 @@ package com.cidenet.hulkstore.controller.store;
 
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
-import com.cidenet.hulkstore.stores.StoreDaoImpl;
+import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDto;
 import com.cidenet.hulkstore.view.store.UIInsertStore;
 import javax.swing.JOptionPane;
@@ -28,7 +28,7 @@ public final class CInsertStore
 
     public void upload(JTextField txtStoreId) {        
         try {
-            StoreDao dao = new StoreDaoImpl();
+            StoreDao dao = new StoreDao();
             txtStoreId.setText(dao.findNextStoreId());
         } catch (StoreDaoException ex)
         {
@@ -39,7 +39,7 @@ public final class CInsertStore
         
         try {
             StoreDto dto = new StoreDto(Integer.parseInt(txtStoreId.getText()), txtStoreName.getText(), txtAddress.getText());
-            StoreDao dao = new StoreDaoImpl();
+            StoreDao dao = new StoreDao();
             
             if(!dao.insert(dto).isStoreIdNull()){
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);

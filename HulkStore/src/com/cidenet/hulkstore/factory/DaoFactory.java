@@ -1,15 +1,12 @@
 package com.cidenet.hulkstore.factory;
 
 import com.cidenet.hulkstore.documents.DocumentDao;
-import com.cidenet.hulkstore.documents.DocumentDaoImpl;
+import com.cidenet.hulkstore.kardex.KardexDao;
+import com.cidenet.hulkstore.kardex.KardexDetailDao;
 import com.cidenet.hulkstore.products.ProductDao;
-import com.cidenet.hulkstore.products.ProductDaoImpl;
 import com.cidenet.hulkstore.stores.StoreDao;
-import com.cidenet.hulkstore.stores.StoreDaoImpl;
 import com.cidenet.hulkstore.units.UnityDao;
-import com.cidenet.hulkstore.units.UnityDaoImpl;
 import com.cidenet.hulkstore.users.UsersDao;
-import com.cidenet.hulkstore.users.UsersDaoImpl;
 import java.sql.Connection;
 
 public final class DaoFactory
@@ -21,7 +18,7 @@ public final class DaoFactory
 	 */
 	public static ProductDao createProductDao()
 	{
-		return new ProductDaoImpl();
+		return new ProductDao();
 	}
 
 	/**
@@ -32,7 +29,7 @@ public final class DaoFactory
 	 */
 	public static ProductDao createProductDao(Connection conn)
 	{
-		return new ProductDaoImpl( conn );
+		return new ProductDao( conn );
 	}
         
 	/**
@@ -42,7 +39,7 @@ public final class DaoFactory
 	 */
 	public static StoreDao createStoreDao()
 	{
-		return new StoreDaoImpl();
+		return new StoreDao();
 	}
 
 	/**
@@ -53,7 +50,7 @@ public final class DaoFactory
 	 */
 	public static StoreDao createStoreDao(Connection conn)
 	{
-		return new StoreDaoImpl( conn );
+		return new StoreDao( conn );
 	}
         
 	/**
@@ -63,7 +60,7 @@ public final class DaoFactory
 	 */
 	public static UnityDao createUnityDao()
 	{
-		return new UnityDaoImpl();
+		return new UnityDao();
 	}
 
 	/**
@@ -74,7 +71,7 @@ public final class DaoFactory
 	 */
 	public static UnityDao createUnityDao(Connection conn)
 	{
-		return new UnityDaoImpl( conn );
+		return new UnityDao( conn );
 	}
         
 	/**
@@ -84,7 +81,7 @@ public final class DaoFactory
 	 */
 	public static UsersDao createUsersDao()
 	{
-		return new UsersDaoImpl();
+		return new UsersDao();
 	}
 
 	/**
@@ -95,7 +92,7 @@ public final class DaoFactory
 	 */
 	public static UsersDao createUsersDao(Connection conn)
 	{
-		return new UsersDaoImpl( conn );
+		return new UsersDao( conn );
 	}
         
         /**
@@ -105,7 +102,7 @@ public final class DaoFactory
 	 */
 	public static DocumentDao createDocumentDao()
 	{
-		return new DocumentDaoImpl();
+		return new DocumentDao();
 	}
 
 	/**
@@ -116,7 +113,49 @@ public final class DaoFactory
 	 */
 	public static DocumentDao createDocumentDao(Connection conn)
 	{
-		return new DocumentDaoImpl( conn );
+		return new DocumentDao( conn );
+	}
+        
+	/**
+	 * Method 'create'
+	 * 
+	 * @return KardexDao
+	 */
+	public static KardexDao createKardexDao()
+	{
+		return new KardexDao();
+	}
+
+	/**
+	 * Method 'create'
+	 * 
+	 * @param conn
+	 * @return KardexDao
+	 */
+	public static KardexDao createKardexDao(Connection conn)
+	{
+		return new KardexDao( conn );
+	}
+        
+	/**
+	 * Method 'create'
+	 * 
+	 * @return KardexDetailDao
+	 */
+	public static KardexDetailDao createKardexDetailDao()
+	{
+		return new KardexDetailDao();
+	}
+
+	/**
+	 * Method 'create'
+	 * 
+	 * @param conn
+	 * @return KardexDetailDao
+	 */
+	public static KardexDetailDao createKardexDetailDao(Connection conn)
+	{
+		return new KardexDetailDao( conn );
 	}
 
 }
