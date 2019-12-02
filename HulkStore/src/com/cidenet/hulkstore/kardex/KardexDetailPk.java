@@ -96,6 +96,7 @@ public class KardexDetailPk implements Serializable
 		this.detailId = detailId;
 		this.productId = productId;
 		this.storeId = storeId;
+                this.detailIdNull = false;
 	}
 
 	/** 

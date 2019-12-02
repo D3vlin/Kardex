@@ -1,12 +1,14 @@
 package com.cidenet.hulkstore.controller.menu;
 
 import com.cidenet.hulkstore.controller.document.CDocument;
+import com.cidenet.hulkstore.controller.kardex.CKardex;
 import com.cidenet.hulkstore.controller.login.CLogin;
 import com.cidenet.hulkstore.controller.product.CProduct;
 import com.cidenet.hulkstore.controller.settings.CSettings;
 import com.cidenet.hulkstore.controller.store.CStore;
 import com.cidenet.hulkstore.controller.unity.CUnity;
 import com.cidenet.hulkstore.controller.user.CUser;
+import com.cidenet.hulkstore.exceptions.DaoException;
 import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoException;
@@ -104,19 +106,23 @@ public final class CMenu
     }
 
     public void kardex() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            new CKardex();
+            window.dispose();
+            
+        } catch (DaoException ex) {}
     }
 
     public void productExistence() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JOptionPane.showMessageDialog(null, "Adquiera una licencia premium plus lite", "Actualice su versión", JOptionPane.INFORMATION_MESSAGE, null);
     }
 
     public void productExit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JOptionPane.showMessageDialog(null, "Adquiera una licencia premium plus lite", "Actualice su versión", JOptionPane.INFORMATION_MESSAGE, null);
     }
 
     public void producEntry() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JOptionPane.showMessageDialog(null, "Adquiera una licencia premium plus lite", "Actualice su versión", JOptionPane.INFORMATION_MESSAGE, null);
     }
 
     public void showForm() {

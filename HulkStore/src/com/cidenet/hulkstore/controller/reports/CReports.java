@@ -1,6 +1,8 @@
 package com.cidenet.hulkstore.controller.reports;
 
-import com.cidenet.hulkstore.products.ProductDto;
+import com.cidenet.hulkstore.kardex.KardexDetailDto;
+import com.cidenet.hulkstore.kardex.KardexDetailView;
+import com.cidenet.hulkstore.kardex.KardexView;
 import com.cidenet.hulkstore.products.ProductView;
 import com.cidenet.hulkstore.stores.StoreDto;
 import java.awt.Font;
@@ -240,6 +242,304 @@ public final class CReports
         }
         
         finishReport();
+    }
+    
+    public void generateKardexReport(KardexView kardexView, KardexDetailView[] kardexDetailView)
+    {
+        String path = fileChooser();
+        
+        if(!path.equals(""))
+        {
+            try
+            {
+                document = new Document(PageSize.A4.rotate(), 40, 40, 20, 20);                                
+                PdfWriter.getInstance(document, new FileOutputStream(path));                
+                document.open();
+                
+                Paragraph endLine = new Paragraph("\n", FontFactory.getFont(FontFactory.COURIER_BOLD, 10, BaseColor.BLACK));
+                             
+                // START OF REPORT      
+                Paragraph paragraph = new Paragraph("KARDEX DE ENTRADA Y SALIDA DEL ALMACÉN \n\n", FontFactory.getFont(FontFactory.COURIER_BOLD, 14, BaseColor.BLACK));
+                paragraph.setAlignment(Element.ALIGN_CENTER);
+                document.add(paragraph);
+                
+                // Kardex Header
+                PdfPTable table = new PdfPTable(3);
+                table.setTotalWidth(PageSize.A4.getHeight() - 80);
+                table.setLockedWidth(true);
+                
+                // Title                               
+                PdfPCell cell = new PdfPCell(new Paragraph("DATOS PRINCIPALES", FontFactory.getFont(FontFactory.COURIER, 10, Font.BOLD, BaseColor.BLACK)));
+                cell.setColspan(3);
+                cell.setFixedHeight(30);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                // Content                
+                cell = new PdfPCell(new Paragraph("Codigo de Producto: " + kardexView.getProductId(), FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.WHITE);
+                cell.setBorderColor(BaseColor.WHITE);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Nombre de Producto: " + kardexView.getProductName(), FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.WHITE);
+                cell.setBorderColor(BaseColor.WHITE);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Unidad: " + kardexView.getUnityDescription(), FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.WHITE);
+                cell.setBorderColor(BaseColor.WHITE);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Codigo de Almacen:  " + kardexView.getStoreId(), FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.WHITE);
+                cell.setBorderColor(BaseColor.WHITE);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Nombre de Almacen:  " + kardexView.getStoreName(), FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.WHITE);
+                cell.setBorderColor(BaseColor.WHITE);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                Calendar calendar = Calendar.getInstance();
+                SimpleDateFormat format = new SimpleDateFormat("yy'/'MM'/'dd hh:mm a");
+                
+                cell = new PdfPCell(new Paragraph("Fecha de Generación: " + format.format(calendar.getTime()), FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.WHITE);
+                cell.setBorderColor(BaseColor.WHITE);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                document.add(table);
+                document.add(endLine);
+                
+                // Quantity and price                
+                table = new PdfPTable(4);
+                table.setTotalWidth(PageSize.A4.getHeight()/2);
+                table.setLockedWidth(true);
+                
+                cell = new PdfPCell(new Paragraph("Cantidad:", FontFactory.getFont(FontFactory.COURIER, 10, Font.BOLD, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph(String.valueOf(kardexView.getQuantity()), FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.WHITE);
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Precio Unitario:", FontFactory.getFont(FontFactory.COURIER, 10, Font.BOLD, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph(String.valueOf(kardexView.getUnityValue()), FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(BaseColor.WHITE);
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                document.add(table);
+                document.add(endLine);
+                
+                // Kardex_Details                
+                table = new PdfPTable(9);
+                table.setTotalWidth(PageSize.A4.getHeight() - 80);
+                table.setLockedWidth(true);
+                
+                //  Title                
+                cell = new PdfPCell(new Paragraph("Codigo", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setRowspan(2);
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Fecha", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setRowspan(2);
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Documento", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setRowspan(2);
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Nº Doc.", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setRowspan(2);
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Operación", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setRowspan(2);
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Movimiento", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setColspan(3);
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Obs.", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setRowspan(2);
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Cantidad", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Val. Uni.", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+                
+                cell = new PdfPCell(new Paragraph("Total", FontFactory.getFont(FontFactory.COURIER, 10, BaseColor.BLACK)));
+                cell.setFixedHeight(20);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setBackgroundColor(new BaseColor(210, 210, 210));
+                cell.setBorderColor(BaseColor.BLACK);
+                cell.setBorderWidth(1);
+                table.addCell(cell);
+
+                // Content                
+                for(int i = 0; i < kardexDetailView.length; i++)
+                {
+                    for(int j = 0; j < 9; j++)
+                    {
+                        String operation = "";
+                        if(kardexDetailView[i].getOperation() == 1) { operation = "Entrada"; }
+                        else if(kardexDetailView[i].getOperation() == 0) { operation = "Salida"; }
+                        
+                        String fact = "";                        
+                        switch(j){
+                            case 0: fact = String.valueOf(kardexDetailView[i].getDetailId()); break;
+
+                            case 1: fact = kardexDetailView[i].getKardexDetailDate(); break;
+
+                            case 2: fact = kardexDetailView[i].getDocumentDescription(); break;
+                                
+                            case 3: fact = String.valueOf(kardexDetailView[i].getDocumentNumber()); break;
+
+                            case 4: fact = operation; break;
+
+                            case 5: fact = String.valueOf(kardexDetailView[i].getQuantity()); break;
+                                
+                            case 6: fact = String.valueOf(kardexDetailView[i].getUnityValue()); break;
+
+                            case 7: fact = String.valueOf(kardexDetailView[i].getTotalValue()); break;
+
+                            case 8: fact = kardexDetailView[i].getObservations(); break;
+                        }
+                        
+                        cell = new PdfPCell(new Paragraph(fact, FontFactory.getFont(FontFactory.COURIER, 8, BaseColor.BLACK)));
+                        cell.setFixedHeight(20);
+                        cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+
+                        if(i%2 == 0)
+                        {
+                            cell.setBackgroundColor(BaseColor.WHITE);
+                            cell.setBorderColor(BaseColor.WHITE);
+                            
+                        } else {
+                            cell.setBackgroundColor(new BaseColor(230, 230, 230));
+                            cell.setBorderColor(new BaseColor(230, 230, 230));
+                        }
+                        
+                        table.addCell(cell);
+                    }
+                }
+                document.add(table);
+                document.close();                
+            }
+            catch (DocumentException | IOException ex) {}
+        }
     }
     
 }

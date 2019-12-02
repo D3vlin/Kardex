@@ -2,42 +2,12 @@ package com.cidenet.hulkstore.kardex;
 
 import java.io.Serializable;
 
-public class KardexDto implements Serializable
+public final class KardexDto extends Kardex implements Serializable
 {
-	/** 
-	 * This attribute maps to the column productId in the kardex table.
-	 */
-	protected int productId;
-
-	/** 
-	 * This attribute maps to the column storeId in the kardex table.
-	 */
-	protected int storeId;
-
-	/** 
-	 * This attribute maps to the column quantity in the kardex table.
-	 */
-	protected double quantity;
-
-	/** 
-	 * This attribute maps to the column unityValue in the kardex table.
-	 */
-	protected double unityValue;
-
-	/** 
-	 * This attribute maps to the column totalValue in the kardex table.
-	 */
-	protected double totalValue;
-
 	/** 
 	 * This attribute represents whether the primitive attribute totalValue is null.
 	 */
 	protected boolean totalValueNull = true;
-
-	/** 
-	 * This attribute maps to the column state in the kardex table.
-	 */
-	protected short state;
 
 	/**
 	 * Method 'Kardex'
@@ -48,93 +18,17 @@ public class KardexDto implements Serializable
 	}
 
 	/**
-	 * Method 'getProductId'
+	 * Method 'Kardex'
 	 * 
-	 * @return int
 	 */
-	public int getProductId()
+	public KardexDto(int productId, int storeId, double quantity, double unityValue, double totalValue, short state)
 	{
-		return productId;
-	}
-
-	/**
-	 * Method 'setProductId'
-	 * 
-	 * @param productId
-	 */
-	public void setProductId(int productId)
-	{
-		this.productId = productId;
-	}
-
-	/**
-	 * Method 'getStoreId'
-	 * 
-	 * @return int
-	 */
-	public int getStoreId()
-	{
-		return storeId;
-	}
-
-	/**
-	 * Method 'setStoreId'
-	 * 
-	 * @param storeId
-	 */
-	public void setStoreId(int storeId)
-	{
-		this.storeId = storeId;
-	}
-
-	/**
-	 * Method 'getQuantity'
-	 * 
-	 * @return double
-	 */
-	public double getQuantity()
-	{
-		return quantity;
-	}
-
-	/**
-	 * Method 'setQuantity'
-	 * 
-	 * @param quantity
-	 */
-	public void setQuantity(double quantity)
-	{
-		this.quantity = quantity;
-	}
-
-	/**
-	 * Method 'getUnityValue'
-	 * 
-	 * @return double
-	 */
-	public double getUnityValue()
-	{
-		return unityValue;
-	}
-
-	/**
-	 * Method 'setUnityValue'
-	 * 
-	 * @param unityValue
-	 */
-	public void setUnityValue(double unityValue)
-	{
-		this.unityValue = unityValue;
-	}
-
-	/**
-	 * Method 'getTotalValue'
-	 * 
-	 * @return double
-	 */
-	public double getTotalValue()
-	{
-		return totalValue;
+            this.productId = productId;
+            this.storeId = storeId;
+            this.quantity = quantity;
+            this.unityValue = unityValue;
+            this.totalValue = totalValue;
+            this.state = state;
 	}
 
 	/**
@@ -169,23 +63,13 @@ public class KardexDto implements Serializable
 	}
 
 	/**
-	 * Method 'getState'
+	 * Method 'createPk'
 	 * 
-	 * @return short
+	 * @return KardexPk
 	 */
-	public short getState()
+	public KardexPk createPk()
 	{
-		return state;
-	}
-
-	/**
-	 * Method 'setState'
-	 * 
-	 * @param state
-	 */
-	public void setState(short state)
-	{
-		this.state = state;
+		return new KardexPk(productId, storeId);
 	}
 
 	/**
@@ -259,16 +143,6 @@ public class KardexDto implements Serializable
 		_hashCode = 29 * _hashCode + (totalValueNull ? 1 : 0);
 		_hashCode = 29 * _hashCode + (int) state;
 		return _hashCode;
-	}
-
-	/**
-	 * Method 'createPk'
-	 * 
-	 * @return KardexPk
-	 */
-	public KardexPk createPk()
-	{
-		return new KardexPk(productId, storeId);
 	}
 
 	/**

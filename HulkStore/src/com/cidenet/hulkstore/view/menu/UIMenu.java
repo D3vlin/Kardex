@@ -329,19 +329,19 @@ public class UIMenu extends javax.swing.JFrame
     }//GEN-LAST:event_btnDocumentActionPerformed
 
     private void btnKardexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKardexActionPerformed
-        // TODO add your handling code here:
+        controller.kardex();
     }//GEN-LAST:event_btnKardexActionPerformed
 
     private void btnProductExistenceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductExistenceActionPerformed
-        // TODO add your handling code here:
+        controller.productExistence();
     }//GEN-LAST:event_btnProductExistenceActionPerformed
 
     private void btnProductEntryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductEntryActionPerformed
-        // TODO add your handling code here:
+        controller.producEntry();
     }//GEN-LAST:event_btnProductEntryActionPerformed
 
     private void btnProductExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductExitActionPerformed
-        // TODO add your handling code here:
+        controller.productExit();
     }//GEN-LAST:event_btnProductExitActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
