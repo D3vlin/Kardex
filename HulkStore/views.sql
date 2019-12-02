@@ -1,40 +1,9 @@
 /*
 Created: 06/11/2019
-Modified: 06/11/2019
+Modified: 02/12/2019
 Model: MySQL 8.0
 Database: MySQL 8.0
 */
-
-/* CONSULTS */
-
-CREATE VIEW
-VI_ProductStoreQuantity AS
-SELECT K.productId, K.storeId, S.storeName, K.quantity
-FROM KARDEX AS K
-INNER JOIN PRODUCT AS P
-ON P.productId = K.productId
-INNER JOIN STORE AS S
-ON S.storeId = K.storeId;
-
-CREATE VIEW
-VI_ProductEntry AS
-SELECT KD.productId, KD.storeId, S.storeName, KD.quantity, KD.kardexDetailYear, KD.kardexDetailMonth, KD.kardexDetailday
-FROM KARDEX_DETAIL AS KD
-INNER JOIN PRODUCT AS P
-ON P.productId = KD.productId
-INNER JOIN STORE AS S
-ON S.storeId = KD.storeId
-WHERE KD.operation = 1 AND KD.state = 1;
-
-CREATE VIEW
-VI_ProductOutput AS
-SELECT KD.productId, KD.storeId, S.storeName, KD.quantity, KD.kardexDetailYear, KD.kardexDetailMonth, KD.kardexDetailday
-FROM KARDEX_DETAIL AS KD
-INNER JOIN PRODUCT AS P
-ON P.productId = KD.productId
-INNER JOIN STORE AS S
-ON S.storeId = KD.storeId
-WHERE KD.operation = 0 AND KD.state = 1;
 
 /* REPORTS */
 
