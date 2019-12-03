@@ -13,6 +13,11 @@ public class UIInsertDocument extends javax.swing.JFrame {
 
     private CInsertDocument controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIInsertDocument(CInsertDocument controller)
     {
         initComponents();

@@ -23,6 +23,11 @@ public final class CUpdateDocument
     private DocumentDao documentDao = DaoFactory.createDocumentDao();
     private DocumentDto document;
     
+    /**
+     * Constructor.
+     * 
+     * @param documentId 
+     */
     public CUpdateDocument(int documentId)
     {
         try {
@@ -32,12 +37,23 @@ public final class CUpdateDocument
         } catch (Exception e) {}
     }
 
+    /**
+     * Upload the documentId to the form.
+     * 
+     * @param txtDocumentId
+     * @param txtDescription 
+     */
     public void upload(JTextField txtDocumentId, JTextField txtDescription)
     {
         txtDocumentId.setText(String.valueOf(document.getDocumentId()));
         txtDescription.setText(document.getDocumentDescription());
     }
 
+    /**
+     * Modify the document.
+     * 
+     * @param txtDescription 
+     */
     public void accept(JTextField txtDescription) {
         
         try {
@@ -46,16 +62,19 @@ public final class CUpdateDocument
             if(documentDao.update(document.createPk(), document))
             {
                 JOptionPane.showMessageDialog(null, "Se ha modificado el registro", "MODIFICACIÓN", JOptionPane.INFORMATION_MESSAGE);
-                new CDocument();
+                CDocument cDocument = new CDocument();
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se ha modificado el registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
+                
+            } else { JOptionPane.showMessageDialog(null, "No se ha modificado el registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
+            
         } catch (DocumentDaoException e) {}
     }
 
+    /**
+     * Cancel the operation and return to the documents menu.
+     */
     public void cancel() {
-        new CDocument();
+        CDocument cDocument = new CDocument();
         window.dispose();
-    }
-    
+    }    
 }

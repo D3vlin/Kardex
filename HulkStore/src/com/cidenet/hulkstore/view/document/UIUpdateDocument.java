@@ -13,6 +13,11 @@ public class UIUpdateDocument extends javax.swing.JFrame {
 
     private CUpdateDocument controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIUpdateDocument(CUpdateDocument controller)
     {
         initComponents();

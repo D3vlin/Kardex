@@ -4,7 +4,6 @@ import com.cidenet.hulkstore.factory.DaoFactory;
 import com.cidenet.hulkstore.documents.DocumentDao;
 import com.cidenet.hulkstore.documents.DocumentDaoException;
 import com.cidenet.hulkstore.documents.DocumentDto;
-import com.cidenet.hulkstore.units.UnityDto;
 import com.cidenet.hulkstore.view.document.UIInsertDocument;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -22,18 +21,33 @@ public final class CInsertDocument
 {
     private UIInsertDocument window;
     
+    /**
+     * Empty Contructor.
+     */
     public CInsertDocument()
     {
         window = new UIInsertDocument(this);
     }
     
+    /**
+     * Upload the documentId to the form.
+     * 
+     * @param txtDocumentId 
+     */
     public void upload(JTextField txtDocumentId) {
         try {
             DocumentDao dao = DaoFactory.createDocumentDao();
             txtDocumentId.setText(dao.findNextDocumentId());
-        } catch (DocumentDaoException ex) {}
+            
+        } catch (DocumentDaoException exeption) {}
     }
 
+    /**
+     * Register the new document.
+     * 
+     * @param txtDocumentId
+     * @param txtDescription 
+     */
     public void accept(JTextField txtDocumentId, JTextField txtDescription) 
     {      
         try {
@@ -42,17 +56,20 @@ public final class CInsertDocument
             
             if(!dao.insert(dto).isDocumentIdNull()){
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
-                new CDocument();
+                CDocument cDocument = new CDocument();
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
+                
+            } else { JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
             
         } catch (DocumentDaoException ex) {}
     }
 
+    /**
+     * Cancel the operation and return to the documents menu.
+     */
     public void cancel()
     {
-        new CDocument();
+        CDocument cDocument = new CDocument();
         window.dispose();
     }    
 }
