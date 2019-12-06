@@ -47,19 +47,16 @@ public final class DocumentDao extends AbstractDAO
     private final String SQL_UPDATE = "UPDATE " + getTableName() + " SET documentId = ?, documentDescription = ?, state = ? WHERE documentId = ?";
 
     /** 
-     * Index of column documentId.
+     * Indexes of the columns in the document table.
      */
     private static final int COLUMN_DOCUMENT_ID = 1;
-
-    /** 
-     * Index of column documentDescription.
-     */
     private static final int COLUMN_DOCUMENT_DESCRIPTION = 2;
+    private static final int COLUMN_STATE = 3;
 
     /** 
-     * Index of column state.
+     * Number of columns in the document table.
      */
-    private static final int COLUMN_STATE = 3;
+    protected static final int NUMBER_OF_COLUMNS = 3;
 
     /** 
      * Inserts a new row in the document table.
