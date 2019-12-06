@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- * Product Modification Controller
+ * Product Modification Controller.
  * 
  * Load data of the selected product, receive new values and validate them
  *  
@@ -28,6 +28,11 @@ public final class CUpdateProduct
     private ProductDto product;    
     private UnityDto[] units;
     
+    /**
+     * Constructor.
+     * 
+     * @param productId 
+     */
     public CUpdateProduct(int productId)
     {
         try {            
@@ -37,10 +42,20 @@ public final class CUpdateProduct
             units = unityDao.findWhereStateEquals((short) 1);
             
             window = new UIUpdateProduct(this);
-        } catch (ProductDaoException | UnityDaoException ex) {}
+            
+        } catch (ProductDaoException | UnityDaoException exception) {}
     }
 
-    public void upload(JTextField txtProductId, JTextField txtProductName, JTextField txtUnityId, JComboBox cmbUnity) {
+    /**
+     * Upload the product information to the form.
+     * 
+     * @param txtProductId
+     * @param txtProductName
+     * @param txtUnityId
+     * @param cmbUnity 
+     */
+    public void upload(JTextField txtProductId, JTextField txtProductName, JTextField txtUnityId, JComboBox cmbUnity)
+    {
         txtProductId.setText(String.valueOf(product.getProductId()));
         txtProductName.setText(product.getProductName());
         txtUnityId.setText(String.valueOf(product.getUnityId()));
@@ -55,12 +70,23 @@ public final class CUpdateProduct
         }
     }
 
-    public void cancel() {
-        new CProduct();
+    /**
+     * Cancel the operation and return to the products menu.
+     */
+    public void cancel() 
+    {
+        CProduct cProduct = new CProduct();
         window.dispose();
     }
 
-    public void seeUnity(JComboBox cmbUnity, JTextField txtUnityId) {
+    /**
+     * Get the id of the selected unity.
+     * 
+     * @param cmbUnity
+     * @param txtUnityId 
+     */
+    public void seeUnity(JComboBox cmbUnity, JTextField txtUnityId) 
+    {
         for(UnityDto unity : units) {
             if(unity.getUnityDescription().equals(cmbUnity.getSelectedItem().toString())) {
                 txtUnityId.setText(String.valueOf(unity.getUnityId()));
@@ -69,8 +95,15 @@ public final class CUpdateProduct
         }
     }
 
-    public void accept(JTextField txtProductId, JTextField txtProductName, JTextField txtUnityId) {
-                
+    /**
+     * Modify the product.
+     * 
+     * @param txtProductId
+     * @param txtProductName
+     * @param txtUnityId 
+     */
+    public void accept(JTextField txtProductId, JTextField txtProductName, JTextField txtUnityId)
+    {                
         try {
             product.setProductName(txtProductName.getText());
             product.setUnityId(Integer.parseInt(txtUnityId.getText())); 
@@ -78,11 +111,11 @@ public final class CUpdateProduct
             if(productDao.update(product.createPk(), product))
             {
                 JOptionPane.showMessageDialog(null, "Se ha modificado el registro", "MODIFICACIÓN", JOptionPane.INFORMATION_MESSAGE);
-                new CProduct();
+                CProduct cProduct = new CProduct();
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se ha modificado el registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
-        } catch (ProductDaoException ex) {}
-    }
-    
+            
+            } else { JOptionPane.showMessageDialog(null, "No se ha modificado el registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
+        
+        } catch (ProductDaoException exception) {}
+    }    
 }

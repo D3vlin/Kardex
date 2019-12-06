@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- * Product Insertion Controller
+ * Product Insertion Controller.
  * 
  * Receive and validate data about a new product registration
  * 
@@ -25,23 +25,37 @@ public final class CInsertProduct
 {
     private UIInsertProduct window;
     private UnityDto[] units;
-        
+    
+    /**
+     * Empty Constructor.
+     */
     public CInsertProduct()
     {
         try {
             UnityDao dao = DaoFactory.createUnityDao();
             units = dao.findWhereStateEquals((short) 1);
             window = new UIInsertProduct(this);
-        } catch (UnityDaoException ex) {}
+            
+        } catch (UnityDaoException exception) {}
     }
 
-    public void cancel() {
-        new CProduct();
+    /**
+     * Cancel the operation and return to the products menu.
+     */
+    public void cancel() 
+    {
+        CProduct cProduct = new CProduct();
         window.dispose();
     }
 
-    public void upload(JTextField txtProductId, JComboBox cmbUnity) {
-        
+    /**
+     * Upload the productId to the form.
+     * 
+     * @param txtProductId
+     * @param cmbUnity 
+     */
+    public void upload(JTextField txtProductId, JComboBox cmbUnity)
+    {        
         try {
             ProductDao dao = DaoFactory.createProductDao();
             txtProductId.setText(dao.findNextProductId());
@@ -50,9 +64,17 @@ public final class CInsertProduct
             {
                 cmbUnity.addItem(unity.getUnityDescription());
             }
-        } catch (ProductDaoException ex) {}
+            
+        } catch (ProductDaoException exception) {}
     }
 
+    /**
+     * Register the new product.
+     * 
+     * @param txtProductId
+     * @param txtProductName
+     * @param txtUnityId 
+     */
     public void accept(JTextField txtProductId, JTextField txtProductName, JTextField txtUnityId) {
         
         try {
@@ -61,13 +83,20 @@ public final class CInsertProduct
             
             if(!dao.insert(dto).isProductIdNull()){
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
-                new CProduct();
+                CProduct cProduct = new CProduct();
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
-        } catch (ProductDaoException ex) {}
+            
+            } else { JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
+            
+        } catch (ProductDaoException exception) {}
     }
 
+    /**
+     * Get the id of the selected unity.
+     * 
+     * @param cmbUnity
+     * @param txtUnityId 
+     */
     public void seeUnity(JComboBox cmbUnity, JTextField txtUnityId) {
         for(UnityDto unity : units) {
             if(unity.getUnityDescription().equals(cmbUnity.getSelectedItem().toString())) {
@@ -75,6 +104,5 @@ public final class CInsertProduct
                 break;
             }
         }
-    }
-    
+    }    
 }

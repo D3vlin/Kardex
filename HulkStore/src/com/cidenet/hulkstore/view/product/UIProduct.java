@@ -5,11 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 /**
- * Main view of Store Management
+ * Main view of Store Management.
  * 
  * @author Alexis Duque
  * @version 1.0
@@ -19,7 +18,12 @@ public class UIProduct extends javax.swing.JFrame {
     
     private CProduct controller;
     private ListSelectionModel cellSelectionModel;
-        
+    
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIProduct(CProduct controller)
     {
         initComponents();
@@ -34,18 +38,11 @@ public class UIProduct extends javax.swing.JFrame {
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         cellSelectionModel.addListSelectionListener
-        (
-            new ListSelectionListener()
-            {
-                @Override
-                public void valueChanged(ListSelectionEvent e)
-                {
-                    controller.updateState(tblProduct, chkActive);
-                }
-            }
-        );
+        ((ListSelectionEvent event) -> {
+            controller.updateState(tblProduct, chkActive);
+        });
         
-        controller.searchProduct(txtSearch, tblProduct);
+        controller.loadAutoCompleter(txtSearch, tblProduct);
     }
 
     /**

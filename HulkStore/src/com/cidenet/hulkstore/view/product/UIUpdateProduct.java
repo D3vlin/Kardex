@@ -3,7 +3,7 @@ package com.cidenet.hulkstore.view.product;
 import com.cidenet.hulkstore.controller.product.CUpdateProduct;
 
 /**
- * Main view of modify product
+ * Main view of modify product.
  * 
  * @author Alexis Duque
  * @version 1.0
@@ -13,6 +13,11 @@ public class UIUpdateProduct extends javax.swing.JFrame {
 
     private CUpdateProduct controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIUpdateProduct(CUpdateProduct controller)
     {
         initComponents();

@@ -3,8 +3,11 @@ package com.cidenet.hulkstore.products;
 import java.io.Serializable;
 
 /**
- *
- * @author jduque
+ * This class represents the product view model.
+ * 
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-15
  */
 public final class ProductView extends Product implements Serializable
 {  
@@ -14,22 +17,16 @@ public final class ProductView extends Product implements Serializable
     private String unityDescription;
 
     /**
-     * Method 'getUnityDescription'
+     * Gets the value of unityDescription.
      * 
      * @return string
      */
-    public String getUnityDescription()
-    {
-            return unityDescription;
-    }
+    public String getUnityDescription() { return unityDescription; }
 
     /**
-     * Method 'setUnityDescription'
+     * Gets the value of unityDescription.
      * 
      * @param unityDescription
      */
-    public void setUnityDescription(String unityDescription)
-    {
-            this.unityDescription = unityDescription;
-    }
+    public void setUnityDescription(String unityDescription) { this.unityDescription = unityDescription; }
 }

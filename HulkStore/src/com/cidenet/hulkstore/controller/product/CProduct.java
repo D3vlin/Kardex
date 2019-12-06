@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
- * Product Management Controller
+ * Product Management Controller.
  * 
  * Load existing products with your data,
  * in addition to controlling the redirection to the insertion or modification windows.
@@ -33,17 +33,25 @@ public final class CProduct
     private UIProduct window;
     private ProductDto[] products;
     
+    /**
+     * Empty Constructor.
+     */
     public CProduct()
     {
         try {
-            ProductDao dao = DaoFactory.createProductDao();
-            products = dao.findAll();
-        } catch (Exception e) {}
-        
+            ProductDao productDao = DaoFactory.createProductDao();
+            products = productDao.findAll();
+            
+        } catch (Exception exception) {}        
         
         window = new UIProduct(this);
     }
 
+    /**
+     * Upload the products in the database to the form table and set their status.
+     * 
+     * @param tblProduct 
+     */
     public void upload(JTable tblProduct)
     {
         DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
@@ -51,17 +59,20 @@ public final class CProduct
         String state;
 		
         for (ProductDto product : products) {
-            if (product.getState() == 1) {
-                state = "A";
-            } else if (product.getState() == 2) {
-                state = "I";
-            } else {
-                state = "*";
-            }
+            if (product.getState() == 1) { state = "A"; }
+            else if (product.getState() == 2) { state = "I"; }
+            else { state = "*"; }
+            
             model.addRow(new Object[]{product.getProductId(), product.getProductName(), product.getUnityId(), state});
         }
     }
 
+    /**
+     * Depending on the status of the registered product, the status of the chkActive control changes.
+     * 
+     * @param tblProduct
+     * @param chkActive 
+     */
     public void updateState(JTable tblProduct, JCheckBox chkActive)
     {
         int i = tblProduct.getSelectedRow();
@@ -74,10 +85,8 @@ public final class CProduct
             {
                 chkActive.setEnabled(true);
                 
-                if(dto.getState() == 1) {
-                    chkActive.setSelected(true);}
-                else {
-                    chkActive.setSelected(false);}
+                if(dto.getState() == 1) { chkActive.setSelected(true); }
+                else { chkActive.setSelected(false); }
                 
             } else {
                 chkActive.setEnabled(false);
@@ -89,18 +98,29 @@ public final class CProduct
         }
     }
 
+    /**
+     * Return to the initial menu.
+     */
     public void menu()
     {
-        new CMenu();
+        CMenu cMenu = new CMenu();
         window.dispose();
     }
 
+    /**
+     * Show the form to insert a new product.
+     */
     public void insert()
     {
-        new CInsertProduct();
+        CInsertProduct cInsertProduct = new CInsertProduct();
         window.dispose();
     }
 
+    /**
+     * Show the form to modify a product.
+     * 
+     * @param tblProduct 
+     */
     public void update(JTable tblProduct)
     {
         int i = tblProduct.getSelectedRow();
@@ -115,13 +135,20 @@ public final class CProduct
             {
                 update = new CUpdateProduct(dto.getProductId());
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE);}
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE);}
+                
+            } else { JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE); }
+            
+        } else { JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
 
-    public void enableDisable(JTable tblProduct, JCheckBox chkActive) {
+    /**
+     * Enable or disable the status of the registered product.
+     * 
+     * @param tblProduct
+     * @param chkActive 
+     */
+    public void enableDisable(JTable tblProduct, JCheckBox chkActive) 
+    {
         int i = tblProduct.getSelectedRow();
         
         DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
@@ -134,22 +161,27 @@ public final class CProduct
             {      
                 try {
                     dto.setState((short) 1);
-                    if(dao.update(dto.createPk(), dto)){
-                        model.setValueAt("A", i, 3);}
+                    if(dao.update(dto.createPk(), dto)) { model.setValueAt("A", i, 3); }
+                    
                 } catch (ProductDaoException e) {}
-            } 
-            else
-            {
+                
+            } else {
                 try {
                     dto.setState((short) 2);
-                    if(dao.update(dto.createPk(), dto)){
-                        model.setValueAt("I", i, 3);}
-                } catch (ProductDaoException e) {}
+                    if(dao.update(dto.createPk(), dto)) { model.setValueAt("I", i, 3); }
+                    
+                } catch (ProductDaoException exception) {}
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
+            
+        } else { JOptionPane.showMessageDialog(null, "Seleccione un registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
 
+    /**
+     * Change the status of a registered product to deleted.
+     * 
+     * @param tblProduct
+     * @param chkActive 
+     */
     public void delete(JTable tblProduct, JCheckBox chkActive) {
         int i = tblProduct.getSelectedRow();
         
@@ -163,21 +195,23 @@ public final class CProduct
                     try {
                         ProductDao dao =  DaoFactory.createProductDao();
                         dto.setState((short) 3);
-                        if(dao.update(dto.createPk(), dto)){
+                        if(dao.update(dto.createPk(), dto)) {
                             DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
                             model.setValueAt("*", i, 3);
                             chkActive.setEnabled(false);
                         } 
-                    } catch (Exception e) {}
+                        
+                    } catch (Exception exception) {}
                 }
-            }
-            else
-                JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);
+                
+            } else { JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE); }
+        
+        } else { JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
 
+    /**
+     * Generate the report of products.
+     */
     public void generateReport() {        
         try {
             ProductDao dao = DaoFactory.createProductDao();
@@ -185,10 +219,17 @@ public final class CProduct
             
             CReports report = new CReports();
             report.generateProductReport(viewProducts);
-        } catch (ProductDaoException ex) {ex.printStackTrace();}
+            
+        } catch (ProductDaoException ex) {}
     }
 
-    public void searchProduct(JTextField txtSearch, JTable tblProduct) {
+    /**
+     * Add the available records to the autocompleter.
+     * 
+     * @param txtSearch
+     * @param tblProduct 
+     */
+    public void loadAutoCompleter(JTextField txtSearch, JTable tblProduct) {
         TextAutoCompleter textAutoAcompleter = new TextAutoCompleter( txtSearch );
         textAutoAcompleter.setMode(0);
         textAutoAcompleter.setCaseSensitive(false);
@@ -198,8 +239,7 @@ public final class CProduct
         int i;
         for(i = 0; i < tableModel.getColumnCount(); i++)
         {
-            if(filter.compareTo(tableModel.getColumnName(i)) == 0)
-                break;
+            if(filter.compareTo(tableModel.getColumnName(i)) == 0) { break; }
         }
         
         for(int k = 0; k < tableModel.getRowCount(); k++)
@@ -208,6 +248,12 @@ public final class CProduct
         }
     }
 
+    /**
+     * Select the row where the searched product is located.
+     * 
+     * @param txtSearch
+     * @param tblProduct 
+     */
     public void selectRow(JTextField txtSearch, JTable tblProduct)
     {        
         TableModel tableModel = tblProduct.getModel();
@@ -225,17 +271,13 @@ public final class CProduct
         {
             int rows = tableModel.getRowCount();
             for(row = 0; row < rows; row++)
-                { if(fact.compareTo((String) tableModel.getValueAt(row, column)) == 0) { break; } }
+            {
+                if(fact.compareTo((String) tableModel.getValueAt(row, column)) == 0) { break; } 
+            }
 
-            if(row == 0)
-                { tblProduct.changeSelection(0,0,false,true); }
-            else
-                { tblProduct.getSelectionModel().setSelectionInterval(row - 1, row); }
-        }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, "No se encontraron los datos buscados", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
+            if(row == 0) { tblProduct.changeSelection(0,0,false,true); }
+            else { tblProduct.getSelectionModel().setSelectionInterval(row - 1, row); }
+            
+        } catch(Exception exception) { JOptionPane.showMessageDialog(null, "No se encontraron los datos buscados", "ERROR", JOptionPane.ERROR_MESSAGE); }
+    }    
 }

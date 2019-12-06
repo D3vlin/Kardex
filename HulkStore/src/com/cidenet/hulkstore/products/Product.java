@@ -1,5 +1,12 @@
 package com.cidenet.hulkstore.products;
 
+/**
+ * This abstract class represents the product model.
+ * 
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-15
+ */
 public abstract class Product
 {
     /** 
@@ -23,82 +30,58 @@ public abstract class Product
     protected short state;
 
     /**
-     * Method 'getProductId'
+     * Gets the value of productId.
      * 
      * @return int
      */
-    public int getProductId()
-    {
-            return productId;
-    }
+    public int getProductId() { return productId; }
 
     /**
-     * Method 'setProductId'
+     * Sets the value of productId.
      * 
      * @param productId
      */
-    public void setProductId(int productId)
-    {
-            this.productId = productId;
-    }
+    public void setProductId(int productId) { this.productId = productId; }
 
     /**
-     * Method 'getProductName'
+     * Gets the value of productName.
      * 
      * @return String
      */
-    public String getProductName()
-    {
-            return productName;
-    }
+    public String getProductName() { return productName; }
 
     /**
-     * Method 'setProductName'
+     * Sets the value of productName.
      * 
      * @param productName
      */
-    public void setProductName(String productName)
-    {
-            this.productName = productName;
-    }
+    public void setProductName(String productName) { this.productName = productName; }
 
     /**
-     * Method 'getUnityId'
+     * Gets the value of unityId.
      * 
      * @return int
      */
-    public int getUnityId()
-    {
-            return unityId;
-    }
+    public int getUnityId() { return unityId; }
 
     /**
-     * Method 'setUnityId'
+     * Sets the value of unityId.
      * 
      * @param unityId
      */
-    public void setUnityId(int unityId)
-    {
-            this.unityId = unityId;
-    }
+    public void setUnityId(int unityId) { this.unityId = unityId; }
 
     /**
-     * Method 'getState'
+     * Gets the value of state.
      * 
      * @return short
      */
-    public short getState()
-    {
-            return state;
-    }
+    public short getState() { return state; }
 
     /**
-     * Method 'setState'
+     * Sets the value of state.
      * 
      * @param state
      */
-    public void setState(short state)
-    {
-            this.state = state;
-    }
+    public void setState(short state) { this.state = state; }
 }
