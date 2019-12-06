@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -22,6 +21,12 @@ public class UIKardex extends javax.swing.JFrame
     private ListSelectionModel cellSelectionModelKardex;
     private ListSelectionModel cellSelectionModelKardexDetails;
         
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     * @throws com.cidenet.hulkstore.exceptions.DaoException 
+     */
     public UIKardex(CKardex controller) throws DaoException
     {
         initComponents();
@@ -30,37 +35,23 @@ public class UIKardex extends javax.swing.JFrame
         setLocationRelativeTo(null);
         
         this.controller = controller;
-        controller.upload(tblKardex);
+        controller.uploadKardex(tblKardex);
         
         cellSelectionModelKardex = tblKardex.getSelectionModel();
         cellSelectionModelKardex.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         cellSelectionModelKardex.addListSelectionListener
-        (
-            new ListSelectionListener()
-            {
-                @Override
-                public void valueChanged(ListSelectionEvent e)
-                {
-                    controller.updateStateKardex(tblKardex, tblKardexDetails, txtQuantity, txtUnityValue, txtTotalValue);
-                }
-            }
-        );
+        ((ListSelectionEvent event) -> {
+            controller.uploadKardexDetails(tblKardex, tblKardexDetails, txtQuantity, txtUnityValue, txtTotalValue);
+        });
         
         cellSelectionModelKardexDetails = tblKardexDetails.getSelectionModel();
         cellSelectionModelKardexDetails.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         cellSelectionModelKardexDetails.addListSelectionListener
-        (
-            new ListSelectionListener()
-            {
-                @Override
-                public void valueChanged(ListSelectionEvent e)
-                {
-                    controller.updateStateKardexDetail(tblKardex, tblKardexDetails, txtUser, txtDocumentDescription, txtDocumentNumber, txaObservations, txtState);
-                }
-            }
-        );
+        ((ListSelectionEvent event) -> {
+            controller.showDetails(tblKardex, tblKardexDetails, txtUser, txtDocumentDescription, txtDocumentNumber, txaObservations, txtState);
+        });
     }
 
     /**

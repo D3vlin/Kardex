@@ -1,8 +1,11 @@
 package com.cidenet.hulkstore.kardex;
 
-/**
- *
- * @author jduque
+/** 
+ * This class represents the kardex model.
+ *  
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-24
  */
 public final class KardexView extends Kardex
 {    
@@ -22,62 +25,44 @@ public final class KardexView extends Kardex
     protected String unityDescription;
 
     /**
-     * Method 'getProductName'
+     * Gets the value of productName.
      * 
      * @return String
      */
-    public String getProductName()
-    {
-        return productName;
-    }
+    public String getProductName() { return productName; }
 
     /**
-     * Method 'setProductName'
+     * Sets the value of productName.
      * 
      * @param productName
      */
-    public void setProductName(String productName)
-    {
-        this.productName = productName;
-    }
+    public void setProductName(String productName) { this.productName = productName; }
 
     /**
-     * Method 'getStoreName'
+     * Gets the value of storeName.
      * 
      * @return String
      */
-    public String getStoreName()
-    {
-        return storeName;
-    }
+    public String getStoreName() { return storeName; }
 
     /**
-     * Method 'setStoreName'
+     * Sets the value of storeName.
      * 
      * @param storeName
      */
-    public void setStoreName(String storeName)
-    {
-        this.storeName = storeName;
-    }
+    public void setStoreName(String storeName) { this.storeName = storeName; }
 
     /**
-     * Method 'getUnityDescription'
+     * Gets the value of unityDescription.
      * 
      * @return String
      */
-    public String getUnityDescription()
-    {
-        return unityDescription;
-    }
+    public String getUnityDescription() { return unityDescription; }
 
     /**
-     * Method 'setUnityDescription'
+     * Sets the value of unityDescription.
      * 
      * @param unityDescription
      */
-    public void setUnityDescription(String unityDescription)
-    {
-        this.unityDescription = unityDescription;
-    }
+    public void setUnityDescription(String unityDescription) { this.unityDescription = unityDescription; }
 }

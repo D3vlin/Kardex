@@ -13,6 +13,11 @@ public class UIInsertKardex extends javax.swing.JFrame {
 
     private CInsertKardex controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIInsertKardex(CInsertKardex controller)
     {
         initComponents();

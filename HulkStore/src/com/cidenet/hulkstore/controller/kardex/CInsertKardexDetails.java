@@ -26,13 +26,19 @@ import javax.swing.JTextField;
  * @version 1.0
  * @since 2019-11-26
  */
-public class CInsertKardexDetails 
+public final class CInsertKardexDetails 
 {
     private UIInsertKardexDetails window;
     DocumentDto[] documents;
     private int productId;
     private int storeId; 
     
+    /**
+     * Builder that loads the data from the kardex header.
+     * 
+     * @param productId
+     * @param storeId 
+     */
     public CInsertKardexDetails(int productId, int storeId)
     {
         try {
@@ -43,9 +49,17 @@ public class CInsertKardexDetails
             documents = documentDao.findWhereStateEquals((short) 1);
             window = new UIInsertKardexDetails(this);
             
-        } catch (DocumentDaoException ex) {}
+        } catch (DocumentDaoException exception) {}
     }    
     
+    /**
+     * Load the description of active products, stores ans documents in the database.
+     * 
+     * @param cmbDocumentDescription
+     * @param txtDetailId
+     * @param txtProductId
+     * @param txtStoreId
+     */
     public void upload(JComboBox cmbDocumentDescription, JTextField txtDetailId ,JTextField txtProductId, JTextField txtStoreId)
     {
         try {
@@ -58,20 +72,32 @@ public class CInsertKardexDetails
             txtProductId.setText(String.valueOf(productId));
             txtStoreId.setText(String.valueOf(storeId));
             
-        } catch (KardexDetailDaoException ex) {}
+        } catch (KardexDetailDaoException exception) {}
     }
     
+    /**
+     * Register the new kardex detail.
+     * 
+     * @param txtDetailId
+     * @param txtProductId
+     * @param txtStoreId
+     * @param dtcDate
+     * @param txtDocumentId
+     * @param txtDocumentNumber
+     * @param cmbOperation
+     * @param txtQuantity
+     * @param txtUnityValue
+     * @param txtTotalValue
+     * @param txaObservations
+     */
     public void accept(JTextField txtDetailId, JTextField txtProductId, JTextField txtStoreId, JDateChooser dtcDate, JTextField txtDocumentId, JTextField txtDocumentNumber ,JComboBox cmbOperation, JTextField txtQuantity, JTextField txtUnityValue, JTextField txtTotalValue, JTextArea txaObservations)
     {
         Calendar c = dtcDate.getCalendar();
         
-        try
-        {
+        try {
             short operation;
-            if(cmbOperation.getSelectedIndex() == 0)
-                { operation = 1; }
-            else
-                { operation = 0; }
+            if(cmbOperation.getSelectedIndex() == 0) { operation = 1; }
+            else { operation = 0; }
             
             KardexDetailDto kardexDetailDto = new KardexDetailDto(Integer.parseInt(txtDetailId.getText()),
                                                                   Short.valueOf(txtProductId.getText()),
@@ -91,34 +117,49 @@ public class CInsertKardexDetails
             );
             
             KardexDetailDao kardexDetailDao = DaoFactory.createKardexDetailDao();           
-            if(!kardexDetailDao.insert(kardexDetailDto).isDetailIdNull())
-            {
+            if(!kardexDetailDao.insert(kardexDetailDto).isDetailIdNull()) {
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
-                new CKardex();
+                CKardex cKardex = new CKardex();
                 window.dispose();
                 
             } else { JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
-        }
-        catch(NumberFormatException | DaoException e) 
-        {
+            
+        } catch(NumberFormatException | DaoException exception) {
             JOptionPane.showMessageDialog(null, "Cantidad o Valor Total inválido", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
     
+    /**
+     * Cancel the operation and return to the kardex menu.
+     */
     public void cancel()
     {
         try {
-            new CKardex();
+            CKardex cKardex = new CKardex();
             window.dispose();
             
-        } catch (DaoException ex) {}
+        } catch (DaoException exception) {}
     }
     
+    /**
+     * Get the id of the selected document.
+     * 
+     * @param cmbDocumentDescription
+     * @param txtDocumentId
+     */
     public void seeDocument(JComboBox cmbDocumentDescription, JTextField txtDocumentId)
     {
         txtDocumentId.setText(String.valueOf(documents[cmbDocumentDescription.getSelectedIndex()].getDocumentId()));
     }
     
+    /**
+     * Calculate the quantity, unit value and total value.
+     * 
+     * @param txtQuantity
+     * @param txtUnitValue
+     * @param txtTotalValue
+     * @param field 
+     */
     public void calculate(JTextField txtQuantity, JTextField txtUnitValue, JTextField txtTotalValue, int field)
     {
         boolean validQuantity    = !(txtQuantity.getText().length() == 0);
@@ -129,42 +170,38 @@ public class CInsertKardexDetails
         double unitValue = 0;
         double totalValue = 0;
         
-        try
-            { quantity = Double.parseDouble(txtQuantity.getText()); }
-        catch(NumberFormatException e)
-            { validQuantity = false; }
+        try { quantity = Double.parseDouble(txtQuantity.getText()); }
+        catch(NumberFormatException e) { validQuantity = false; }
         
-        try
-            { unitValue = Double.parseDouble(txtUnitValue.getText()); }
-        catch(NumberFormatException e)
-            { validUnitValue = false; }
+        try { unitValue = Double.parseDouble(txtUnitValue.getText()); }
+        catch(NumberFormatException e) { validUnitValue = false; }
         
-        try
-            { totalValue = Double.parseDouble(txtTotalValue.getText()); }
-        catch(NumberFormatException e)
-            { validTotalValue = false; }
+        try { totalValue = Double.parseDouble(txtTotalValue.getText()); }
+        catch(NumberFormatException e) { validTotalValue = false; }
              
-        if(validQuantity && validUnitValue && field != 3)
-        {
+        if(validQuantity && validUnitValue && field != 3) {
             totalValue = roundOutDecimals((quantity * unitValue), 2);
             txtTotalValue.setText(String.valueOf(totalValue));
-        }
-        else if(validQuantity && validTotalValue && field != 2)
-        {
+        
+        } else if(validQuantity && validTotalValue && field != 2) {
             unitValue = roundOutDecimals((totalValue / quantity), 2);
-            if(!Double.isFinite(unitValue))
-                unitValue = 0;
+            if(!Double.isFinite(unitValue)) { unitValue = 0; }
             txtUnitValue.setText(String.valueOf(unitValue));
-        }
-        else if(validUnitValue && validTotalValue && field != 1)
-        {
+            
+        } else if(validUnitValue && validTotalValue && field != 1) {
             quantity = roundOutDecimals((totalValue / unitValue), 2);
-            if(!Double.isFinite(quantity))
-                quantity = 0;
+            if(!Double.isFinite(quantity)) { quantity = 0; }
             txtQuantity.setText(String.valueOf(quantity));
         }
     }
     
+    /**
+     * round the decimals of a number according to the specified quantity.
+     * 
+     * @param initialValue
+     * @param decimalNumbers
+     * @return 
+     */
     private double roundOutDecimals(double initialValue, int decimalNumbers) {
         double integerPart;
         double result;
@@ -177,6 +214,5 @@ public class CInsertKardexDetails
         result = (result/Math.pow(10, decimalNumbers))+integerPart;
         
         return result;
-    }
-        
+    }        
 }

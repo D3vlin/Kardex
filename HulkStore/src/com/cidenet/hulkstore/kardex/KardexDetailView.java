@@ -1,8 +1,11 @@
 package com.cidenet.hulkstore.kardex;
 
-/**
- *
- * @author jduque
+/** 
+ * This class represents the kardex detail view model.
+ *  
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-24
  */
 public final class KardexDetailView extends KardexDetail
 {   
@@ -11,11 +14,17 @@ public final class KardexDetailView extends KardexDetail
      */
     protected String documentDescription;
 
-    public String getDocumentDescription() {
-        return documentDescription;
-    }
+    /**
+     * Gets the value of document description.
+     * 
+     * @return String
+     */
+    public String getDocumentDescription() { return documentDescription; }
 
-    public void setDocumentDescription(String documentDescription) {
-        this.documentDescription = documentDescription;
-    }    
+    /**
+     * Sets the value of document description.
+     * 
+     * @param documentDescription
+     */
+    public void setDocumentDescription(String documentDescription) { this.documentDescription = documentDescription; }    
 }

@@ -14,6 +14,11 @@ public class UIUpdateKardexDetails extends javax.swing.JFrame {
 
     private CUpdateKardexDetails controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIUpdateKardexDetails(CUpdateKardexDetails controller)
     {
         initComponents();

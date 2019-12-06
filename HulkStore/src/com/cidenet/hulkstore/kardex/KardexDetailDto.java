@@ -2,6 +2,13 @@ package com.cidenet.hulkstore.kardex;
 
 import java.io.Serializable;
 
+/** 
+ * This class represents the kardex detail model.
+ *  
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-24
+ */
 public final class KardexDetailDto extends KardexDetail implements Serializable
 {
     /** 
@@ -10,14 +17,27 @@ public final class KardexDetailDto extends KardexDetail implements Serializable
     protected boolean userIdNull = true;
 
     /**
-     * Method 'KardexDetail'
-     * 
+     * Empty Constructor. 
      */
     public KardexDetailDto() {}
 
     /**
-     * Method 'KardexDetail'
+     * Constructor for a new kardex detail.
      * 
+     * @param detailId
+     * @param productId
+     * @param storeId
+     * @param kardexDetailYear
+     * @param kardexDetailMonth
+     * @param kardexDetailday
+     * @param userId
+     * @param documentId
+     * @param documentNumber
+     * @param operation
+     * @param quantity
+     * @param unityValue
+     * @param totalValue
+     * @param observations 
      */
     public KardexDetailDto(int detailId, int productId, int storeId, int kardexDetailYear, int kardexDetailMonth, int kardexDetailday, int userId, int documentId, int documentNumber, short operation, double quantity, double unityValue, double totalValue, String observations)
     {
@@ -40,7 +60,7 @@ public final class KardexDetailDto extends KardexDetail implements Serializable
     }
 
     /**
-     * Method 'setUserId'
+     * Sets the value of userId
      * 
      * @param userId
      */
@@ -51,7 +71,7 @@ public final class KardexDetailDto extends KardexDetail implements Serializable
     }
 
     /**
-     * Method 'setUserIdNull'
+     * Sets the value of userIdNull
      * 
      * @param value
      */
@@ -65,95 +85,11 @@ public final class KardexDetailDto extends KardexDetail implements Serializable
     public boolean isUserIdNull() { return userIdNull; }
 
     /**
-     * Method 'createPk'
+     * Method 'createPk'.
      * 
      * @return KardexDetailPk
      */
     public KardexDetailPk createPk() { return new KardexDetailPk(detailId, productId, storeId); }
-
-    /**
-     * Method 'equals'
-     * 
-     * @param _other
-     * @return boolean
-     */
-    public boolean equals(Object _other)
-    {
-        if (_other == null) { return false; }
-
-        if (_other == this) { return true; }
-
-        if (!(_other instanceof KardexDetailDto)) { return false; }
-
-        final KardexDetailDto _cast = (KardexDetailDto) _other;
-        
-        if (detailId != _cast.detailId) { return false; }
-
-        if (productId != _cast.productId) { return false; }
-
-        if (storeId != _cast.storeId) { return false; }
-
-        if (kardexDetailYear != _cast.kardexDetailYear) { return false; }
-
-        if (kardexDetailMonth != _cast.kardexDetailMonth) { return false; }
-
-        if (kardexDetailday != _cast.kardexDetailday) { return false; }
-
-        if (userId != _cast.userId) { return false; }
-
-        if (userIdNull != _cast.userIdNull) { return false; }
-
-        if (documentId != _cast.documentId) { return false; }
-
-        if (documentNumber != _cast.documentNumber) { return false; }
-
-        if (operation != _cast.operation) { return false; }
-
-        if (quantity != _cast.quantity) { return false; }
-
-        if (unityValue != _cast.unityValue) { return false; }
-
-        if (totalValue != _cast.totalValue) { return false; }
-
-        if (observations == null ? _cast.observations != observations : !observations.equals( _cast.observations )) { return false; }
-
-        if (state != _cast.state) { return false; }
-
-        return true;
-    }
-
-    /**
-     * Method 'hashCode'
-     * 
-     * @return int
-     */
-    public int hashCode()
-    {
-        int _hashCode = 0;
-        _hashCode = 29 * _hashCode + detailId;
-        _hashCode = 29 * _hashCode + productId;
-        _hashCode = 29 * _hashCode + storeId;
-        _hashCode = 29 * _hashCode + kardexDetailYear;
-        _hashCode = 29 * _hashCode + kardexDetailMonth;
-        _hashCode = 29 * _hashCode + kardexDetailday;
-        _hashCode = 29 * _hashCode + userId;
-        _hashCode = 29 * _hashCode + (userIdNull ? 1 : 0);
-        _hashCode = 29 * _hashCode + documentId;
-        _hashCode = 29 * _hashCode + documentNumber;
-        _hashCode = 29 * _hashCode + (int) operation;
-        long temp_quantity = Double.doubleToLongBits(quantity);
-        _hashCode = 29 * _hashCode + (int) (temp_quantity ^ (temp_quantity >>> 32));
-        long temp_unityValue = Double.doubleToLongBits(unityValue);
-        _hashCode = 29 * _hashCode + (int) (temp_unityValue ^ (temp_unityValue >>> 32));
-        long temp_totalValue = Double.doubleToLongBits(totalValue);
-        _hashCode = 29 * _hashCode + (int) (temp_totalValue ^ (temp_totalValue >>> 32));
-        if (observations != null) {
-                _hashCode = 29 * _hashCode + observations.hashCode();
-        }
-
-        _hashCode = 29 * _hashCode + (int) state;
-        return _hashCode;
-    }
 
     /**
      * Method 'toString'
@@ -162,24 +98,23 @@ public final class KardexDetailDto extends KardexDetail implements Serializable
      */
     public String toString()
     {
-            StringBuffer ret = new StringBuffer();
-            ret.append( "com.cidenet.hulkstore.dto.KardexDetail: " );
-            ret.append( "detailId=" + detailId );
-            ret.append( ", productId=" + productId );
-            ret.append( ", storeId=" + storeId );
-            ret.append( ", kardexDetailYear=" + kardexDetailYear );
-            ret.append( ", kardexDetailMonth=" + kardexDetailMonth );
-            ret.append( ", kardexDetailday=" + kardexDetailday );
-            ret.append( ", userId=" + userId );
-            ret.append( ", documentId=" + documentId );
-            ret.append( ", documentNumber=" + documentNumber );
-            ret.append( ", operation=" + operation );
-            ret.append( ", quantity=" + quantity );
-            ret.append( ", unityValue=" + unityValue );
-            ret.append( ", totalValue=" + totalValue );
-            ret.append( ", observations=" + observations );
-            ret.append( ", state=" + state );
-            return ret.toString();
+        StringBuilder response = new StringBuilder();
+        response.append("com.cidenet.hulkstore.dto.KardexDetail: ");
+        response.append("detailId=").append(detailId);
+        response.append(", productId=").append(productId);
+        response.append(", storeId=").append(storeId);
+        response.append(", kardexDetailYear=").append(kardexDetailYear);
+        response.append(", kardexDetailMonth=").append(kardexDetailMonth);
+        response.append(", kardexDetailday=").append(kardexDetailday);
+        response.append(", userId=").append(userId);
+        response.append(", documentId=").append(documentId);
+        response.append(", documentNumber=").append(documentNumber);
+        response.append(", operation=").append(operation);
+        response.append(", quantity=").append(quantity);
+        response.append(", unityValue=").append(unityValue);
+        response.append(", totalValue=").append(totalValue);
+        response.append(", observations=").append(observations);
+        response.append(", state=").append(state);
+        return response.toString();
     }
-
 }

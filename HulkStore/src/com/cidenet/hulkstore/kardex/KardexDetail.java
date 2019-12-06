@@ -1,8 +1,11 @@
 package com.cidenet.hulkstore.kardex;
 
 /**
- *
- * @author jduque
+ * This abstract class represents the kardex detail model.
+ *  
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-24
  */
 public abstract class KardexDetail extends Kardex
 {
@@ -52,27 +55,21 @@ public abstract class KardexDetail extends Kardex
     protected String observations;
     
     /**
-    * Method 'getDetailId'
+    * Gets the value of detailId.
     * 
     * @return int
     */
-   public int getDetailId()
-   {
-        return detailId;
-   }
+   public int getDetailId() { return detailId; }
 
    /**
-    * Method 'setDetailId'
+    * Sets the value of detailId.
     * 
     * @param detailId
     */
-   public void setDetailId(int detailId)
-   {
-        this.detailId = detailId;
-   }
+   public void setDetailId(int detailId) { this.detailId = detailId; }
 
     /**
-     * Method 'getKardexDetailDate'
+     * Gets the value of kardex detail date.
      * 
      * @return String
      */
@@ -82,162 +79,114 @@ public abstract class KardexDetail extends Kardex
     }
 
     /**
-     * Method 'getKardexDetailYear'
+     * Gets the value of kardexDetailYear.
      * 
      * @return int
      */
-    public int getKardexDetailYear()
-    {
-        return kardexDetailYear;
-    }
+    public int getKardexDetailYear() { return kardexDetailYear; }
 
     /**
-     * Method 'setKardexDetailYear'
+     * Sets the value of kardexDetailYear.
      * 
      * @param kardexDetailYear
      */
-    public void setKardexDetailYear(int kardexDetailYear)
-    {
-        this.kardexDetailYear = kardexDetailYear;
-    }
+    public void setKardexDetailYear(int kardexDetailYear) { this.kardexDetailYear = kardexDetailYear; }
 
     /**
-     * Method 'getKardexDetailMonth'
+     * Gets the value of kardexDetailMonth.
      * 
      * @return int
      */
-    public int getKardexDetailMonth()
-    {
-        return kardexDetailMonth;
-    }
+    public int getKardexDetailMonth() { return kardexDetailMonth; }
 
     /**
-     * Method 'setKardexDetailMonth'
+     * Sets the value of kardexDetailMonth.
      * 
      * @param kardexDetailMonth
      */
-    public void setKardexDetailMonth(int kardexDetailMonth)
-    {
-        this.kardexDetailMonth = kardexDetailMonth;
-    }
+    public void setKardexDetailMonth(int kardexDetailMonth) { this.kardexDetailMonth = kardexDetailMonth; }
 
     /**
-     * Method 'getKardexDetailday'
+     * Gets the value of kardexDetailday.
      * 
      * @return int
      */
-    public int getKardexDetailday()
-    {
-        return kardexDetailday;
-    }
+    public int getKardexDetailday() { return kardexDetailday; }
 
     /**
-     * Method 'setKardexDetailday'
+     * Sets the value of kardexDetailday.
      * 
      * @param kardexDetailday
      */
-    public void setKardexDetailday(int kardexDetailday)
-    {
-        this.kardexDetailday = kardexDetailday;
-    }
+    public void setKardexDetailday(int kardexDetailday) { this.kardexDetailday = kardexDetailday; }
 
     /**
-     * Method 'getUserId'
+     * Gets the value of userId.
      * 
      * @return int
      */
-    public int getUserId()
-    {
-        return userId;
-    }
+    public int getUserId() { return userId; }
 
     /**
-     * Method 'setUserId'
+     * Sets the value of userId.
      * 
      * @param userId
      */
-    public void setUserId(int userId)
-    {
-        this.userId = userId;
-    }
+    public void setUserId(int userId) { this.userId = userId; }
 
     /**
-     * Method 'getDocumentId'
+     * Gets the value of documentId.
      * 
      * @return int
      */
-    public int getDocumentId()
-    {
-        return documentId;
-    }
+    public int getDocumentId() { return documentId; }
 
     /**
-     * Method 'setDocumentId'
+     * Sets the value of documentId.
      * 
      * @param documentId
      */
-    public void setDocumentId(int documentId)
-    {
-        this.documentId = documentId;
-    }
+    public void setDocumentId(int documentId) { this.documentId = documentId; }
 
     /**
-     * Method 'getDocumentNumber'
+     * Gets the value of documentNumber.
      * 
      * @return int
      */
-    public int getDocumentNumber()
-    {
-        return documentNumber;
-    }
+    public int getDocumentNumber() { return documentNumber; }
 
     /**
-     * Method 'setDocumentNumber'
+     * Sets the value of documentNumber.
      * 
      * @param documentNumber
      */
-    public void setDocumentNumber(int documentNumber)
-    {
-        this.documentNumber = documentNumber;
-    }
+    public void setDocumentNumber(int documentNumber) { this.documentNumber = documentNumber; }
 
     /**
-     * Method 'getOperation'
+     * Gets the value of operation.
      * 
      * @return short
      */
-    public short getOperation()
-    {
-        return operation;
-    }
+    public short getOperation() { return operation; }
 
     /**
-     * Method 'setOperation'
+     * Sets the value of operation.
      * 
      * @param operation
      */
-    public void setOperation(short operation)
-    {
-        this.operation = operation;
-    }
+    public void setOperation(short operation) { this.operation = operation; }
 
     /**
-     * Method 'getObservations'
+     * Gets the value of observations.
      * 
      * @return String
      */
-    public String getObservations()
-    {
-        return observations;
-    }
+    public String getObservations() { return observations; }
 
     /**
-     * Method 'setObservations'
+     * Sets the value of observations.
      * 
      * @param observations
      */
-    public void setObservations(String observations)
-    {
-        this.observations = observations;
-    }
+    public void setObservations(String observations) { this.observations = observations; }
 }
