@@ -3,7 +3,6 @@ package com.cidenet.hulkstore.controller.store;
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.reports.CReports;
 import com.cidenet.hulkstore.factory.DaoFactory;
-import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDto;
@@ -34,37 +33,50 @@ public final class CStore
     private UIStore window;
     private StoreDto[] stores;
     
+    /**
+     * Empty Constructor.
+     */
     public CStore()
     {
         try {
             StoreDao dao = DaoFactory.createStoreDao();
             stores = dao.findAll();            
-        }
-        catch (Exception e) {
-        }
+        
+        } catch (Exception exception) {}
         
         window = new UIStore(this);
-    }
+    }    
     
+    /**
+     * Upload the stores registered in the database to the form table and set their status.
+     * 
+     * @param tblStore
+     * @param txtSearch 
+     */
     public void upload(JTable tblStore, JTextField txtSearch)
     {
         DefaultTableModel model = (DefaultTableModel) tblStore.getModel();
         model.setRowCount(0);
         String state;
         
-        for (StoreDto store : stores) {
-            if (store.getState() == 1) {
-                state = "A";
-            } else if (store.getState() == 2) {
-                state = "I";
-            } else {
-                state = "*";
-            }
+        for (StoreDto store : stores) 
+        {
+            if (store.getState() == 1) { state = "A"; }
+            else if (store.getState() == 2) { state = "I"; }
+            else { state = "*"; }
+            
             model.addRow(new Object[]{store.getStoreId(), store.getStoreName(), store.getAddress(), state});
         }
     }
-
-    public void updateState(JTable tblStore, JCheckBox chkActive) {
+    
+    /**
+     * Depending on the status of the registered store, the status of the chkActive control changes.
+     * 
+     * @param tblStore
+     * @param chkActive 
+     */
+    public void updateState(JTable tblStore, JCheckBox chkActive) 
+    {
         int i = tblStore.getSelectedRow();
         
         if(i != -1)
@@ -90,33 +102,51 @@ public final class CStore
         }
     }
 
+    /**
+     * Return to the initial menu.
+     */
     public void menu() {
-        new CMenu();        
+        CMenu cMenu = new CMenu();        
         window.dispose();
     }
 
+    /**
+     * Show the form to insert a new store.
+     */
     public void insert() {
-        new CInsertStore();
+        CInsertStore cInsertStore = new CInsertStore();
         window.dispose();
     }
 
-    public void update(JTable tblStore) {
+    /**
+     * Show the form to modify a store.
+     * 
+     * @param tblStore 
+     */
+    public void update(JTable tblStore)
+    {
         int i = tblStore.getSelectedRow();
         
         if(i != -1)
         {
             StoreDto dto = stores[i];
-            CUpdateStore update;
+            
             if(dto.getState() == 1)
             {
-                update = new CUpdateStore(dto.getStoreId());
+                CUpdateStore update = new CUpdateStore(dto.getStoreId());
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE);}
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE);}
+                
+            } else { JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE); }
+            
+        } else { JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
 
+    /**
+     * Enable or disable the status of the registered store.
+     * 
+     * @param tblStore
+     * @param chkActive 
+     */
     public void enableDisable(JTable tblStore, JCheckBox chkActive) {
         int i = tblStore.getSelectedRow();
         
@@ -130,22 +160,27 @@ public final class CStore
             {
                 try {
                     dto.setState((short) 1);
-                    if(dao.update(dto.createPk(), dto)){
-                        model.setValueAt("A", i, 3);}
-                } catch (StoreDaoException ex) {}
-            }
-            else
-            {
+                    if(dao.update(dto.createPk(), dto)) { model.setValueAt("A", i, 3); }
+                    
+                } catch (StoreDaoException exception) {}
+            
+            } else {
                 try {
                     dto.setState((short) 2);
-                    if(dao.update(dto.createPk(), dto)){
-                        model.setValueAt("I", i, 3);}
-                } catch (StoreDaoException ex) {}
+                    if(dao.update(dto.createPk(), dto)) { model.setValueAt("I", i, 3); }
+                    
+                } catch (StoreDaoException exception) {}
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
+            
+        } else { JOptionPane.showMessageDialog(null, "Seleccione un registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
 
+    /**
+     * Change the status of a registered store to deleted.
+     * 
+     * @param tblStore
+     * @param chkActive 
+     */
     public void delete(JTable tblStore, JCheckBox chkActive) {
         int i = tblStore.getSelectedRow();
         
@@ -166,12 +201,15 @@ public final class CStore
                         }    
                     } catch (StoreDaoException ex) {}                    
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE);}
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE);}
+                
+            } else { JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE); }
+            
+        } else { JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
 
+    /**
+     * Generate the report of stores.
+     */
     public void generateReport() {
         try {
             StoreDao dao = DaoFactory.createStoreDao();
@@ -179,11 +217,19 @@ public final class CStore
             
             CReports report = new CReports();
             report.generateStoreReport(stores);
-        } catch (StoreDaoException ex) {}
+            
+        } catch (StoreDaoException exception) {}
     }
 
-    public void searchStore(String filter, JTextField txtSearch, JTable tblStore) {
-        
+    /**
+     * Add the available records to the autocompleter.
+     * 
+     * @param filter
+     * @param txtSearch
+     * @param tblStore 
+     */
+    public void loadAutoCompleter(String filter, JTextField txtSearch, JTable tblStore)
+    {        
         txtSearch.setText("");      
         
         TextAutoCompleter textAutoAcompleter = new TextAutoCompleter(txtSearch);
@@ -191,14 +237,12 @@ public final class CStore
         textAutoAcompleter.setMode(0);
         textAutoAcompleter.setCaseSensitive(false);
         
-        TableModel tableModel = tblStore.getModel();
-        
+        TableModel tableModel = tblStore.getModel();        
         
         int i;
         for(i = 0; i < tableModel.getColumnCount(); i++)
         {
-            if(filter.compareTo(tableModel.getColumnName(i)) == 0) {
-                break;}
+            if(filter.compareTo(tableModel.getColumnName(i)) == 0) { break; }
         }
         
         for(int k = 0; k < tableModel.getRowCount(); k++)
@@ -207,17 +251,23 @@ public final class CStore
         }
     }
 
-    public void searchStore(int keyCode, String filter, String store, JTable tblStore) {
-        
-
+    /**
+     * Select the row where the searched store is located.
+     * 
+     * @param keyCode
+     * @param filter
+     * @param store
+     * @param tblStore 
+     */
+    public void searchStore(int keyCode, String filter, String store, JTable tblStore)
+    {       
         if(keyCode == KeyEvent.VK_ENTER) {
             TableModel tableModel = tblStore.getModel();
         
             int i;
             for(i = 0; i < tableModel.getColumnCount(); i++)
             {
-                if(filter.compareTo(tableModel.getColumnName(i)) == 0) {
-                    break;}
+                if(filter.compareTo(tableModel.getColumnName(i)) == 0) { break; }
             }
 
             for(int k = 0; k < tableModel.getRowCount(); k++)
@@ -226,11 +276,8 @@ public final class CStore
                     tblStore.setRowSelectionInterval(k, k);
                     break;
                     
-                } else {
-                    tblStore.clearSelection();
-                }
+                } else { tblStore.clearSelection(); }
             }
         }        
-    }
-    
+    }    
 }

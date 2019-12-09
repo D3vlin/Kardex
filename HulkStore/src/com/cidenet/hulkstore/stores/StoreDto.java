@@ -2,209 +2,132 @@ package com.cidenet.hulkstore.stores;
 
 import java.io.Serializable;
 
+/**
+ * This class represents the product model.
+ * 
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-12
+ */
 public final class StoreDto implements Serializable
 {
-	/** 
-	 * This attribute maps to the column storeId in the store table.
-	 */
-	protected int storeId;
+    /** 
+     * This attribute maps to the column storeId in the store table.
+     */
+    protected int storeId;
 
-	/** 
-	 * This attribute maps to the column storeName in the store table.
-	 */
-	protected String storeName;
+    /** 
+     * This attribute maps to the column storeName in the store table.
+     */
+    protected String storeName;
 
-	/** 
-	 * This attribute maps to the column address in the store table.
-	 */
-	protected String address;
+    /** 
+     * This attribute maps to the column address in the store table.
+     */
+    protected String address;
 
-	/** 
-	 * This attribute maps to the column state in the store table.
-	 */
-	protected short state;
+    /** 
+     * This attribute maps to the column state in the store table.
+     */
+    protected short state;
 
-	/**
-	 * Method 'Store'
-	 * 
-	 */
-	public StoreDto()
-	{
-	}
-        
-	public StoreDto(int storeId, String storeName, String address)
-	{
-            this.storeId = storeId;
-            this.storeName = storeName;
-            this.address = address;
-            this.state = 1;
-	}
+    /**
+     * Empty Constructor.
+     * 
+     */
+    public StoreDto() {}
+    
+    /**
+     * Constructor.
+     * 
+     * @param storeId
+     * @param storeName
+     * @param address 
+     */
+    public StoreDto(int storeId, String storeName, String address)
+    {
+        this.storeId = storeId;
+        this.storeName = storeName;
+        this.address = address;
+        this.state = 1;
+    }
 
-	/**
-	 * Method 'getStoreId'
-	 * 
-	 * @return int
-	 */
-	public int getStoreId()
-	{
-		return storeId;
-	}
+    /**
+     * Gets the value of storeId.
+     * 
+     * @return int
+     */
+    public int getStoreId() { return storeId; }
 
-	/**
-	 * Method 'setStoreId'
-	 * 
-	 * @param storeId
-	 */
-	public void setStoreId(int storeId)
-	{
-		this.storeId = storeId;
-	}
+    /**
+     * Sets the value of storeId.
+     * 
+     * @param storeId
+     */
+    public void setStoreId(int storeId) { this.storeId = storeId; }
 
-	/**
-	 * Method 'getStoreName'
-	 * 
-	 * @return String
-	 */
-	public String getStoreName()
-	{
-		return storeName;
-	}
+    /**
+     * Gets the value of storeName.
+     * 
+     * @return String
+     */
+    public String getStoreName() { return storeName; }
 
-	/**
-	 * Method 'setStoreName'
-	 * 
-	 * @param storeName
-	 */
-	public void setStoreName(String storeName)
-	{
-		this.storeName = storeName;
-	}
+    /**
+     * Sets the value of storeName.
+     * 
+     * @param storeName
+     */
+    public void setStoreName(String storeName) { this.storeName = storeName; }
 
-	/**
-	 * Method 'getAddress'
-	 * 
-	 * @return String
-	 */
-	public String getAddress()
-	{
-		return address;
-	}
+    /**
+     * Gets the value of address.
+     * 
+     * @return String
+     */
+    public String getAddress() { return address; }
 
-	/**
-	 * Method 'setAddress'
-	 * 
-	 * @param address
-	 */
-	public void setAddress(String address)
-	{
-		this.address = address;
-	}
+    /**
+     * Sets the value of address.
+     * 
+     * @param address
+     */
+    public void setAddress(String address) { this.address = address; }
 
-	/**
-	 * Method 'getState'
-	 * 
-	 * @return short
-	 */
-	public short getState()
-	{
-		return state;
-	}
+    /**
+     * Gets the value of state.
+     * 
+     * @return short
+     */
+    public short getState() { return state; }
 
-	/**
-	 * Method 'setState'
-	 * 
-	 * @param state
-	 */
-	public void setState(short state)
-	{
-		this.state = state;
-	}
+    /**
+     * Sets the value of state.
+     * 
+     * @param state
+     */
+    public void setState(short state) { this.state = state; }
 
-	/**
-	 * Method 'equals'
-	 * 
-	 * @param _other
-	 * @return boolean
-	 */
-	public boolean equals(Object _other)
-	{
-		if (_other == null) {
-			return false;
-		}
-		
-		if (_other == this) {
-			return true;
-		}
-		
-		if (!(_other instanceof StoreDto)) {
-			return false;
-		}
-		
-		final StoreDto _cast = (StoreDto) _other;
-		if (storeId != _cast.storeId) {
-			return false;
-		}
-		
-		if (storeName == null ? _cast.storeName != storeName : !storeName.equals( _cast.storeName )) {
-			return false;
-		}
-		
-		if (address == null ? _cast.address != address : !address.equals( _cast.address )) {
-			return false;
-		}
-		
-		if (state != _cast.state) {
-			return false;
-		}
-		
-		return true;
-	}
+    /**
+     * Method 'createPk'
+     * 
+     * @return StorePk
+     */
+    public StorePk createPk() { return new StorePk(storeId); }
 
-	/**
-	 * Method 'hashCode'
-	 * 
-	 * @return int
-	 */
-	public int hashCode()
-	{
-		int _hashCode = 0;
-		_hashCode = 29 * _hashCode + storeId;
-		if (storeName != null) {
-			_hashCode = 29 * _hashCode + storeName.hashCode();
-		}
-		
-		if (address != null) {
-			_hashCode = 29 * _hashCode + address.hashCode();
-		}
-		
-		_hashCode = 29 * _hashCode + (int) state;
-		return _hashCode;
-	}
-
-	/**
-	 * Method 'createPk'
-	 * 
-	 * @return StorePk
-	 */
-	public StorePk createPk()
-	{
-		return new StorePk(storeId);
-	}
-
-	/**
-	 * Method 'toString'
-	 * 
-	 * @return String
-	 */
-	public String toString()
-	{
-		StringBuffer ret = new StringBuffer();
-		ret.append( "com.cidenet.hulkstore.dto.Store: " );
-		ret.append( "storeId=" + storeId );
-		ret.append( ", storeName=" + storeName );
-		ret.append( ", address=" + address );
-		ret.append( ", state=" + state );
-		return ret.toString();
-	}
-
+    /**
+     * Method 'toString'
+     * 
+     * @return String
+     */
+    public String toString()
+    {
+        StringBuilder ret = new StringBuilder();
+        ret.append("com.cidenet.hulkstore.dto.Store: ");
+        ret.append("storeId=").append(storeId);
+        ret.append(", storeName=").append(storeName);
+        ret.append(", address=").append(address);
+        ret.append(", state=").append(state);
+        return ret.toString();
+    }
 }

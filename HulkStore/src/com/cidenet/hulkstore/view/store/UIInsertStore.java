@@ -3,7 +3,7 @@ package com.cidenet.hulkstore.view.store;
 import com.cidenet.hulkstore.controller.store.CInsertStore;
 
 /**
- * Main view of insert store
+ * Main view of insert store.
  * 
  * @author Alexis Duque
  * @version 1.0
@@ -13,6 +13,11 @@ public class UIInsertStore extends javax.swing.JFrame {
 
     private CInsertStore controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIInsertStore(CInsertStore controller) {
         initComponents();
         this.setVisible(true);

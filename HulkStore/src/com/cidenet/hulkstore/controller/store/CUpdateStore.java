@@ -1,6 +1,5 @@
 package com.cidenet.hulkstore.controller.store;
 
-import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDto;
@@ -23,23 +22,39 @@ public final class CUpdateStore
     private StoreDao dao = new StoreDao();
     private StoreDto dto;
     
+    /**
+     * Constructor.
+     * 
+     * @param storeId 
+     */
     public CUpdateStore(int storeId)
     {
         try {
-            dto = dao.findByPrimaryKey(storeId);
-            
+            dto = dao.findByPrimaryKey(storeId);            
             window = new UIUpdateStore(this);
-        } catch (StoreDaoException ex) 
-        {
-        }       
+            
+        } catch (StoreDaoException exception) {}       
     }
 
+    /**
+     * Upload the store information to the form.
+     * 
+     * @param txtstoreId
+     * @param txtStoreName
+     * @param txtAddress 
+     */
     public void upload(JTextField txtstoreId, JTextField txtStoreName, JTextField txtAddress) {
         txtstoreId.setText(String.valueOf(dto.getStoreId()));
         txtStoreName.setText(dto.getStoreName());
         txtAddress.setText(dto.getAddress());
     }
 
+    /**
+     * Modify the store.
+     * 
+     * @param txtStoreName
+     * @param txtAddress 
+     */
     public void accept(JTextField txtStoreName, JTextField txtAddress) {
         try {
             dto.setStoreName(txtStoreName.getText());
@@ -47,17 +62,19 @@ public final class CUpdateStore
             
             if(dao.update(dto.createPk(), dto)){
                 JOptionPane.showMessageDialog(null, "Se ha modificado el registro", "MODIFICACIÓN", JOptionPane.INFORMATION_MESSAGE);
-                new CStore();
+                CStore cStore = new CStore();
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se ha modificado el registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
-        } catch (StoreDaoException ex) {
-        }
+                
+            } else { JOptionPane.showMessageDialog(null, "No se ha modificado el registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
+            
+        } catch (StoreDaoException exception) {}
     }
 
+    /**
+     * Cancel the operation and return to the stores menu.
+     */
     public void cancel() {
-        new CStore();
+        CStore cStore = new CStore();
         window.dispose();
-    }
-    
+    }    
 }

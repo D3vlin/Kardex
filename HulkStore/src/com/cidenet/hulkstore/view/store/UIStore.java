@@ -5,11 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 /**
- * Main view of Store Management
+ * Main view of Store Management.
  * 
  * @author Alexis Duque
  * @version 1.0
@@ -19,7 +18,12 @@ public class UIStore extends javax.swing.JFrame {
     
     private CStore controller;
     private ListSelectionModel cellSelectionModel;
-        
+    
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIStore(CStore controller)
     {
         initComponents();
@@ -34,18 +38,12 @@ public class UIStore extends javax.swing.JFrame {
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         cellSelectionModel.addListSelectionListener
-        (
-            new ListSelectionListener()
-            {
-                @Override
-                public void valueChanged(ListSelectionEvent e)
-                {
-                    controller.updateState(tblStore, chkActive);
-                }
-            }
-        );
+                
+        ((ListSelectionEvent e) -> {
+            controller.updateState(tblStore, chkActive);
+        });
         
-        controller.searchStore(cmbField.getSelectedItem().toString(), txtSearch, tblStore);
+        controller.loadAutoCompleter(cmbField.getSelectedItem().toString(), txtSearch, tblStore);
     }
 
     /**
@@ -287,7 +285,7 @@ public class UIStore extends javax.swing.JFrame {
     }//GEN-LAST:event_chkActiveActionPerformed
 
     private void cmbFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFieldActionPerformed
-        controller.searchStore(cmbField.getSelectedItem().toString(), txtSearch, tblStore);
+        controller.loadAutoCompleter(cmbField.getSelectedItem().toString(), txtSearch, tblStore);
     }//GEN-LAST:event_cmbFieldActionPerformed
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed

@@ -1,6 +1,5 @@
 package com.cidenet.hulkstore.controller.store;
 
-import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDto;
@@ -9,9 +8,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- * Store Insertion Controller
+ * Store Insertion Controller.
  * 
- * Receive and validate data about a new store registration
+ * Receive and validate data about a new store registration.
  *  
  * @author Alexis Duque
  * @version 1.0
@@ -21,39 +20,53 @@ public final class CInsertStore
 {
     private UIInsertStore window;
     
-    public CInsertStore()
-    {
-        window = new UIInsertStore(this);
-    }
+    /**
+     * Empty Constructor.
+     */
+    public CInsertStore() { window = new UIInsertStore(this); }
 
-    public void upload(JTextField txtStoreId) {        
+    /**
+     * Upload the store information to the form.
+     * 
+     * @param txtStoreId 
+     */
+    public void upload(JTextField txtStoreId) 
+    {        
         try {
             StoreDao dao = new StoreDao();
             txtStoreId.setText(dao.findNextStoreId());
-        } catch (StoreDaoException ex)
-        {
-        }
+            
+        } catch (StoreDaoException exception) {}
     }
 
-    public void accept(JTextField txtStoreId, JTextField txtStoreName, JTextField txtAddress) {        
-        
+    /**
+     * Register the new store.
+     * 
+     * @param txtStoreId
+     * @param txtStoreName
+     * @param txtAddress 
+     */
+    public void accept(JTextField txtStoreId, JTextField txtStoreName, JTextField txtAddress)
+    {                
         try {
             StoreDto dto = new StoreDto(Integer.parseInt(txtStoreId.getText()), txtStoreName.getText(), txtAddress.getText());
             StoreDao dao = new StoreDao();
             
             if(!dao.insert(dto).isStoreIdNull()){
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
-                new CStore();
+                CStore cStore = new CStore();
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
-        } catch (StoreDaoException ex) {
-        }
+                
+            } else { JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
+            
+        } catch (StoreDaoException exception) {}
     }
 
+    /**
+     * Cancel the operation and return to the stores menu.
+     */
     public void cancel() {
-        new CStore();
+        CStore cStore = new CStore();
         window.dispose();
-    }
-    
+    }    
 }

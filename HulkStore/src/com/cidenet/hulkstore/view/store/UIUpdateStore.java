@@ -13,9 +13,13 @@ public class UIUpdateStore extends javax.swing.JFrame {
 
     private CUpdateStore controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIUpdateStore(CUpdateStore controller)
-    {
-        
+    {        
         initComponents();
         this.setVisible(true);
         this.setTitle("Modificar Tienda");
