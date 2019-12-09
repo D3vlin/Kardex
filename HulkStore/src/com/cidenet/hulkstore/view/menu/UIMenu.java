@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
- * Main Menu View
+ * Main Menu View.
  *
  * @author Alexis Duque
  * @version 1.0
@@ -14,12 +14,15 @@ import javax.swing.JOptionPane;
  */
 public class UIMenu extends javax.swing.JFrame
 {
-    /**
-     * Store the user id that uses the menu
-     */
-    public static int userId;
+    public static int userId; // Store the user id that uses the menu.
     private CMenu controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller
+     * @param user 
+     */
     public UIMenu(CMenu controller, UsersDto user) {
         initComponents();
         this.setVisible(true);
