@@ -1,6 +1,5 @@
 package com.cidenet.hulkstore.controller.reports;
 
-import com.cidenet.hulkstore.kardex.KardexDetailDto;
 import com.cidenet.hulkstore.kardex.KardexDetailView;
 import com.cidenet.hulkstore.kardex.KardexView;
 import com.cidenet.hulkstore.products.ProductView;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- * Reports Controller
+ * Reports Controller.
  * 
  * Generate inventory control reports.
  * 
@@ -40,6 +39,13 @@ public final class CReports
     private Document document;
     private PdfPTable pdfTable;
     
+    /**
+     * Generate the initial part of the report.
+     * 
+     * @param title
+     * @param subtitle
+     * @param header 
+     */
     private void startReport(String title, String subtitle,  ArrayList<String> header) {
         String path = fileChooser();
         
@@ -106,6 +112,9 @@ public final class CReports
         }
     }
     
+    /**
+     * Generate the final part of the report.
+     */
     private void finishReport() {
         try {
             document.add(pdfTable);
@@ -116,6 +125,11 @@ public final class CReports
         } catch (DocumentException ex) {}
     }
 
+    /**
+     * Select the location where the report is saved.
+     * 
+     * @return String
+     */
     private String fileChooser() {
         JFileChooser fileChooser = new JFileChooser();
         
@@ -138,6 +152,11 @@ public final class CReports
         } else { return ""; }
     }
     
+    /**
+     * Generate the report of the stores.
+     * 
+     * @param stores 
+     */
     public void generateStoreReport(StoreDto[] stores) {        
                     
         ArrayList <String> header = new ArrayList <> ();            
@@ -191,6 +210,11 @@ public final class CReports
         finishReport();
     }
 
+    /**
+     * Generate the report of the products.
+     * 
+     * @param viewProducts 
+     */
     public void generateProductReport(ProductView[] viewProducts) {
         
         ArrayList <String> header = new ArrayList <> ();            
@@ -244,6 +268,12 @@ public final class CReports
         finishReport();
     }
     
+    /**
+     * Generate the kardex report.
+     * 
+     * @param kardexView
+     * @param kardexDetailView 
+     */
     public void generateKardexReport(KardexView kardexView, KardexDetailView[] kardexDetailView)
     {
         String path = fileChooser();
@@ -540,6 +570,5 @@ public final class CReports
             }
             catch (DocumentException | IOException ex) {}
         }
-    }
-    
+    }    
 }
