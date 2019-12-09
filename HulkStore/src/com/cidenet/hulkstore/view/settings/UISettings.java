@@ -14,6 +14,11 @@ public class UISettings extends javax.swing.JFrame {
 
     private CSettings controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UISettings(CSettings controller) {
         initComponents();
         this.setVisible(true);

@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
- * Setting view controller
+ * Setting view controller.
  * 
  * Modify configuration values with the database, in addition to checking
  * if the connection provided by the user is correct.
@@ -28,32 +28,51 @@ public final class CSettings
     private UISettings window;
     private boolean returnToLogin;
     
+    /**
+     * Constructor.
+     * 
+     * @param returnToLogin 
+     */
     public CSettings(boolean returnToLogin)
     {
         this.returnToLogin = returnToLogin;
         window = new UISettings(this);
     }
 
-    public void upload(JTextField txtHost, JTextField txtUser) {
+    /**
+     * Load the initial data for the connection.
+     * 
+     * @param txtHost
+     * @param txtUser 
+     */
+    public void upload(JTextField txtHost, JTextField txtUser)
+    {
         String[] dataConection = getDataConnection();
-
         txtHost.setText(dataConection[0]);
         txtUser.setText(dataConection[1]);
     }
     
-    public void cancel() {
-        CLogin login;
-        if(returnToLogin) {
-            login = new CLogin();
-        } else {
-            new CMenu();
-        }
+    /**
+     * Return to the initial menu.
+     */
+    public void cancel()
+    {
+        if(returnToLogin) { CLogin login = new CLogin(); }
+        else { CMenu cMenu = new CMenu(); }
         
         window.dispose();
     }
 
-    public void validate(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState) {        
-        
+    /**
+     * Validate that the parameters indicated make a successful connection to the database.
+     * 
+     * @param txtHost
+     * @param txtUser
+     * @param pwdPass
+     * @param lblState 
+     */
+    public void validate(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState)
+    {                
         if(testConnection(txtHost.getText(), txtUser.getText(), pwdPass.getText()))
         {
             lblState.setForeground(new Color(0, 150, 0));
@@ -66,13 +85,21 @@ public final class CSettings
         }
     }
 
-    public void accept(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState) {
+    /**
+     * Registers the connection parameters in the connection.dat file.
+     * 
+     * @param txtHost
+     * @param txtUser
+     * @param pwdPass
+     * @param lblState 
+     */
+    public void accept(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState) 
+    {
         if(lblState.getText().equals("Configuración correcta")) {
             setDataConnection(txtHost.getText(), txtUser.getText(), pwdPass.getText());
             cancel();
         } else {
             JOptionPane.showMessageDialog(null, "Esta conexión no pasó el test.\nConfigure la conexión correctamente", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    }
-    
+    }    
 }
