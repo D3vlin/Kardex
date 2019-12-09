@@ -16,6 +16,11 @@ public class UILogin extends javax.swing.JFrame {
 
     private CLogin controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UILogin(CLogin controller) {
         initComponents();
         this.setVisible(true);

@@ -13,7 +13,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
- * Login view controller
+ * Login view controller.
  * 
  * Validates the entry of a user, verifying its existence in the database.
  * 
@@ -26,11 +26,20 @@ public final class CLogin
 {
     private UILogin window;
     
+    /**
+     * Empty Constructor.
+     */
     public CLogin()
     {
         this.window = new UILogin(this);
     }
     
+    /**
+     * Valid if the user's credentials are valid.
+     * 
+     * @param txtUser
+     * @param pwdPass 
+     */
     public void validate(JTextField txtUser, JPasswordField pwdPass)
     {
         try {
@@ -38,25 +47,25 @@ public final class CLogin
             UsersDto user = dao.validateUser(txtUser.getText(), pwdPass.getText());
             
             if (user != null) {
-                new CMenu(user);
+                CMenu cMenu = new CMenu(user);
                 window.dispose();
-            }
-            else
-                JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE, null);
-        }
-        catch (UsersDaoException | HeadlessException e) {
-            e.printStackTrace();
-        }
+            
+            } else { JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE, null); }
+        
+        } catch (UsersDaoException | HeadlessException exception) {}
     }
     
+    /**
+     * Show the configuration form.
+     */
     public void setting()
     {
-        new CSettings(true);
+        CSettings cSettings = new CSettings(true);
         window.dispose();
     }
     
-    public void close()
-    {
-        window.dispose();
-    }
+    /**
+     * Close the form and finish the application.
+     */
+    public void close() { window.dispose(); }
 }
