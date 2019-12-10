@@ -5,6 +5,10 @@ import java.sql.*;
 
 /**
  * Generic Base class for DAO classes.
+ * 
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-24
  */
 public class AbstractDAO
 {
@@ -59,7 +63,7 @@ public class AbstractDAO
                 return null;
             }
 
-            StringBuffer ret = new StringBuffer();
+            StringBuilder ret = new StringBuilder();
             InputStream is = clob.getAsciiStream();
 
             if (is == null) {

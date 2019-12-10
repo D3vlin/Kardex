@@ -8,6 +8,13 @@ import java.io.PrintWriter;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
+/**
+ * This class handles the connection to the database.
+ * 
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-24
+ */
 public final class ResourceManager
 {
     private final static String JDBC_DRIVER   = "com.mysql.cj.jdbc.Driver";
@@ -17,6 +24,11 @@ public final class ResourceManager
 
     private static Driver driver = null;
     
+    /**
+     * Get the connection data to the database.
+     * 
+     * @return String[]
+     */
     public static String[] getDataConnection(){
         String[] data = null;
                 
@@ -42,6 +54,13 @@ public final class ResourceManager
         return data;
     }
     
+    /**
+     * Sets the database connection data.
+     * 
+     * @param host
+     * @param user
+     * @param pass 
+     */
     public static void setDataConnection(String host, String user, String pass){
         try
         (PrintWriter pWritter = new PrintWriter("connection.dat")) {
@@ -57,6 +76,14 @@ public final class ResourceManager
         }
     }
 
+    /**
+     * Test if the connection data succeeds in connecting to the database successfully.
+     * 
+     * @param host
+     * @param user
+     * @param pass
+     * @return boolean
+     */
     public static boolean testConnection(String host, String user, String pass) {
         boolean ok = false;
         Driver dvr;
@@ -76,6 +103,12 @@ public final class ResourceManager
         return ok;
     }
     
+    /**
+     * Establishes the connection to the database.
+     * 
+     * @return boolean
+     * @throws SQLException 
+     */
     public static boolean setConnection() throws SQLException{
         boolean ok = false;
         
@@ -95,6 +128,12 @@ public final class ResourceManager
         return ok;  
     }
 
+    /**
+     * Gets the connection to the database.
+     * 
+     * @return Connection
+     * @throws SQLException 
+     */
     public static synchronized Connection getConnection()
 	throws SQLException
     {
@@ -106,10 +145,9 @@ public final class ResourceManager
                 driver = (Driver) jdbcDriverClass.newInstance();
                 DriverManager.registerDriver( driver );
             }
-            catch (Exception e)
+            catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e)
             {                
                 System.out.println( "Failed to initialise JDBC driver" );
-                e.printStackTrace();
             }
         }
 
@@ -120,39 +158,36 @@ public final class ResourceManager
         );
     }
 
+    /**
+     * Close the connection to the database.
+     * 
+     * @param conn 
+     */
+    public static void close(Connection conn)
+    {
+        try { if (conn != null) conn.close(); }
+        catch (SQLException sqle) {}
+    }
+    
+    /**
+     * Close the statement.
+     * 
+     * @param stmt 
+     */
+    public static void close(PreparedStatement stmt)
+    {
+        try { if (stmt != null) stmt.close(); }
+        catch (SQLException sqle) {}
+    }
 
-	public static void close(Connection conn)
-	{
-		try {
-			if (conn != null) conn.close();
-		}
-		catch (SQLException sqle)
-		{
-			sqle.printStackTrace();
-		}
-	}
-
-	public static void close(PreparedStatement stmt)
-	{
-		try {
-			if (stmt != null) stmt.close();
-		}
-		catch (SQLException sqle)
-		{
-			sqle.printStackTrace();
-		}
-	}
-
-	public static void close(ResultSet rs)
-	{
-		try {
-			if (rs != null) rs.close();
-		}
-		catch (SQLException sqle)
-		{
-			sqle.printStackTrace();
-		}
-
-	}
-
+    /**
+     * Close the resultSet.
+     * 
+     * @param rs 
+     */
+    public static void close(ResultSet rs)
+    {
+        try { if (rs != null) rs.close(); }
+        catch (SQLException sqle) {}
+    }
 }

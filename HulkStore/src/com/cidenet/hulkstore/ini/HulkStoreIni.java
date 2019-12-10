@@ -12,20 +12,26 @@ import javax.swing.UIManager;
  * @version 1.0
  * @since 2019-11-06
  */
-
 public final class HulkStoreIni {
     
-    public static void main(String[] args) throws SQLException { new HulkStoreIni(); }
+    /**
+     * Start the application.
+     * 
+     * @param args
+     * @throws SQLException 
+     */
+    public static void main(String[] args) throws SQLException { HulkStoreIni hulkStoreIninew = new HulkStoreIni(); }
     
     /**
-     * Main constructor, initializes the LaF JTattoo
+     * Main constructor, initializes the plaf JTattoo library and establish connection.
+     * 
+     * @throws java.sql.SQLException
      */
     public HulkStoreIni() throws SQLException
-    {
-        
+    {        
         try { UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel"); }
         catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {}
         
-        if (setConnection()) { new CLogin(); }        
+        if (setConnection()) { CLogin cLogin = new CLogin(); }        
     }
 }
