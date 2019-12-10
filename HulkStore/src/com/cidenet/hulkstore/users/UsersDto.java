@@ -2,345 +2,218 @@ package com.cidenet.hulkstore.users;
 
 import java.io.Serializable;
 
+/**
+ * This class represents the user model.
+ * 
+ * @author Alexis Duque
+ * @version 1.0
+ * @since 2019-11-19
+ */
 public final class UsersDto implements Serializable
 {
-	/** 
-	 * This attribute maps to the column userId in the users table.
-	 */
-	protected int userId;
+    /** 
+     * This attribute maps to the column userId in the users table.
+     */
+    protected int userId;
 
-	/** 
-	 * This attribute maps to the column userName in the users table.
-	 */
-	protected String userName;
+    /** 
+     * This attribute maps to the column userName in the users table.
+     */
+    protected String userName;
 
-	/** 
-	 * This attribute maps to the column userPass in the users table.
-	 */
-	protected String userPass;
+    /** 
+     * This attribute maps to the column userPass in the users table.
+     */
+    protected String userPass;
 
-	/** 
-	 * This attribute maps to the column identification in the users table.
-	 */
-	protected String identification;
+    /** 
+     * This attribute maps to the column identification in the users table.
+     */
+    protected String identification;
 
-	/** 
-	 * This attribute maps to the column realName in the users table.
-	 */
-	protected String realName;
+    /** 
+     * This attribute maps to the column realName in the users table.
+     */
+    protected String realName;
 
-	/** 
-	 * This attribute maps to the column surname in the users table.
-	 */
-	protected String surname;
+    /** 
+     * This attribute maps to the column surname in the users table.
+     */
+    protected String surname;
 
-	/** 
-	 * This attribute maps to the column userProfile in the users table.
-	 */
-	protected short userProfile;
+    /** 
+     * This attribute maps to the column userProfile in the users table.
+     */
+    protected short userProfile;
 
-	/** 
-	 * This attribute maps to the column state in the users table.
-	 */
-	protected short state;
+    /** 
+     * This attribute maps to the column state in the users table.
+     */
+    protected short state;
 
-	/**
-	 * Method 'Users'
-	 * 
-	 */
-	public UsersDto()
-	{
-	}
-        
-	public UsersDto(int userId, String userName, String identification, String realName, String surname, short userProfile, short state)
-	{
-            this.userId = userId;
-            this.userName = userName;
-            this.identification = identification;
-            this.realName = realName;
-            this.surname = surname;
-            this.userProfile = userProfile;
-            this.state = state;
-	}
+    /**
+     * Empty Constructor.     * 
+     */
+    public UsersDto() {}
+    
+    /**
+     * Constructor.
+     * 
+     * @param userId
+     * @param userName
+     * @param identification
+     * @param realName
+     * @param surname
+     * @param userProfile
+     * @param state 
+     */    
+    public UsersDto(int userId, String userName, String identification, String realName, String surname, short userProfile, short state)
+    {
+        this.userId = userId;
+        this.userName = userName;
+        this.identification = identification;
+        this.realName = realName;
+        this.surname = surname;
+        this.userProfile = userProfile;
+        this.state = state;
+    }
 
-	/**
-	 * Method 'getUserId'
-	 * 
-	 * @return int
-	 */
-	public int getUserId()
-	{
-		return userId;
-	}
+    /**
+     * Gets the value of userId.
+     * 
+     * @return int
+     */
+    public int getUserId() { return userId; }
 
-	/**
-	 * Method 'setUserId'
-	 * 
-	 * @param userId
-	 */
-	public void setUserId(int userId)
-	{
-		this.userId = userId;
-	}
+    /**
+     * Sets the value of userId.
+     * 
+     * @param userId
+     */
+    public void setUserId(int userId) { this.userId = userId; }
 
-	/**
-	 * Method 'getUserName'
-	 * 
-	 * @return String
-	 */
-	public String getUserName()
-	{
-		return userName;
-	}
+    /**
+     * Gets the value of userName.
+     * 
+     * @return String
+     */
+    public String getUserName() { return userName; }
 
-	/**
-	 * Method 'setUserName'
-	 * 
-	 * @param userName
-	 */
-	public void setUserName(String userName)
-	{
-		this.userName = userName;
-	}
+    /**
+     * Sets the value of userName.
+     * 
+     * @param userName
+     */
+    public void setUserName(String userName) { this.userName = userName; }
 
-	/**
-	 * Method 'getUserPass'
-	 * 
-	 * @return String
-	 */
-	public String getUserPass()
-	{
-		return userPass;
-	}
+    /**
+     * Gets the value of userPass.
+     * 
+     * @return String
+     */
+    public String getUserPass() { return userPass; }
 
-	/**
-	 * Method 'setUserPass'
-	 * 
-	 * @param userPass
-	 */
-	public void setUserPass(String userPass)
-	{
-		this.userPass = userPass;
-	}
+    /**
+     * Sets the value of userPass.
+     * 
+     * @param userPass
+     */
+    public void setUserPass(String userPass) { this.userPass = userPass; }
 
-	/**
-	 * Method 'getIdentification'
-	 * 
-	 * @return String
-	 */
-	public String getIdentification()
-	{
-		return identification;
-	}
+    /**
+     * Gets the value of identification.
+     * 
+     * @return String
+     */
+    public String getIdentification() { return identification; }
 
-	/**
-	 * Method 'setIdentification'
-	 * 
-	 * @param identification
-	 */
-	public void setIdentification(String identification)
-	{
-		this.identification = identification;
-	}
+    /**
+     * Sets the value of identification.
+     * 
+     * @param identification
+     */
+    public void setIdentification(String identification) { this.identification = identification; }
 
-	/**
-	 * Method 'getRealName'
-	 * 
-	 * @return String
-	 */
-	public String getRealName()
-	{
-		return realName;
-	}
+    /**
+     * Gets the value of realName.
+     * 
+     * @return String
+     */
+    public String getRealName() { return realName; }
 
-	/**
-	 * Method 'setRealName'
-	 * 
-	 * @param realName
-	 */
-	public void setRealName(String realName)
-	{
-		this.realName = realName;
-	}
+    /**
+     * Sets the value of realName.
+     * 
+     * @param realName
+     */
+    public void setRealName(String realName) { this.realName = realName; }
 
-	/**
-	 * Method 'getSurname'
-	 * 
-	 * @return String
-	 */
-	public String getSurname()
-	{
-		return surname;
-	}
+    /**
+     * Gets the value of surname.
+     * 
+     * @return String
+     */
+    public String getSurname() { return surname; }
 
-	/**
-	 * Method 'setSurname'
-	 * 
-	 * @param surname
-	 */
-	public void setSurname(String surname)
-	{
-		this.surname = surname;
-	}
+    /**
+     * Sets the value of surname.
+     * 
+     * @param surname
+     */
+    public void setSurname(String surname) { this.surname = surname; }
 
-	/**
-	 * Method 'getUserProfile'
-	 * 
-	 * @return short
-	 */
-	public short getUserProfile()
-	{
-		return userProfile;
-	}
+    /**
+     * Gets the value of userProfile.
+     * 
+     * @return short
+     */
+    public short getUserProfile() { return userProfile; }
 
-	/**
-	 * Method 'setUserProfile'
-	 * 
-	 * @param userProfile
-	 */
-	public void setUserProfile(short userProfile)
-	{
-		this.userProfile = userProfile;
-	}
+    /**
+     * Sets the value of userProfile.
+     * 
+     * @param userProfile
+     */
+    public void setUserProfile(short userProfile) { this.userProfile = userProfile; }
 
-	/**
-	 * Method 'getState'
-	 * 
-	 * @return short
-	 */
-	public short getState()
-	{
-		return state;
-	}
+    /**
+     * Gets the value of state.
+     * 
+     * @return short
+     */
+    public short getState() { return state; }
 
-	/**
-	 * Method 'setState'
-	 * 
-	 * @param state
-	 */
-	public void setState(short state)
-	{
-		this.state = state;
-	}
+    /**
+     * Sets the value of state.
+     * 
+     * @param state
+     */
+    public void setState(short state) { this.state = state; }
 
-	/**
-	 * Method 'equals'
-	 * 
-	 * @param _other
-	 * @return boolean
-	 */
-	public boolean equals(Object _other)
-	{
-		if (_other == null) {
-			return false;
-		}
-		
-		if (_other == this) {
-			return true;
-		}
-		
-		if (!(_other instanceof UsersDto)) {
-			return false;
-		}
-		
-		final UsersDto _cast = (UsersDto) _other;
-		if (userId != _cast.userId) {
-			return false;
-		}
-		
-		if (userName == null ? _cast.userName != userName : !userName.equals( _cast.userName )) {
-			return false;
-		}
-		
-		if (userPass == null ? _cast.userPass != userPass : !userPass.equals( _cast.userPass )) {
-			return false;
-		}
-		
-		if (identification == null ? _cast.identification != identification : !identification.equals( _cast.identification )) {
-			return false;
-		}
-		
-		if (realName == null ? _cast.realName != realName : !realName.equals( _cast.realName )) {
-			return false;
-		}
-		
-		if (surname == null ? _cast.surname != surname : !surname.equals( _cast.surname )) {
-			return false;
-		}
-		
-		if (userProfile != _cast.userProfile) {
-			return false;
-		}
-		
-		if (state != _cast.state) {
-			return false;
-		}
-		
-		return true;
-	}
+    /**
+     * Method 'createPk'
+     * 
+     * @return UsersPk
+     */
+    public UsersPk createPk() { return new UsersPk(userId); }
 
-	/**
-	 * Method 'hashCode'
-	 * 
-	 * @return int
-	 */
-	public int hashCode()
-	{
-		int _hashCode = 0;
-		_hashCode = 29 * _hashCode + userId;
-		if (userName != null) {
-			_hashCode = 29 * _hashCode + userName.hashCode();
-		}
-		
-		if (userPass != null) {
-			_hashCode = 29 * _hashCode + userPass.hashCode();
-		}
-		
-		if (identification != null) {
-			_hashCode = 29 * _hashCode + identification.hashCode();
-		}
-		
-		if (realName != null) {
-			_hashCode = 29 * _hashCode + realName.hashCode();
-		}
-		
-		if (surname != null) {
-			_hashCode = 29 * _hashCode + surname.hashCode();
-		}
-		
-		_hashCode = 29 * _hashCode + (int) userProfile;
-		_hashCode = 29 * _hashCode + (int) state;
-		return _hashCode;
-	}
-
-	/**
-	 * Method 'createPk'
-	 * 
-	 * @return UsersPk
-	 */
-	public UsersPk createPk()
-	{
-		return new UsersPk(userId);
-	}
-
-	/**
-	 * Method 'toString'
-	 * 
-	 * @return String
-	 */
-	public String toString()
-	{
-		StringBuffer ret = new StringBuffer();
-		ret.append( "com.cidenet.hulkstore.dto.Users: " );
-		ret.append( "userId=" + userId );
-		ret.append( ", userName=" + userName );
-		ret.append( ", userPass=" + userPass );
-		ret.append( ", identification=" + identification );
-		ret.append( ", realName=" + realName );
-		ret.append( ", surname=" + surname );
-		ret.append( ", userProfile=" + userProfile );
-		ret.append( ", state=" + state );
-		return ret.toString();
-	}
-
+    /**
+     * Method 'toString'
+     * 
+     * @return String
+     */
+    public String toString()
+    {
+        StringBuilder response = new StringBuilder();
+        response.append("com.cidenet.hulkstore.dto.Users: ");
+        response.append("userId=").append(userId);
+        response.append(", userName=").append(userName);
+        response.append(", userPass=").append(userPass);
+        response.append(", identification=").append(identification);
+        response.append(", realName=").append(realName);
+        response.append(", surname=").append(surname);
+        response.append(", userProfile=").append(userProfile);
+        response.append(", state=").append(state);
+        return response.toString();
+    }
 }

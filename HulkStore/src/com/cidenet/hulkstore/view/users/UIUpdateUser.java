@@ -13,6 +13,11 @@ public class UIUpdateUser extends javax.swing.JFrame {
 
     private CUpdateUser controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIUpdateUser(CUpdateUser controller)
     {
         initComponents();

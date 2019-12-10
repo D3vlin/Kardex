@@ -14,9 +14,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
- * User Insertion Controller
+ * User Insertion Controller.
  * 
- * Receive and validate data about a new user registration
+ * Receive and validate data about a new user registration.
  *  
  * @author Alexis Duque
  * @version 1.0
@@ -26,27 +26,47 @@ public final class CInsertUser
 {
     private UIInsertUser window;
     
+    /**
+     * Constructor.
+     */
     public CInsertUser()
     {
         window = new UIInsertUser(this);
     }
     
+    /**
+     * Upload the user information to the form.
+     * 
+     * @param txtUserId 
+     */
     public void upload(JTextField txtUserId)
     {
         try {
             UsersDao dao = DaoFactory.createUsersDao();
             txtUserId.setText(dao.findNextUserId());
-        } catch (UsersDaoException ex) {
-            Logger.getLogger(CInsertUser.class.getName()).log(Level.SEVERE, null, ex);
+        
+        } catch (UsersDaoException exception) {
+            Logger.getLogger(CInsertUser.class.getName()).log(Level.SEVERE, null, exception);
         }
     }
     
+    /**
+     * Register the new user.
+     * 
+     * @param txtUserId
+     * @param txtUserName
+     * @param pwdPass
+     * @param pwdRepeatPass
+     * @param ftxIdentification
+     * @param txtRealName
+     * @param txtSurname
+     * @param jrbAdmin 
+     */
     public void accept(JTextField txtUserId, JTextField txtUserName, JPasswordField pwdPass, JPasswordField pwdRepeatPass, JFormattedTextField ftxIdentification, JTextField txtRealName, JTextField txtSurname, JRadioButton jrbAdmin)
     {
         short userProfile = 0;
         
-        if(jrbAdmin.isSelected())
-         { userProfile = 1; }
+        if(jrbAdmin.isSelected()) { userProfile = 1; }
         
         UsersDto dto = new UsersDto(Integer.parseInt(txtUserId.getText()),
                                     txtUserName.getText(),
@@ -67,31 +87,32 @@ public final class CInsertUser
                     if(!dao.insert(dto).isUserIdNull())
                     {
                         JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
-                        new CUser();
+                        CUser cUser = new CUser();
                         window.dispose();
                         
                     } else { JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
                     
-                } catch (UsersDaoException ex) {}
+                } catch (UsersDaoException exception) {}
                 
-            } else {
-                
+            } else {                
                 JOptionPane.showMessageDialog(null, "La contraseña debe tener entre 5 y 12 caracteres.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 pwdPass.setText("");
                 pwdRepeatPass.setText("");
             }
             
-        } else {
-            
+        } else {            
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.\nIntente de nuevo", "ERROR", JOptionPane.ERROR_MESSAGE);
             pwdPass.setText("");
             pwdRepeatPass.setText("");
         }
     }
     
+    /**
+     * Cancel the operation and return to the users menu.
+     */
     public void cancel()
     {
-        new CUser();
+        CUser cUser = new CUser();
         window.dispose();
     }
 }

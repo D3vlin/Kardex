@@ -16,6 +16,11 @@ public class UIUser extends javax.swing.JFrame {
     
     private CUser controller;
         
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIUser(CUser controller)
     {
         initComponents();

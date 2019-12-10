@@ -3,7 +3,7 @@ package com.cidenet.hulkstore.view.users;
 import com.cidenet.hulkstore.controller.user.CInsertUser;
 
 /**
- * Main view of insert user
+ * Main view of insert user.
  * 
  * @author Alexis Duque
  * @version 1.0
@@ -13,6 +13,11 @@ public class UIInsertUser extends javax.swing.JFrame {
 
     private CInsertUser controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIInsertUser(CInsertUser controller)
     {
         initComponents();

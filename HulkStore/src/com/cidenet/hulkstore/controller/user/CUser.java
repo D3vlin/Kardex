@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
- * User Management Controller
+ * User Management Controller.
  * 
  * Load existing users with their data,
  * in addition to controlling the redirection to the insertion or modification windows.
@@ -28,16 +28,25 @@ public final class CUser
     private UIUser window;
     private UsersDto[] users;
     
+    /**
+     * Empty Constructor.
+     */
     public CUser()
     {
         try {
             UsersDao dao = DaoFactory.createUsersDao();
             users = dao.findAll();
-        } catch (UsersDaoException ex) {}
+            
+        } catch (UsersDaoException exception) {}
         
         window = new UIUser(this);
     }   
     
+    /**
+     * Upload the users registered in the database to the form table and set their status and profile.
+     * 
+     * @param tblUser 
+     */
     public void upload(JTable tblUser)
     {
         DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
@@ -47,32 +56,39 @@ public final class CUser
 		
         for (UsersDto user : users) {
             
-            if (user.getUserProfile() == 1)
-                { profile = "Administrador"; }
-            else
-                { profile = "Usuario"; }
+            if (user.getUserProfile() == 1) { profile = "Administrador"; }
+            else { profile = "Usuario"; }
             
-            if (user.getState() == 1) 
-                { state = "A"; }
-            else
-                { state = "*"; }
+            if (user.getState() == 1) { state = "A"; }
+            else { state = "*"; }
             
             model.addRow(new Object[]{user.getUserId(), user.getUserName(), user.getIdentification(), user.getRealName(), user.getSurname(), profile, state});
         }
     }
     
+    /**
+     * Return to the initial menu.
+     */
     public void menu()
     {
-        new CMenu();
+        CMenu cMenu = new CMenu();
         window.dispose();
     }
     
+    /**
+     * Show the form to insert a new user.
+     */
     public void insert()
     {
-        new CInsertUser();
+        CInsertUser cInsertUser = new CInsertUser();
         window.dispose();
     }
     
+    /**
+     * Show the form to modify a user.
+     * 
+     * @param tblUser 
+     */
     public void update(JTable tblUser)
     {
         int i = tblUser.getSelectedRow();
@@ -87,12 +103,17 @@ public final class CUser
             {
                 update = new CUpdateUser(dto.getUserId());
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE); }
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE); }
+                
+            } else { JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE); }
+        
+        } else { JOptionPane.showMessageDialog(null, "Seleccione un registro a modificar", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
     
+    /**
+     * Change the status of a registered user to deleted.
+     * 
+     * @param tblUser 
+     */
     public void delete(JTable tblUser)
     {
         int i = tblUser.getSelectedRow();
@@ -109,20 +130,27 @@ public final class CUser
                         UsersDao dao = DaoFactory.createUsersDao();
                         dto.setState((short) 3);
                         
-                        if(dao.update(dto.createPk(), dto)){
-                        DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
+                        if(dao.update(dto.createPk(), dto)) {
+                            DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
                             model.setValueAt("*", i, 6);
-                        }                        
-                    } catch (UsersDaoException ex) {}
+                        }
+                        
+                    } catch (UsersDaoException exception) {}
                 }
                 
-            } else {
-                JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE); }
+            } else { JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE); }
             
-        } else {
-            JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE); }
+        } else { JOptionPane.showMessageDialog(null, "Seleccione un registro a eliminar", "ERROR", JOptionPane.ERROR_MESSAGE); }
     }
     
+    /**
+     * Select the row where the searched user is located.
+     * 
+     * @param keyCode
+     * @param filter
+     * @param user
+     * @param tblUser 
+     */
     public void searchUser(int keyCode, String filter, String user, JTable tblUser) {
         
 
@@ -132,19 +160,16 @@ public final class CUser
             int i;
             for(i = 0; i < tableModel.getColumnCount(); i++)
             {
-                if(filter.compareTo(tableModel.getColumnName(i)) == 0) {
-                    break;}
+                if(filter.compareTo(tableModel.getColumnName(i)) == 0) { break; }
             }
 
             for(int k = 0; k < tableModel.getRowCount(); k++)
             {
-                if(user.compareToIgnoreCase(tableModel.getValueAt(k, i).toString()) == 0){
+                if(user.compareToIgnoreCase(tableModel.getValueAt(k, i).toString()) == 0) {
                     tblUser.setRowSelectionInterval(k, k);
                     break;
                     
-                } else {
-                    tblUser.clearSelection();
-                }
+                } else { tblUser.clearSelection(); }
             }
         }        
     }
