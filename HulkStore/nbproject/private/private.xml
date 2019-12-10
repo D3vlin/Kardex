@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/documents/DocumentDaoException.java</file>
-            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/products/ProductDao.java</file>
-            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/controller/document/CUpdateDocument.java</file>
-            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/documents/DocumentPk.java</file>
-            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/documents/DocumentDao.java</file>
-            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/documents/DocumentDto.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/view/unity/UIUpdateUnity.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/units/UnityDao.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/units/UnityPk.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/units/UnityDto.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/controller/unity/CUnity.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/view/unity/UIUnity.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/view/unity/UIInsertUnity.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/controller/unity/CUpdateUnity.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/controller/unity/CInsertUnity.java</file>
+            <file>file:/C:/Users/JDUQUE/Desktop/HulkStore/HulkStore/src/com/cidenet/hulkstore/units/UnityDaoException.java</file>
         </group>
     </open-files>
 </project-private>

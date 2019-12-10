@@ -13,6 +13,11 @@ public class UIInsertUnity extends javax.swing.JFrame {
 
     private CInsertUnity controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIInsertUnity(CInsertUnity controller)
     {
         initComponents();

@@ -13,6 +13,11 @@ public class UIUpdateUnity extends javax.swing.JFrame {
 
     private CUpdateUnity controller;
     
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIUpdateUnity(CUpdateUnity controller)
     {
         initComponents();

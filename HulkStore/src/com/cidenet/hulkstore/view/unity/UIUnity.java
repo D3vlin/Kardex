@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -19,7 +18,12 @@ public class UIUnity extends javax.swing.JFrame {
     
     private CUnity controller;
     private ListSelectionModel cellSelectionModel;
-        
+    
+    /**
+     * Constructor.
+     * 
+     * @param controller 
+     */
     public UIUnity(CUnity controller)
     {
         initComponents();
@@ -34,18 +38,11 @@ public class UIUnity extends javax.swing.JFrame {
         cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         cellSelectionModel.addListSelectionListener
-        (
-            new ListSelectionListener()
-            {
-                @Override
-                public void valueChanged(ListSelectionEvent e)
-                {
-                    controller.updateState(tblUnity, chkActive);
-                }
-            }
-        );
+        ((ListSelectionEvent e) -> {
+            controller.updateState(tblUnity, chkActive);
+        });
         
-        controller.searchUnity(txtSearch, tblUnity);
+        controller.loadAutoCompleter(txtSearch, tblUnity);
     }
 
     /**

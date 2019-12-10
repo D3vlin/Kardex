@@ -23,6 +23,11 @@ public final class CUpdateUnity
     private UnityDao unityDao = DaoFactory.createUnityDao();
     private UnityDto unity;
     
+    /**
+     * Constructor.
+     * 
+     * @param unityId 
+     */
     public CUpdateUnity(int unityId)
     {
         try {
@@ -32,30 +37,44 @@ public final class CUpdateUnity
         } catch (Exception e) {}
     }
 
+    /**
+     * Upload the unity information to the form.
+     * 
+     * @param txtUnityId 
+     * @param txtUnityDescription 
+     */
     public void upload(JTextField txtUnityId, JTextField txtUnityDescription)
     {
         txtUnityId.setText(String.valueOf(unity.getUnityId()));
         txtUnityDescription.setText(unity.getUnityDescription());
     }
 
-    public void accept(JTextField txtUnityDescription) {
-        
+    /**
+     * Modify the unity.
+     * 
+     * @param txtUnityDescription
+     */
+    public void accept(JTextField txtUnityDescription) 
+    {        
         try {
             unity.setUnityDescription(txtUnityDescription.getText());
             
             if(unityDao.update(unity.createPk(), unity))
             {
                 JOptionPane.showMessageDialog(null, "Se ha modificado el registro", "MODIFICACIÓN", JOptionPane.INFORMATION_MESSAGE);
-                new CUnity();
+                CUnity cUnity = new CUnity();
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se ha modificado el registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
+                
+            } else { JOptionPane.showMessageDialog(null, "No se ha modificado el registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
+            
         } catch (UnityDaoException e) {}
     }
 
+    /**
+     * Cancel the operation and return to the unities menu.
+     */
     public void cancel() {
-        new CUnity();
+        CUnity cUnity = new CUnity();
         window.dispose();
-    }
-    
+    }    
 }

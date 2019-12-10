@@ -21,37 +21,53 @@ public final class CInsertUnity
 {
     private UIInsertUnity window;
     
-    public CInsertUnity()
-    {
-        window = new UIInsertUnity(this);
-    }
+    /**
+     * Empty Constructor.
+     */
+    public CInsertUnity() { window = new UIInsertUnity(this); }
     
-    public void upload(JTextField txtUnityId) {
+    /**
+     * Upload the unity information to the form.
+     * 
+     * @param txtUnityId 
+     */
+    public void upload(JTextField txtUnityId)
+    {
         try {
             UnityDao dao = DaoFactory.createUnityDao();
             txtUnityId.setText(dao.findNextUnityId());
-        } catch (UnityDaoException ex) {}
+            
+        } catch (UnityDaoException exception) {}
     }
 
+    /**
+     * Register the new unity.
+     * 
+     * @param txtUnityId
+     * @param txtUnityDescription
+     */
     public void accept(JTextField txtUnityId, JTextField txtUnityDescription) 
     {      
         try {
-            UnityDto dto = new UnityDto(Integer.parseInt(txtUnityId.getText()), txtUnityDescription.getText());
-            UnityDao dao = DaoFactory.createUnityDao();
+            UnityDto unityDto = new UnityDto(Integer.parseInt(txtUnityId.getText()), txtUnityDescription.getText());
+            UnityDao unityDao = DaoFactory.createUnityDao();
             
-            if(!dao.insert(dto).isUnityIdNull()){
+            if(!unityDao.insert(unityDto).isUnityIdNull()){
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
-                new CUnity();
+                CUnity cUnity = new CUnity();
                 window.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE);}
+                
+            } else { JOptionPane.showMessageDialog(null, "No se registro", "ERROR", JOptionPane.ERROR_MESSAGE); }
             
-        } catch (UnityDaoException ex) {}
+        } catch (UnityDaoException exception) {}
     }
 
+    /**
+     * Cancel the operation and return to the unities menu.
+     */
     public void cancel()
     {
-        new CUnity();
+        CUnity cUnity = new CUnity();
         window.dispose();
     }    
 }
