@@ -46,6 +46,11 @@ public final class StoreDao extends AbstractDAO
      * SQL UPDATE statement for this table.
      */
     protected final String SQL_UPDATE = "UPDATE " + getTableName() + " SET storeId = ?, storeName = ?, address = ?, state = ? WHERE storeId = ?";
+    
+    /** 
+     * SQL DELETE statement for this table
+     */
+    protected final String SQL_DELETE = "DELETE FROM " + getTableName() + " WHERE storeId = ?";
 
     /** 
      * Indexes of the columns in the store table.
@@ -143,7 +148,8 @@ public final class StoreDao extends AbstractDAO
             reset(storeDto);
             long t2 = System.currentTimeMillis();
             System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
-            return true;
+            
+            return rows > 0;
             
         } catch (Exception exception) { throw new StoreDaoException( "Exception: " + exception.getMessage(), exception );
         
@@ -151,6 +157,43 @@ public final class StoreDao extends AbstractDAO
             ResourceManager.close(statement);
             if (!isConnSupplied) { ResourceManager.close(connection); }
         }
+    }
+
+    /** 
+     * Deletes a single row in the store table.
+     * 
+     * @param storePk
+     * @return boolean
+     * @throws com.cidenet.hulkstore.stores.StoreDaoException
+     */
+    public boolean delete(StorePk storePk) throws StoreDaoException
+    {
+        // declare variables
+        long t1 = System.currentTimeMillis();
+        final boolean isConnSupplied = (userConn != null);
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            // get the user-specified connection or get a connection from the ResourceManager
+            connection = isConnSupplied ? userConn : ResourceManager.getConnection();
+
+            System.out.println( "Executing " + SQL_DELETE + " with PK: " + storePk );
+            statement = connection.prepareStatement( SQL_DELETE );
+            statement.setInt( 1, storePk.getStoreId() );
+            int rows = statement.executeUpdate();
+            long t2 = System.currentTimeMillis();
+            System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
+            
+            return rows > 0;
+        
+        } catch (Exception exception) { throw new StoreDaoException( "Exception: " + exception.getMessage(), exception );
+        
+        } finally {
+            ResourceManager.close(statement);
+            if (!isConnSupplied) { ResourceManager.close(connection); }
+        }
+
     }
 
     /** 

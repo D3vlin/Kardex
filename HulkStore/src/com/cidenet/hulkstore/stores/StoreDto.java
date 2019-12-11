@@ -51,7 +51,22 @@ public final class StoreDto implements Serializable
         this.address = address;
         this.state = 1;
     }
-
+    
+    /**
+     * Constructor.
+     * 
+     * @param storeId
+     * @param storeName
+     * @param address 
+     * @param state 
+     */
+    public StoreDto(int storeId, String storeName, String address, short state) {
+        this.storeId = storeId;
+        this.storeName = storeName;
+        this.address = address;
+        this.state = state;
+    }
+    
     /**
      * Gets the value of storeId.
      * 
