@@ -10,16 +10,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class StoreDeleteTest {
-    
+public class StoreDeleteTest
+{    
     StoreDao storeDao = DaoFactory.createStoreDao();
     private int storeId;
     private String storeName;
     private String address;
     private short state;
 
-    public StoreDeleteTest(int storeId, String storeName, String address, short state) {
-        
+    public StoreDeleteTest(int storeId, String storeName, String address, short state)
+    {        
         this.storeId = storeId;
         this.storeName = storeName;
         this.address = address;

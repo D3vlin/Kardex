@@ -1,5 +1,6 @@
 package com.cidenet.hulkstore.TestSuite;
 
+import com.cidenet.hulkstore.factory.DaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
@@ -24,31 +25,24 @@ import org.junit.runners.Suite;
     StoreDeleteTest.class,
     StoreEnableDisableTest.class
 })
-public class StoreTestSuite {
-            
+public class StoreTestSuite 
+{    
+    private static StoreDao storeDao = DaoFactory.createStoreDao();
+    
     @BeforeClass
     public static void connect()
     {
-        try {
-            setConnection();
-            
-            StoreDao storeDao = new StoreDao();
-            
-        } catch (SQLException exception) {
-            fail(exception.getMessage());
-        }
+        try { setConnection(); }
+        catch (SQLException exception) { fail(exception.getMessage()); }
     }
             
     @AfterClass
     public static void deleteDataTest()
     {
         try {            
-            StoreDao storeDao = new StoreDao();
             assertTrue(storeDao.delete(new StorePk(999999)));
             assertTrue(storeDao.delete(new StorePk(999998)));
             
-        } catch (StoreDaoException exception) {
-            fail(exception.getMessage());
-        }
+        } catch (StoreDaoException exception) { fail(exception.getMessage()); }
     }
 }

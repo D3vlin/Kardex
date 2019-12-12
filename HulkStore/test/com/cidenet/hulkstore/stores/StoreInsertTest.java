@@ -10,8 +10,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class StoreInsertTest {    
-    
+public class StoreInsertTest
+{        
     StoreDao storeDao = DaoFactory.createStoreDao();
     private int storeId;
     private String storeName;
@@ -19,8 +19,8 @@ public class StoreInsertTest {
     private short state;
     private int expected;
 
-    public StoreInsertTest(int storeId, String storeName, String address, short state) {
-        
+    public StoreInsertTest(int storeId, String storeName, String address, short state)
+    {        
         this.storeId = storeId;
         this.storeName = storeName;
         this.address = address;
@@ -47,6 +47,5 @@ public class StoreInsertTest {
             assertEquals(expected, storeDao.insert(storeDto).storeId);      
             
         } catch (StoreDaoException exception) { fail(exception.getMessage()); }
-    }
-    
+    }    
 }
