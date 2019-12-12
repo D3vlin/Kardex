@@ -79,6 +79,29 @@ public final class UsersDto implements Serializable
     }
 
     /**
+     * Constructor.
+     * 
+     * @param userId
+     * @param userName
+     * @param userPass
+     * @param identification
+     * @param realName
+     * @param surname
+     * @param userProfile
+     * @param state 
+     */
+    public UsersDto(int userId, String userName, String userPass, String identification, String realName, String surname, short userProfile, short state) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPass = userPass;
+        this.identification = identification;
+        this.realName = realName;
+        this.surname = surname;
+        this.userProfile = userProfile;
+        this.state = state;
+    }
+
+    /**
      * Gets the value of userId.
      * 
      * @return int

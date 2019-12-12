@@ -48,6 +48,11 @@ public final class UsersDao extends AbstractDAO
     protected final String SQL_UPDATE = "UPDATE " + getTableName() + " SET userId = ?, userName = ?, userPass = ?, identification = ?, realName = ?, surname = ?, userProfile = ?, state = ? WHERE userId = ?";
 
     /** 
+     * SQL DELETE statement for this table
+     */
+    protected final String SQL_DELETE = "DELETE FROM " + getTableName() + " WHERE userId = ?";
+    
+    /** 
      * Indexes of the columns in the user table.
      */
     protected static final int COLUMN_USER_ID = 1;
@@ -157,7 +162,8 @@ public final class UsersDao extends AbstractDAO
             reset(usersDto);
             long t2 = System.currentTimeMillis();
             System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
-            return true;
+            
+            return rows > 0;
             
         } catch (Exception exception) { throw new UsersDaoException( "Exception: " + exception.getMessage(), exception );
         
@@ -167,6 +173,42 @@ public final class UsersDao extends AbstractDAO
         }
     }
 
+    /** 
+     * Deletes a single row in the users table.
+     * 
+     * @param usersPk
+     * @return boolean
+     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     */
+    public boolean delete(UsersPk usersPk) throws UsersDaoException
+    {
+        // declare variables
+        long t1 = System.currentTimeMillis();
+        final boolean isConnSupplied = (userConn != null);
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            // get the user-specified connection or get a connection from the ResourceManager
+            connection = isConnSupplied ? userConn : ResourceManager.getConnection();
+
+            System.out.println( "Executing " + SQL_DELETE + " with PK: " + usersPk );
+            statement = connection.prepareStatement( SQL_DELETE );
+            statement.setInt( 1, usersPk.getUserId() );
+            int rows = statement.executeUpdate();
+            long t2 = System.currentTimeMillis();
+            System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
+            
+            return rows > 0;
+        
+        } catch (Exception exception) { throw new UsersDaoException( "Exception: " + exception.getMessage(), exception );
+        
+        } finally {
+            ResourceManager.close(statement);
+            if (!isConnSupplied) { ResourceManager.close(connection); }
+        }
+   }
+    
     /** 
      * Returns the rows from the users table that matches the specified primary-key value.
      * 
@@ -413,7 +455,7 @@ public final class UsersDao extends AbstractDAO
      */
     public UsersDto validateUser(String userName, String userPass) throws UsersDaoException
     {
-        UsersDto rsp[] = findByDynamicWhere( "userName = ? and userPass = MD5(?) ORDER BY userPass", new Object[] { userName, userPass } );  
+        UsersDto rsp[] = findByDynamicWhere( "userName = ? and userPass = MD5(?) and state = 1 ORDER BY userPass", new Object[] { userName, userPass } );  
         
         if (rsp.length != 0){ return rsp[0]; }
         else { return null; }
