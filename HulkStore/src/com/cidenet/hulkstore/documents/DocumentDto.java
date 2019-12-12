@@ -51,6 +51,21 @@ public final class DocumentDto implements Serializable
     }
 
     /**
+     * Constructor.
+     * 
+     * @param documentId
+     * @param documentDescription
+     * @param state 
+     */
+    public DocumentDto(int documentId, String documentDescription, short state) 
+    {
+        this.documentId = documentId;
+        this.documentDescription = documentDescription;
+        this.documentIdNull = false;
+        this.state = state;
+    }
+    
+    /**
      * Gets the value of documentId.
      * 
      * @return documentId

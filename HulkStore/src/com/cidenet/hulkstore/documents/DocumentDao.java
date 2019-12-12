@@ -45,6 +45,11 @@ public final class DocumentDao extends AbstractDAO
      * SQL UPDATE statement for document table.
      */
     private final String SQL_UPDATE = "UPDATE " + getTableName() + " SET documentId = ?, documentDescription = ?, state = ? WHERE documentId = ?";
+    
+    /** 
+     * SQL DELETE statement for this table
+     */
+    protected final String SQL_DELETE = "DELETE FROM " + getTableName() + " WHERE documentId = ?";
 
     /** 
      * Indexes of the columns in the document table.
@@ -136,7 +141,8 @@ public final class DocumentDao extends AbstractDAO
             reset(documentDto);
             long t2 = System.currentTimeMillis();
             System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
-            return true;
+            
+            return rows > 0;
             
         } catch (Exception exception) { throw new DocumentDaoException( "Exception: " + exception.getMessage(), exception );
         
@@ -145,6 +151,42 @@ public final class DocumentDao extends AbstractDAO
             if (!isConnSupplied) { ResourceManager.close(connection); }
         }
     }
+    
+    /** 
+     * Deletes a single row in the document table.
+     * 
+     * @param documentPk
+     * @return boolean
+     * @throws com.cidenet.hulkstore.documents.DocumentDaoException
+     */
+    public boolean delete(DocumentPk documentPk) throws DocumentDaoException
+    {
+        // declare variables
+        long t1 = System.currentTimeMillis();
+        final boolean isConnSupplied = (userConn != null);
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            // get the user-specified connection or get a connection from the ResourceManager
+            connection = isConnSupplied ? userConn : ResourceManager.getConnection();
+
+            System.out.println( "Executing " + SQL_DELETE + " with PK: " + documentPk );
+            statement = connection.prepareStatement( SQL_DELETE );
+            statement.setInt( 1, documentPk.getDocumentId() );
+            int rows = statement.executeUpdate();
+            long t2 = System.currentTimeMillis();
+            System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
+            
+            return rows > 0;
+        
+        } catch (Exception exception) { throw new DocumentDaoException( "Exception: " + exception.getMessage(), exception );
+        
+        } finally {
+            ResourceManager.close(statement);
+            if (!isConnSupplied) { ResourceManager.close(connection); }
+        }
+   }
 
     /** 
      * Returns the rows from the document table that matches the specified primary-key value.
