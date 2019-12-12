@@ -45,6 +45,11 @@ public final class ProductDao extends AbstractDAO
      * SQL UPDATE statement for this table.
      */
     protected final String SQL_UPDATE = "UPDATE " + getTableName() + " SET productId = ?, productName = ?, unityId = ?, state = ? WHERE productId = ?";
+    
+    /** 
+     * SQL DELETE statement for this table
+     */
+    protected final String SQL_DELETE = "DELETE FROM " + getTableName() + " WHERE productId = ?";
 
     /** 
      * Indexes of the columns in the product table.
@@ -162,7 +167,8 @@ public final class ProductDao extends AbstractDAO
             reset(productDto);
             long t2 = System.currentTimeMillis();
             System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
-            return true;
+            
+            return rows > 0;
             
         } catch (Exception exception) { throw new ProductDaoException( "Exception: " + exception.getMessage(), exception );
         
@@ -171,6 +177,42 @@ public final class ProductDao extends AbstractDAO
             if (!isConnSupplied) { ResourceManager.close(connection); }
         }
     }
+    
+    /** 
+     * Deletes a single row in the product table.
+     * 
+     * @param productPk
+     * @return boolean
+     * @throws com.cidenet.hulkstore.products.ProductDaoException
+     */
+    public boolean delete(ProductPk productPk) throws ProductDaoException
+    {
+        // declare variables
+        long t1 = System.currentTimeMillis();
+        final boolean isConnSupplied = (userConn != null);
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            // get the user-specified connection or get a connection from the ResourceManager
+            connection = isConnSupplied ? userConn : ResourceManager.getConnection();
+
+            System.out.println( "Executing " + SQL_DELETE + " with PK: " + productPk );
+            statement = connection.prepareStatement( SQL_DELETE );
+            statement.setInt( 1, productPk.getProductId() );
+            int rows = statement.executeUpdate();
+            long t2 = System.currentTimeMillis();
+            System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
+            
+            return rows > 0;
+        
+        } catch (Exception exception) { throw new ProductDaoException( "Exception: " + exception.getMessage(), exception );
+        
+        } finally {
+            ResourceManager.close(statement);
+            if (!isConnSupplied) { ResourceManager.close(connection); }
+        }
+   }
 
     /** 
      * Returns the rows from the product table that matches the specified primary-key value.

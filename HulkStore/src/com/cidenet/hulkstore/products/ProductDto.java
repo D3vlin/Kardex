@@ -38,6 +38,23 @@ public final class ProductDto extends Product implements Serializable
     }
 
     /**
+     * Constructor.
+     * 
+     * @param productId
+     * @param productName
+     * @param unityId
+     * @param state 
+     */
+    public ProductDto(int productId, String productName, int unityId, short state) 
+    {
+        this.productId = productId;
+        this.productName = productName;
+        this.unityId = unityId;
+        this.unityIdNull = false;
+        this.state = state;
+    }    
+
+    /**
      * Sets the value of unityIdNull.
      * 
      * @param value
