@@ -46,6 +46,11 @@ public final class UnityDao extends AbstractDAO
      * SQL UPDATE statement for this table.
      */
     protected final String SQL_UPDATE = "UPDATE " + getTableName() + " SET unityId = ?, unityDescription = ?, state = ? WHERE unityId = ?";
+    
+    /** 
+     * SQL DELETE statement for this table
+     */
+    protected final String SQL_DELETE = "DELETE FROM " + getTableName() + " WHERE unityId = ?";
 
     /** 
      * Indexes of the columns in the unity table.
@@ -142,7 +147,8 @@ public final class UnityDao extends AbstractDAO
             reset(unityDto);
             long t2 = System.currentTimeMillis();
             System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
-            return true;
+            
+            return rows > 0;
         
         } catch (Exception exception) { throw new UnityDaoException( "Exception: " + exception.getMessage(), exception );
         
@@ -151,6 +157,42 @@ public final class UnityDao extends AbstractDAO
             if (!isConnSupplied) { ResourceManager.close(connection); }
         }
     }
+    
+    /** 
+     * Deletes a single row in the unity table.
+     * 
+     * @param unityPk
+     * @return boolean
+     * @throws com.cidenet.hulkstore.units.UnityDaoException
+     */
+    public boolean delete(UnityPk unityPk) throws UnityDaoException
+    {
+        // declare variables
+        long t1 = System.currentTimeMillis();
+        final boolean isConnSupplied = (userConn != null);
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            // get the user-specified connection or get a connection from the ResourceManager
+            connection = isConnSupplied ? userConn : ResourceManager.getConnection();
+
+            System.out.println( "Executing " + SQL_DELETE + " with PK: " + unityPk );
+            statement = connection.prepareStatement( SQL_DELETE );
+            statement.setInt( 1, unityPk.getUnityId() );
+            int rows = statement.executeUpdate();
+            long t2 = System.currentTimeMillis();
+            System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
+            
+            return rows > 0;
+        
+        } catch (Exception exception) { throw new UnityDaoException( "Exception: " + exception.getMessage(), exception );
+        
+        } finally {
+            ResourceManager.close(statement);
+            if (!isConnSupplied) { ResourceManager.close(connection); }
+        }
+   }
 
     /** 
      * Returns the rows from the unity table that matches the specified primary-key value.

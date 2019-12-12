@@ -51,6 +51,13 @@ public final class UnityDto implements Serializable
         this.state = (short) 1;
     }
 
+    public UnityDto(int unityId, String unityDescription, short state) {
+        this.unityId = unityId;
+        this.unityDescription = unityDescription;
+        this.unityIdNull = false;
+        this.state = state;
+    }
+    
     /**
      * Gets the value of unityId.
      * 
