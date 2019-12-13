@@ -58,6 +58,45 @@ public final class KardexDetailDto extends KardexDetail implements Serializable
         this.observations = observations;
         this.state = 1;
     }
+    
+    /**
+     * Constructor.
+     * 
+     * @param detailId
+     * @param productId
+     * @param storeId
+     * @param kardexDetailYear
+     * @param kardexDetailMonth
+     * @param kardexDetailday
+     * @param userId
+     * @param documentId
+     * @param documentNumber
+     * @param operation
+     * @param quantity
+     * @param unityValue
+     * @param totalValue
+     * @param observations
+     * @param state 
+     */
+    public KardexDetailDto(int detailId, int productId, int storeId, int kardexDetailYear, int kardexDetailMonth, int kardexDetailday, int userId, int documentId, int documentNumber, short operation, double quantity, double unityValue, double totalValue, String observations, short state)
+    {
+        this.detailId = detailId;
+        this.productId = productId;
+        this.storeId = storeId;
+        this.kardexDetailYear = kardexDetailYear;
+        this.kardexDetailMonth = kardexDetailMonth;
+        this.kardexDetailday = kardexDetailday;
+        this.userId = userId;
+        this.userIdNull = false;
+        this.documentId = documentId;
+        this.documentNumber = documentNumber;
+        this.operation = operation;
+        this.quantity = quantity;
+        this.unityValue = unityValue;
+        this.totalValue = totalValue;
+        this.observations = observations;
+        this.state = state;
+    }   
 
     /**
      * Sets the value of userId

@@ -105,4 +105,42 @@ public final class KardexPk implements Serializable
      * @return boolean
      */
     public boolean isStoreIdNull() { return storeIdNull; }
+    
+    /**
+     * Method 'equals'
+     * 
+     * @param other
+     * @return boolean
+     */
+    public boolean equals(Object other)
+    {
+        if (other == null) { return false; }
+        if (other == this) { return true; }
+        if (!(other instanceof KardexPk)) { return false; }
+
+        final KardexPk cast = (KardexPk) other;
+        
+        if (productId != cast.productId) { return false; }
+        if (storeId != cast.storeId) { return false; }
+        if (productIdNull != cast.productIdNull) { return false; }        
+        if (storeIdNull != cast.storeIdNull) { return false; }
+
+        return true;
+    }
+    
+    /**
+     * Method 'hashCode'
+     * 
+     * @return int
+     */
+    public int hashCode()
+    {
+        int _hashCode = 13;
+        _hashCode *= (_hashCode + productId);
+        _hashCode *= (_hashCode + storeId);
+        _hashCode *= (_hashCode + (productIdNull ? 1 : 0));
+        _hashCode *= (_hashCode + (storeIdNull ? 1 : 0));
+        
+        return _hashCode;
+    }
 }

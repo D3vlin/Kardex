@@ -47,6 +47,11 @@ public final class KardexDetailDao extends AbstractDAO
     protected final String SQL_UPDATE = "UPDATE " + getTableName() + " SET detailId = ?, productId = ?, storeId = ?, kardexDetailYear = ?, kardexDetailMonth = ?, kardexDetailday = ?, userId = ?, documentId = ?, documentNumber = ?, operation = ?, quantity = ?, unityValue = ?, totalValue = ?, observations = ?, state = ? WHERE detailId = ? AND productId = ? AND storeId = ?";
 
     /** 
+     * SQL DELETE statement for this table
+     */
+    protected final String SQL_DELETE = "DELETE FROM " + getTableName() + " WHERE detailId = ? AND productId = ? AND storeId = ?";
+    
+    /** 
      * Indexes of the columns in the kardex_detail table.
      */
     protected static final int COLUMN_DETAIL_ID = 1;
@@ -216,10 +221,49 @@ public final class KardexDetailDao extends AbstractDAO
             reset(kardexDetailDto);
             long t2 = System.currentTimeMillis();
             System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
-            return true;
+            
+            return rows > 0;
                     
         } catch (Exception exception) { throw new KardexDetailDaoException( "Exception: " + exception.getMessage(), exception );
 
+        } finally {
+            ResourceManager.close(statement);
+            if (!isConnSupplied) { ResourceManager.close(connection); }
+        }
+    }
+    
+    /** 
+     * Deletes a single row in the kardex_detail table.
+     *
+     * @param kardexDetailPk
+     * @return boolean
+     * @throws com.cidenet.hulkstore.kardex.KardexDetailDaoException
+     */
+    public boolean delete(KardexDetailPk kardexDetailPk) throws KardexDetailDaoException
+    {
+        // declare variables
+        long t1 = System.currentTimeMillis();
+        final boolean isConnSupplied = (userConn != null);
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            // get the user-specified connection or get a connection from the ResourceManager
+            connection = isConnSupplied ? userConn : ResourceManager.getConnection();
+
+            System.out.println( "Executing " + SQL_DELETE + " with PK: " + kardexDetailPk );
+            statement = connection.prepareStatement( SQL_DELETE );
+            statement.setInt( 1, kardexDetailPk.getDetailId() );
+            statement.setInt( 2, kardexDetailPk.getProductId() );
+            statement.setInt( 3, kardexDetailPk.getStoreId() );
+            int rows = statement.executeUpdate();
+            long t2 = System.currentTimeMillis();
+            System.out.println( rows + " rows affected (" + (t2-t1) + " ms)" );
+            
+            return rows > 0;
+        
+        } catch (Exception exception) { throw new KardexDetailDaoException( "Exception: " + exception.getMessage(), exception );
+        
         } finally {
             ResourceManager.close(statement);
             if (!isConnSupplied) { ResourceManager.close(connection); }

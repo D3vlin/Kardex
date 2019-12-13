@@ -17,8 +17,7 @@ public final class KardexDto extends Kardex implements Serializable
     protected boolean totalValueNull = true;
 
     /**
-     * Empty Constructor
-     * 
+     * Empty Constructor    
      */
     public KardexDto() {}
 
@@ -40,7 +39,7 @@ public final class KardexDto extends Kardex implements Serializable
         this.unityValue = unityValue;
         this.totalValue = totalValue;
         this.state = state;
-    }
+    }    
 
     /**
      * Sets the value of totalValue and totalValueNull.
