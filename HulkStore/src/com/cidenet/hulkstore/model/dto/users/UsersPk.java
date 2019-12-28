@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.users;
+package com.cidenet.hulkstore.model.dto.users;
 
 import java.io.Serializable;
 

@@ -1,10 +1,10 @@
-package com.cidenet.hulkstore.controller.user;
+package com.cidenet.hulkstore.controller.users;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
-import com.cidenet.hulkstore.users.UsersDao;
-import com.cidenet.hulkstore.users.UsersDaoException;
-import com.cidenet.hulkstore.users.UsersDto;
+import com.cidenet.hulkstore.model.dao.users.UsersDao;
+import com.cidenet.hulkstore.model.dao.users.UsersDaoException;
+import com.cidenet.hulkstore.model.dto.users.UsersDto;
 import com.cidenet.hulkstore.view.users.UIUser;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;

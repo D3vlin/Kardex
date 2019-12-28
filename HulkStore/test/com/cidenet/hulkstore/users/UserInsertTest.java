@@ -1,5 +1,7 @@
 package com.cidenet.hulkstore.users;
 
+import com.cidenet.hulkstore.model.dto.users.UsersDto;
+import com.cidenet.hulkstore.model.dao.users.*;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;
@@ -52,7 +54,7 @@ public class UserInsertTest
         try {
             UsersDto usersDto = new UsersDto(userId, userName, userPass, identification, realName, surname, userProfile, state);          
             
-            assertEquals(expected, USERSDAO.insert(usersDto).userId);      
+            assertEquals(expected, USERSDAO.insert(usersDto).getUserId());      
             
         } catch (UsersDaoException exception) { fail(exception.getMessage()); }
     }

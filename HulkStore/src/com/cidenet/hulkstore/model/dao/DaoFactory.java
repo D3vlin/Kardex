@@ -6,7 +6,7 @@ import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDao;
 import com.cidenet.hulkstore.model.dao.product.ProductDao;
 import com.cidenet.hulkstore.model.dao.store.StoreDao;
 import com.cidenet.hulkstore.model.dao.unity.UnityDao;
-import com.cidenet.hulkstore.users.UsersDao;
+import com.cidenet.hulkstore.model.dao.users.UsersDao;
 import java.sql.Connection;
 
 /**

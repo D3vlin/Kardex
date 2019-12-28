@@ -1,7 +1,9 @@
-package com.cidenet.hulkstore.users;
+package com.cidenet.hulkstore.model.dao.users;
 
 import com.cidenet.hulkstore.model.dao.AbstractDao;
 import com.cidenet.hulkstore.model.dao.ResourceManager;
+import com.cidenet.hulkstore.model.dto.users.UsersDto;
+import com.cidenet.hulkstore.model.dto.users.UsersPk;
 import java.sql.Connection;
 import java.util.Collection;
 import java.sql.PreparedStatement;
@@ -79,7 +81,7 @@ public final class UsersDao extends AbstractDao
      * 
      * @param usersDto
      * @return UsersPk
-     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
     public UsersPk insert(UsersDto usersDto) throws UsersDaoException
     {
@@ -132,7 +134,7 @@ public final class UsersDao extends AbstractDao
      * @param usersPk
      * @param usersDto
      * @return boolean
-     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
     public boolean update(UsersPk usersPk, UsersDto usersDto) throws UsersDaoException
     {
@@ -178,7 +180,7 @@ public final class UsersDao extends AbstractDao
      * 
      * @param usersPk
      * @return boolean
-     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
     public boolean delete(UsersPk usersPk) throws UsersDaoException
     {
@@ -214,7 +216,7 @@ public final class UsersDao extends AbstractDao
      * 
      * @param usersPk
      * @return UsersDto
-     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
     public UsersDto findByPrimaryKey(UsersPk usersPk) throws UsersDaoException
     {
@@ -226,7 +228,7 @@ public final class UsersDao extends AbstractDao
      * 
      * @param userId
      * @return UsersDto
-     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
     public UsersDto findByPrimaryKey(int userId) throws UsersDaoException
     {
@@ -238,7 +240,7 @@ public final class UsersDao extends AbstractDao
      * Returns all rows from the users table that match the criteria ''.
      * 
      * @return UsersDto[]
-     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
     public UsersDto[] findAll() throws UsersDaoException
     {
@@ -250,7 +252,7 @@ public final class UsersDao extends AbstractDao
      * 
      * @param userId
      * @return UsersDto[]
-     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
     public UsersDto[] findWhereUserIdEquals(int userId) throws UsersDaoException
     {
@@ -360,7 +362,7 @@ public final class UsersDao extends AbstractDao
      * @param sql
      * @param sqlParams
      * @return UsersDto[]
-     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
     public UsersDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws UsersDaoException
     {
@@ -404,7 +406,7 @@ public final class UsersDao extends AbstractDao
      * @param sql
      * @param sqlParams
      * @return UsersDto[]
-     * @throws com.cidenet.hulkstore.users.UsersDaoException
+     * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
     public UsersDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws UsersDaoException
     {

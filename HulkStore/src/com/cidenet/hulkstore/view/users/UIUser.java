@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.users;
 
-import com.cidenet.hulkstore.controller.user.CUser;
+import com.cidenet.hulkstore.controller.users.CUser;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.table.TableCellRenderer;

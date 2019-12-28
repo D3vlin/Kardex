@@ -1,5 +1,6 @@
 package com.cidenet.hulkstore.users;
 
+import com.cidenet.hulkstore.model.dao.users.*;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;

@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.users;
 
-import com.cidenet.hulkstore.controller.user.CInsertUser;
+import com.cidenet.hulkstore.controller.users.CInsertUser;
 
 /**
  * Main view of insert user.

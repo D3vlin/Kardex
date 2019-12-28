@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.view.users;
 
-import com.cidenet.hulkstore.controller.user.CUpdateUser;
+import com.cidenet.hulkstore.controller.users.CUpdateUser;
 
 /**
  * Main view of Modify User

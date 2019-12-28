@@ -1,7 +1,7 @@
 package com.cidenet.hulkstore.view.menu;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
-import com.cidenet.hulkstore.users.UsersDto;
+import com.cidenet.hulkstore.model.dto.users.UsersDto;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
