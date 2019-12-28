@@ -1,5 +1,7 @@
 package com.cidenet.hulkstore.products;
 
+import com.cidenet.hulkstore.model.dto.product.ProductDto;
+import com.cidenet.hulkstore.model.dao.product.*;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;

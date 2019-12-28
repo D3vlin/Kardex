@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.products;
+package com.cidenet.hulkstore.model.dto.product;
 
 /**
  * This abstract class represents the product model.

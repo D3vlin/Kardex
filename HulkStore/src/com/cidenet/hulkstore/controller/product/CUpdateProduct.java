@@ -1,9 +1,8 @@
 package com.cidenet.hulkstore.controller.product;
 
-import com.cidenet.hulkstore.products.ProductDao;
-import com.cidenet.hulkstore.products.ProductDaoException;
+import com.cidenet.hulkstore.model.dao.product.*;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
-import com.cidenet.hulkstore.products.ProductDto;
+import com.cidenet.hulkstore.model.dto.product.ProductDto;
 import com.cidenet.hulkstore.units.UnityDao;
 import com.cidenet.hulkstore.units.UnityDaoException;
 import com.cidenet.hulkstore.units.UnityDto;

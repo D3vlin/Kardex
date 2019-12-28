@@ -1,7 +1,10 @@
-package com.cidenet.hulkstore.products;
+package com.cidenet.hulkstore.model.dao.product;
 
 import com.cidenet.hulkstore.model.dao.AbstractDao;
 import com.cidenet.hulkstore.model.dao.ResourceManager;
+import com.cidenet.hulkstore.model.dto.product.ProductDto;
+import com.cidenet.hulkstore.model.dto.product.ProductPk;
+import com.cidenet.hulkstore.model.dto.product.ProductView;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -86,7 +89,7 @@ public final class ProductDao extends AbstractDao
      * 
      * @param productDto
      * @return ProductPk
-     * @throws com.cidenet.hulkstore.products.ProductDaoException 
+     * @throws com.cidenet.hulkstore.model.dao.product.ProductDaoException 
      */
     public ProductPk insert(ProductDto productDto) throws ProductDaoException
     {
@@ -138,7 +141,7 @@ public final class ProductDao extends AbstractDao
      * @param productPk
      * @param productDto
      * @return booelan
-     * @throws com.cidenet.hulkstore.products.ProductDaoException
+     * @throws com.cidenet.hulkstore.model.dao.product.ProductDaoException
      */
     public boolean update(ProductPk productPk, ProductDto productDto) throws ProductDaoException
     {
@@ -183,7 +186,7 @@ public final class ProductDao extends AbstractDao
      * 
      * @param productPk
      * @return boolean
-     * @throws com.cidenet.hulkstore.products.ProductDaoException
+     * @throws com.cidenet.hulkstore.model.dao.product.ProductDaoException
      */
     public boolean delete(ProductPk productPk) throws ProductDaoException
     {
@@ -219,7 +222,7 @@ public final class ProductDao extends AbstractDao
      * 
      * @param productPk
      * @return ProductDto
-     * @throws com.cidenet.hulkstore.products.ProductDaoException
+     * @throws com.cidenet.hulkstore.model.dao.product.ProductDaoException
      */
     public ProductDto findByPrimaryKey(ProductPk productPk) throws ProductDaoException
     {
@@ -231,7 +234,7 @@ public final class ProductDao extends AbstractDao
      * 
      * @param productId
      * @return ProductDto
-     * @throws com.cidenet.hulkstore.products.ProductDaoException
+     * @throws com.cidenet.hulkstore.model.dao.product.ProductDaoException
      */
     public ProductDto findByPrimaryKey(int productId) throws ProductDaoException
     {
@@ -243,7 +246,7 @@ public final class ProductDao extends AbstractDao
      * Returns all rows from the product table that match the criteria ''.
      * 
      * @return ProductDto[]
-     * @throws com.cidenet.hulkstore.products.ProductDaoException
+     * @throws com.cidenet.hulkstore.model.dao.product.ProductDaoException
      */
     public ProductDto[] findAll() throws ProductDaoException
     {
@@ -401,7 +404,7 @@ public final class ProductDao extends AbstractDao
      * @param sql
      * @param sqlParams
      * @return ProductDto[]
-     * @throws com.cidenet.hulkstore.products.ProductDaoException
+     * @throws com.cidenet.hulkstore.model.dao.product.ProductDaoException
      */
     public ProductDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws ProductDaoException
     {
@@ -445,7 +448,7 @@ public final class ProductDao extends AbstractDao
      * @param sql
      * @param sqlParams
      * @return ProductDto[]
-     * @throws com.cidenet.hulkstore.products.ProductDaoException
+     * @throws com.cidenet.hulkstore.model.dao.product.ProductDaoException
      */
     public ProductDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws ProductDaoException
     {

@@ -2,11 +2,10 @@ package com.cidenet.hulkstore.controller.product;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.reports.CReports;
-import com.cidenet.hulkstore.products.ProductDao;
-import com.cidenet.hulkstore.products.ProductDaoException;
+import com.cidenet.hulkstore.model.dao.product.*;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
-import com.cidenet.hulkstore.products.ProductDto;
-import com.cidenet.hulkstore.products.ProductView;
+import com.cidenet.hulkstore.model.dto.product.ProductDto;
+import com.cidenet.hulkstore.model.dto.product.ProductView;
 import com.cidenet.hulkstore.view.product.UIProduct;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import javax.swing.JCheckBox;
