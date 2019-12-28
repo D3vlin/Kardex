@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.users;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;
 import static org.junit.Assert.assertEquals;
@@ -12,7 +12,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class UserInsertTest
 {    
-    private UsersDao usersDao = DaoFactory.createUsersDao();
+    private static final UsersDao USERSDAO = DaoFactory.createUsersDao();
     private int userId;
     private String userName;
     private String userPass;
@@ -52,7 +52,7 @@ public class UserInsertTest
         try {
             UsersDto usersDto = new UsersDto(userId, userName, userPass, identification, realName, surname, userProfile, state);          
             
-            assertEquals(expected, usersDao.insert(usersDto).userId);      
+            assertEquals(expected, USERSDAO.insert(usersDto).userId);      
             
         } catch (UsersDaoException exception) { fail(exception.getMessage()); }
     }

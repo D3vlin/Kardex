@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.kardex;
+package com.cidenet.hulkstore.model.dto.kardex;
 
 import java.io.Serializable;
 
@@ -112,6 +112,7 @@ public final class KardexPk implements Serializable
      * @param other
      * @return boolean
      */
+    @Override
     public boolean equals(Object other)
     {
         if (other == null) { return false; }
@@ -133,6 +134,7 @@ public final class KardexPk implements Serializable
      * 
      * @return int
      */
+    @Override
     public int hashCode()
     {
         int _hashCode = 13;

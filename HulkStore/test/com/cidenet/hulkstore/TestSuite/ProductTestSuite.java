@@ -1,7 +1,7 @@
 package com.cidenet.hulkstore.TestSuite;
 
 import com.cidenet.hulkstore.exceptions.DaoException;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDeleteTest;
@@ -31,8 +31,8 @@ import org.junit.runners.Suite;
 })
 public class ProductTestSuite {
     
-    private static ProductDao productDao = DaoFactory.createProductDao();
-    private static UnityDao unityDao = DaoFactory.createUnityDao();
+    private static final ProductDao PRODUCTDAO = DaoFactory.createProductDao();
+    private static final UnityDao UNITYDAO = DaoFactory.createUnityDao();
     
     @BeforeClass
     public static void connect()
@@ -44,8 +44,8 @@ public class ProductTestSuite {
             UnityDto unityDto0 = new UnityDto(999999, "Unity Test 1", (short) 1);          
             UnityDto unityDto1 = new UnityDto(999998, "Unity Test 2", (short) 1);          
             
-            unityDao.insert(unityDto0); 
-            unityDao.insert(unityDto1); 
+            UNITYDAO.insert(unityDto0); 
+            UNITYDAO.insert(unityDto1); 
             
         } catch (UnityDaoException exception) { fail(exception.getMessage()); }
     }
@@ -54,11 +54,11 @@ public class ProductTestSuite {
     public static void deleteDataTest()
     {
         try {            
-            assertTrue(productDao.delete(new ProductPk(999999)));
-            assertTrue(productDao.delete(new ProductPk(999998)));
+            assertTrue(PRODUCTDAO.delete(new ProductPk(999999)));
+            assertTrue(PRODUCTDAO.delete(new ProductPk(999998)));
             
-            assertTrue(unityDao.delete(new UnityPk(999999)));
-            assertTrue(unityDao.delete(new UnityPk(999998)));
+            assertTrue(UNITYDAO.delete(new UnityPk(999999)));
+            assertTrue(UNITYDAO.delete(new UnityPk(999998)));
             
         } catch (DaoException exception) { fail(exception.getMessage()); }
     }

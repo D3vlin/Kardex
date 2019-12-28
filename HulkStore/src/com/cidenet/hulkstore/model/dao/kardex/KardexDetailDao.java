@@ -1,5 +1,8 @@
-package com.cidenet.hulkstore.kardex;
+package com.cidenet.hulkstore.model.dao.kardex;
 
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailView;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailPk;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailDto;
 import com.cidenet.hulkstore.jdbc.AbstractDAO;
 import com.cidenet.hulkstore.jdbc.ResourceManager;
 import java.sql.Connection;
@@ -118,7 +121,7 @@ public final class KardexDetailDao extends AbstractDAO
      * 
      * @param kardexDetailDto
      * @return KardexDetailPk
-     * @throws com.cidenet.hulkstore.kardex.KardexDetailDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException
      */
     public KardexDetailPk insert(KardexDetailDto kardexDetailDto) throws KardexDetailDaoException
     {
@@ -179,7 +182,7 @@ public final class KardexDetailDao extends AbstractDAO
      * @param kardexDetailPk
      * @param kardexDetailDto
      * @return boolean
-     * @throws com.cidenet.hulkstore.kardex.KardexDetailDaoException 
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException 
      */
     public boolean update(KardexDetailPk kardexDetailPk, KardexDetailDto kardexDetailDto) throws KardexDetailDaoException
     {
@@ -237,7 +240,7 @@ public final class KardexDetailDao extends AbstractDAO
      *
      * @param kardexDetailPk
      * @return boolean
-     * @throws com.cidenet.hulkstore.kardex.KardexDetailDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException
      */
     public boolean delete(KardexDetailPk kardexDetailPk) throws KardexDetailDaoException
     {
@@ -276,7 +279,7 @@ public final class KardexDetailDao extends AbstractDAO
      * @param productId
      * @param storeId
      * @return KardexDetailDto[]
-     * @throws com.cidenet.hulkstore.kardex.KardexDetailDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException
      */
     public KardexDetailDto[] findWhereProductIdAndStoreIdEquals(int productId, int storeId) throws KardexDetailDaoException
     {
@@ -289,7 +292,7 @@ public final class KardexDetailDao extends AbstractDAO
      * @param productId
      * @param storeId
      * @return KardexDetailDto
-     * @throws com.cidenet.hulkstore.kardex.KardexDetailDaoException 
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException 
      */
     public KardexDetailDto findLastKardexDetail(int productId, int storeId) throws KardexDetailDaoException
     {
@@ -468,7 +471,7 @@ public final class KardexDetailDao extends AbstractDAO
      * @param sql
      * @param sqlParams
      * @return KardexDetailDto[]
-     * @throws com.cidenet.hulkstore.kardex.KardexDetailDaoException 
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException 
      */
     public KardexDetailDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws KardexDetailDaoException
     {
@@ -515,7 +518,7 @@ public final class KardexDetailDao extends AbstractDAO
      * @param sql
      * @param sqlParams
      * @return KardexDetailDto[]
-     * @throws com.cidenet.hulkstore.kardex.KardexDetailDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException
      */
     public KardexDetailDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws KardexDetailDaoException
     {
@@ -560,7 +563,7 @@ public final class KardexDetailDao extends AbstractDAO
      * Returns the next available id for the next record.
      * 
      * @return String
-     * @throws com.cidenet.hulkstore.kardex.KardexDetailDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException
      */
     public String findNextDetailId() throws KardexDetailDaoException
     {

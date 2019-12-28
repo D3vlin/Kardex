@@ -2,7 +2,7 @@ package com.cidenet.hulkstore.controller.login;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.settings.CSettings;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoException;
 import com.cidenet.hulkstore.users.UsersDto;
@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 
 public final class CLogin
 {
-    private UILogin window;
+    private final UILogin window;
     
     /**
      * Empty Constructor.

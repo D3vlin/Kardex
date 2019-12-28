@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.TestSuite;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
@@ -27,7 +27,7 @@ import org.junit.runners.Suite;
 })
 public class StoreTestSuite 
 {    
-    private static StoreDao storeDao = DaoFactory.createStoreDao();
+    private static final StoreDao STOREDAO = DaoFactory.createStoreDao();
     
     @BeforeClass
     public static void connect()
@@ -40,8 +40,8 @@ public class StoreTestSuite
     public static void deleteDataTest()
     {
         try {            
-            assertTrue(storeDao.delete(new StorePk(999999)));
-            assertTrue(storeDao.delete(new StorePk(999998)));
+            assertTrue(STOREDAO.delete(new StorePk(999999)));
+            assertTrue(STOREDAO.delete(new StorePk(999998)));
             
         } catch (StoreDaoException exception) { fail(exception.getMessage()); }
     }

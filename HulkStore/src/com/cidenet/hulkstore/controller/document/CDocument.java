@@ -4,7 +4,7 @@ import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.documents.DocumentDao;
 import com.cidenet.hulkstore.documents.DocumentDaoException;
 import com.cidenet.hulkstore.documents.DocumentDto;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.view.document.UIDocument;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import javax.swing.JCheckBox;
@@ -28,8 +28,10 @@ import javax.swing.table.TableModel;
  */
 public final class CDocument
 {
-    private UIDocument window;
+    private final UIDocument window;
+    private final DocumentDao documentDao = DaoFactory.createDocumentDao();
     private DocumentDto[] documents;
+    private DocumentDto documentDto;
     
     /**
      * Empty Contructor.
@@ -37,10 +39,9 @@ public final class CDocument
     public CDocument()
     {
         try {
-            DocumentDao dao = DaoFactory.createDocumentDao();
-            documents = dao.findAll();
+            documents = documentDao.findAll();
             
-        } catch (Exception exception) {}
+        } catch (DocumentDaoException exception) {}
         
         window = new UIDocument(this);
     }
@@ -57,9 +58,17 @@ public final class CDocument
         String state;
 		
         for (DocumentDto document : documents) {
-            if (document.getState() == 1) { state = "A"; } 
-            else if (document.getState() == 2) { state = "I"; } 
-            else { state = "*"; }
+            switch (document.getState()) {
+                case 1:
+                    state = "A";
+                    break;
+                case 2:
+                    state = "I";
+                    break;
+                default:
+                    state = "*";
+                    break;
+            }
             model.addRow(new Object[]{document.getDocumentId(), document.getDocumentDescription(), state});
         }
     }
@@ -76,13 +85,13 @@ public final class CDocument
         
         if(i != -1)
         {
-            DocumentDto dto = documents[i];
+            documentDto = documents[i];
             
-            if(dto.getState() != 3)
+            if(documentDto.getState() != 3)
             {
                 chkActive.setEnabled(true);
                 
-                if(dto.getState() == 1) {
+                if(documentDto.getState() == 1) {
                     chkActive.setSelected(true);}
                 else {
                     chkActive.setSelected(false);}
@@ -143,11 +152,11 @@ public final class CDocument
         
         if(i != -1)
         {
-            DocumentDto dto = documents[i];                        
+            documentDto = documents[i];                        
             
-            if(dto.getState() == 1)
+            if(documentDto.getState() == 1)
             {
-                CUpdateDocument update = new CUpdateDocument(dto.getDocumentId());
+                CUpdateDocument update = new CUpdateDocument(documentDto.getDocumentId());
                 window.dispose();
                 
             } else { JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE); }
@@ -166,20 +175,19 @@ public final class CDocument
         
         if(i != -1)
         {
-            DocumentDto dto = documents[i];
-            if(dto.getState() != 3)
+            documentDto = documents[i];
+            if(documentDto.getState() != 3)
             {
                 if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {
                     try {
-                        DocumentDao dao =  DaoFactory.createDocumentDao();
-                        dto.setState((short) 3);
-                        if(dao.update(dto.createPk(), dto)){
+                        documentDto.setState((short) 3);
+                        if(documentDao.update(documentDto.createPk(), documentDto)){
                             DefaultTableModel model = (DefaultTableModel) tblDocument.getModel();
                             model.setValueAt("*", i, 2);
                             chkActive.setEnabled(false);
                         } 
-                    } catch (Exception exception) {}
+                    } catch (DocumentDaoException exception) {}
                 }
                 
             } else { JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE); }
@@ -208,20 +216,19 @@ public final class CDocument
         DefaultTableModel model = (DefaultTableModel) tblDocument.getModel();
         
         if(i != -1) {
-            DocumentDto dto = documents[i];
-            DocumentDao dao = DaoFactory.createDocumentDao();
+            documentDto = documents[i];
             
             if(chkActive.isSelected()) {      
                 try {
-                    dto.setState((short) 1);
-                    if(dao.update(dto.createPk(), dto)) { model.setValueAt("A", i, 2); }
+                    documentDto.setState((short) 1);
+                    if(documentDao.update(documentDto.createPk(), documentDto)) { model.setValueAt("A", i, 2); }
                     
                 } catch (DocumentDaoException e) {}
                 
             } else {
                 try {
-                    dto.setState((short) 2);
-                    if(dao.update(dto.createPk(), dto)){ model.setValueAt("I", i, 2); }
+                    documentDto.setState((short) 2);
+                    if(documentDao.update(documentDto.createPk(), documentDto)){ model.setValueAt("I", i, 2); }
                     
                 } catch (DocumentDaoException e) {}
             }

@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.users;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;
 import static org.junit.Assert.assertNotNull;
@@ -12,7 +12,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class UserLoginTest 
 {    
-    private UsersDao usersDao = DaoFactory.createUsersDao();
+    private static final UsersDao USERSDAO = DaoFactory.createUsersDao();
     private String userName;
     private String userPass;
     
@@ -35,7 +35,7 @@ public class UserLoginTest
     @Test
     public void testLogin()
     {
-        try { assertNotNull(usersDao.validateUser(userName, userPass)); }
+        try { assertNotNull(USERSDAO.validateUser(userName, userPass)); }
         catch (UsersDaoException exception) { fail(exception.getMessage()); }
     }
 }

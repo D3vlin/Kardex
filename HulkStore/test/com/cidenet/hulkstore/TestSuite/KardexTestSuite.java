@@ -4,14 +4,14 @@ import com.cidenet.hulkstore.documents.DocumentDao;
 import com.cidenet.hulkstore.documents.DocumentDto;
 import com.cidenet.hulkstore.documents.DocumentPk;
 import com.cidenet.hulkstore.exceptions.DaoException;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
-import com.cidenet.hulkstore.kardex.KardexDao;
-import com.cidenet.hulkstore.kardex.KardexDetailDao;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDao;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDao;
 import com.cidenet.hulkstore.kardex.KardexDetailInsertTest;
-import com.cidenet.hulkstore.kardex.KardexDetailPk;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailPk;
 import com.cidenet.hulkstore.kardex.KardexInsertTest;
-import com.cidenet.hulkstore.kardex.KardexPk;
+import com.cidenet.hulkstore.model.dto.kardex.KardexPk;
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDto;
 import com.cidenet.hulkstore.products.ProductPk;
@@ -40,13 +40,13 @@ import org.junit.runners.Suite;
 })
 public class KardexTestSuite 
 {   
-    private static UsersDao usersDao = DaoFactory.createUsersDao();
-    private static StoreDao storeDao = DaoFactory.createStoreDao();
-    private static DocumentDao documentDao = DaoFactory.createDocumentDao();
-    private static UnityDao unityDao = DaoFactory.createUnityDao();
-    private static ProductDao productDao = DaoFactory.createProductDao();
-    private static KardexDao kardexDao = DaoFactory.createKardexDao();
-    private static KardexDetailDao kardexDetailDao = DaoFactory.createKardexDetailDao();
+    private static final UsersDao USERSDAO = DaoFactory.createUsersDao();
+    private static final StoreDao STOREDAO = DaoFactory.createStoreDao();
+    private static final DocumentDao DOCUMENTDAO = DaoFactory.createDocumentDao();
+    private static final UnityDao UNITYDAO = DaoFactory.createUnityDao();
+    private static final ProductDao PRODUCTDAO = DaoFactory.createProductDao();
+    private static final KardexDao KARDEXDAO = DaoFactory.createKardexDao();
+    private static final KardexDetailDao KARDEXDETAILDAO = DaoFactory.createKardexDetailDao();
     
     @BeforeClass
     public static void connect()
@@ -61,11 +61,11 @@ public class KardexTestSuite
             UnityDto unityDto = new UnityDto(999999, "Unity Test 1", (short) 1);
             ProductDto productDto = new ProductDto(999999, "Product Test", 999999, (short) 1);             
             
-            usersDao.insert(usersDto);
-            storeDao.insert(storeDto); 
-            documentDao.insert(documentDto);
-            unityDao.insert(unityDto); 
-            productDao.insert(productDto); 
+            USERSDAO.insert(usersDto);
+            STOREDAO.insert(storeDto); 
+            DOCUMENTDAO.insert(documentDto);
+            UNITYDAO.insert(unityDto); 
+            PRODUCTDAO.insert(productDto); 
             
         } catch (DaoException exception) { fail(exception.getMessage()); }
     }
@@ -74,16 +74,16 @@ public class KardexTestSuite
     public static void deleteDataTest()
     {
         try {         
-            assertTrue(kardexDetailDao.delete(new KardexDetailPk(999999, 999999, 999999)));
-            assertTrue(kardexDetailDao.delete(new KardexDetailPk(999998, 999999, 999999)));
-            assertTrue(kardexDetailDao.delete(new KardexDetailPk(999997, 999999, 999999)));
-            assertTrue(kardexDao.delete(new KardexPk(999999, 999999)));
+            assertTrue(KARDEXDETAILDAO.delete(new KardexDetailPk(999999, 999999, 999999)));
+            assertTrue(KARDEXDETAILDAO.delete(new KardexDetailPk(999998, 999999, 999999)));
+            assertTrue(KARDEXDETAILDAO.delete(new KardexDetailPk(999997, 999999, 999999)));
+            assertTrue(KARDEXDAO.delete(new KardexPk(999999, 999999)));
             
-            assertTrue(usersDao.delete(new UsersPk(999999)));
-            assertTrue(productDao.delete(new ProductPk(999999)));
-            assertTrue(unityDao.delete(new UnityPk(999999)));
-            assertTrue(storeDao.delete(new StorePk(999999)));
-            assertTrue(documentDao.delete(new DocumentPk(999999)));
+            assertTrue(USERSDAO.delete(new UsersPk(999999)));
+            assertTrue(PRODUCTDAO.delete(new ProductPk(999999)));
+            assertTrue(UNITYDAO.delete(new UnityPk(999999)));
+            assertTrue(STOREDAO.delete(new StorePk(999999)));
+            assertTrue(DOCUMENTDAO.delete(new DocumentPk(999999)));
             
         } catch (DaoException exception) { fail(exception.getMessage()); }
     }

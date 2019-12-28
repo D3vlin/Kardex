@@ -1,9 +1,9 @@
 package com.cidenet.hulkstore.controller.kardex;
 
 import com.cidenet.hulkstore.exceptions.DaoException;
-import com.cidenet.hulkstore.factory.DaoFactory;
-import com.cidenet.hulkstore.kardex.KardexDao;
-import com.cidenet.hulkstore.kardex.KardexDto;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDao;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDto;
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDaoException;
 import com.cidenet.hulkstore.products.ProductDto;
@@ -27,8 +27,8 @@ import javax.swing.JTextField;
 public final class CInsertKardex 
 {
     private UIInsertKardex window;
-    ProductDto[] products;
-    StoreDto[] stores;
+    private ProductDto[] products;
+    private StoreDto[] stores;
     
     /**
      * Empty Contructor.

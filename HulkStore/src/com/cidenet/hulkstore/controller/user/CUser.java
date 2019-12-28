@@ -1,7 +1,7 @@
 package com.cidenet.hulkstore.controller.user;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoException;
 import com.cidenet.hulkstore.users.UsersDto;
@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  * User Management Controller.
@@ -25,19 +24,19 @@ import javax.swing.table.TableModel;
  */
 public final class CUser
 { 
-    private UIUser window;
+    private final UIUser window;
+    private final UsersDao usersDao = DaoFactory.createUsersDao();
     private UsersDto[] users;
+    private UsersDto usersDto;
+    private DefaultTableModel tableModel;
     
     /**
      * Empty Constructor.
      */
     public CUser()
     {
-        try {
-            UsersDao dao = DaoFactory.createUsersDao();
-            users = dao.findAll();
-            
-        } catch (UsersDaoException exception) {}
+        try { users = usersDao.findAll(); }
+        catch (UsersDaoException exception) {}
         
         window = new UIUser(this);
     }   
@@ -49,8 +48,8 @@ public final class CUser
      */
     public void upload(JTable tblUser)
     {
-        DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
-        model.setRowCount(0);
+        tableModel = (DefaultTableModel) tblUser.getModel();
+        tableModel.setRowCount(0);
         String state;
         String profile;
 		
@@ -62,7 +61,7 @@ public final class CUser
             if (user.getState() == 1) { state = "A"; }
             else { state = "*"; }
             
-            model.addRow(new Object[]{user.getUserId(), user.getUserName(), user.getIdentification(), user.getRealName(), user.getSurname(), profile, state});
+            tableModel.addRow(new Object[]{user.getUserId(), user.getUserName(), user.getIdentification(), user.getRealName(), user.getSurname(), profile, state});
         }
     }
     
@@ -95,13 +94,13 @@ public final class CUser
         
         if(i != -1)
         {
-            UsersDto dto = users[i];
+            usersDto = users[i];
             
             CUpdateUser update;
             
-            if(dto.getState() == 1)
+            if(usersDto.getState() == 1)
             {
-                update = new CUpdateUser(dto.getUserId());
+                update = new CUpdateUser(usersDto.getUserId());
                 window.dispose();
                 
             } else { JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE); }
@@ -120,19 +119,18 @@ public final class CUser
         
         if(i != -1)
         {
-            UsersDto dto = users[i];
+            usersDto = users[i];
             
-            if(dto.getState() != 3)
+            if(usersDto.getState() != 3)
             {
                 if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {
                     try {
-                        UsersDao dao = DaoFactory.createUsersDao();
-                        dto.setState((short) 3);
+                        usersDto.setState((short) 3);
                         
-                        if(dao.update(dto.createPk(), dto)) {
-                            DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
-                            model.setValueAt("*", i, 6);
+                        if(usersDao.update(usersDto.createPk(), usersDto)) {
+                            tableModel = (DefaultTableModel) tblUser.getModel();
+                            tableModel.setValueAt("*", i, 6);
                         }
                         
                     } catch (UsersDaoException exception) {}
@@ -155,7 +153,7 @@ public final class CUser
         
 
         if(keyCode == KeyEvent.VK_ENTER) {
-            TableModel tableModel = tblUser.getModel();
+            tableModel = (DefaultTableModel) tblUser.getModel();
         
             int i;
             for(i = 0; i < tableModel.getColumnCount(); i++)

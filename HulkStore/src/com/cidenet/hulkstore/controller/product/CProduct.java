@@ -4,7 +4,7 @@ import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.reports.CReports;
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDaoException;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.products.ProductDto;
 import com.cidenet.hulkstore.products.ProductView;
 import com.cidenet.hulkstore.view.product.UIProduct;
@@ -30,8 +30,11 @@ import javax.swing.table.TableModel;
  */
 public final class CProduct
 {
-    private UIProduct window;
+    private final UIProduct window;
+    private ProductDao productDao = DaoFactory.createProductDao();
     private ProductDto[] products;
+    private ProductDto productDto;
+    private DefaultTableModel defaultTableModel;
     
     /**
      * Empty Constructor.
@@ -39,10 +42,10 @@ public final class CProduct
     public CProduct()
     {
         try {
-            ProductDao productDao = DaoFactory.createProductDao();
+            productDao = DaoFactory.createProductDao();
             products = productDao.findAll();
             
-        } catch (Exception exception) {}        
+        } catch (ProductDaoException exception) {}        
         
         window = new UIProduct(this);
     }
@@ -54,16 +57,24 @@ public final class CProduct
      */
     public void upload(JTable tblProduct)
     {
-        DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
-        model.setRowCount(0);        
+        defaultTableModel = (DefaultTableModel) tblProduct.getModel();
+        defaultTableModel.setRowCount(0);        
         String state;
 		
         for (ProductDto product : products) {
-            if (product.getState() == 1) { state = "A"; }
-            else if (product.getState() == 2) { state = "I"; }
-            else { state = "*"; }
+            switch (product.getState()) {
+                case 1:
+                    state = "A";
+                    break;
+                case 2:
+                    state = "I";
+                    break;
+                default:
+                    state = "*";
+                    break;
+            }
             
-            model.addRow(new Object[]{product.getProductId(), product.getProductName(), product.getUnityId(), state});
+            defaultTableModel.addRow(new Object[]{product.getProductId(), product.getProductName(), product.getUnityId(), state});
         }
     }
 
@@ -79,13 +90,13 @@ public final class CProduct
         
         if(i != -1)
         {
-            ProductDto dto = products[i];
+            productDto = products[i];
             
-            if(dto.getState() != 3)
+            if(productDto.getState() != 3)
             {
                 chkActive.setEnabled(true);
                 
-                if(dto.getState() == 1) { chkActive.setSelected(true); }
+                if(productDto.getState() == 1) { chkActive.setSelected(true); }
                 else { chkActive.setSelected(false); }
                 
             } else {
@@ -127,13 +138,13 @@ public final class CProduct
         
         if(i != -1)
         {
-            ProductDto dto = products[i];
+            productDto = products[i];
                         
             CUpdateProduct update;
             
-            if(dto.getState() == 1)
+            if(productDto.getState() == 1)
             {
-                update = new CUpdateProduct(dto.getProductId());
+                update = new CUpdateProduct(productDto.getProductId());
                 window.dispose();
                 
             } else { JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE); }
@@ -151,24 +162,24 @@ public final class CProduct
     {
         int i = tblProduct.getSelectedRow();
         
-        DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
+        defaultTableModel = (DefaultTableModel) tblProduct.getModel();
         
         if(i != -1) {
-            ProductDto dto = products[i];
-            ProductDao dao = DaoFactory.createProductDao();
+            productDto = products[i];
+            productDao = DaoFactory.createProductDao();
             
             if(chkActive.isSelected())
             {      
                 try {
-                    dto.setState((short) 1);
-                    if(dao.update(dto.createPk(), dto)) { model.setValueAt("A", i, 3); }
+                    productDto.setState((short) 1);
+                    if(productDao.update(productDto.createPk(), productDto)) { defaultTableModel.setValueAt("A", i, 3); }
                     
                 } catch (ProductDaoException e) {}
                 
             } else {
                 try {
-                    dto.setState((short) 2);
-                    if(dao.update(dto.createPk(), dto)) { model.setValueAt("I", i, 3); }
+                    productDto.setState((short) 2);
+                    if(productDao.update(productDto.createPk(), productDto)) { defaultTableModel.setValueAt("I", i, 3); }
                     
                 } catch (ProductDaoException exception) {}
             }
@@ -187,21 +198,21 @@ public final class CProduct
         
         if(i != -1)
         {
-            ProductDto dto = products[i];
-            if(dto.getState() != 3)
+            productDto = products[i];
+            if(productDto.getState() != 3)
             {
                 if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {
                     try {
-                        ProductDao dao =  DaoFactory.createProductDao();
-                        dto.setState((short) 3);
-                        if(dao.update(dto.createPk(), dto)) {
-                            DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
-                            model.setValueAt("*", i, 3);
+                        productDao =  DaoFactory.createProductDao();
+                        productDto.setState((short) 3);
+                        if(productDao.update(productDto.createPk(), productDto)) {
+                            defaultTableModel = (DefaultTableModel) tblProduct.getModel();
+                            defaultTableModel.setValueAt("*", i, 3);
                             chkActive.setEnabled(false);
                         } 
                         
-                    } catch (Exception exception) {}
+                    } catch (ProductDaoException exception) {}
                 }
                 
             } else { JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE); }
@@ -214,8 +225,8 @@ public final class CProduct
      */
     public void generateReport() {        
         try {
-            ProductDao dao = DaoFactory.createProductDao();
-            ProductView[] viewProducts = dao.getViewProduct();
+            productDao = DaoFactory.createProductDao();
+            ProductView[] viewProducts = productDao.getViewProduct();
             
             CReports report = new CReports();
             report.generateProductReport(viewProducts);

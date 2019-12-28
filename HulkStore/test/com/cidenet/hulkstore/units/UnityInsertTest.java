@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.units;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;
 import static org.junit.Assert.assertEquals;
@@ -12,7 +12,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class UnityInsertTest
 {    
-    UnityDao unityDao = DaoFactory.createUnityDao();
+    private static final UnityDao UNITYDAO = DaoFactory.createUnityDao();
     private int unityId;
     private String unityDescription;
     private short state;
@@ -42,7 +42,7 @@ public class UnityInsertTest
         try {
             UnityDto unityDto = new UnityDto(unityId, unityDescription, state);          
             
-            assertEquals(expected, unityDao.insert(unityDto).unityId);      
+            assertEquals(expected, UNITYDAO.insert(unityDto).unityId);      
             
         } catch (UnityDaoException exception) { fail(exception.getMessage()); }
     }

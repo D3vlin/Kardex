@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.controller.document;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.documents.DocumentDao;
 import com.cidenet.hulkstore.documents.DocumentDaoException;
 import com.cidenet.hulkstore.documents.DocumentDto;
@@ -19,7 +19,8 @@ import javax.swing.JTextField;
  */
 public final class CInsertDocument
 {
-    private UIInsertDocument window;
+    private final UIInsertDocument window;
+    private final DocumentDao documentDao = DaoFactory.createDocumentDao();
     
     /**
      * Empty Contructor.
@@ -35,11 +36,9 @@ public final class CInsertDocument
      * @param txtDocumentId 
      */
     public void upload(JTextField txtDocumentId) {
-        try {
-            DocumentDao dao = DaoFactory.createDocumentDao();
-            txtDocumentId.setText(dao.findNextDocumentId());
-            
-        } catch (DocumentDaoException exeption) {}
+        
+        try { txtDocumentId.setText(documentDao.findNextDocumentId()); }
+        catch (DocumentDaoException exeption) {}
     }
 
     /**
@@ -52,9 +51,8 @@ public final class CInsertDocument
     {      
         try {
             DocumentDto dto = new DocumentDto(Integer.parseInt(txtDocumentId.getText()), txtDescription.getText());
-            DocumentDao dao = DaoFactory.createDocumentDao();
             
-            if(!dao.insert(dto).isDocumentIdNull()){
+            if(!documentDao.insert(dto).isDocumentIdNull()){
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
                 CDocument cDocument = new CDocument();
                 window.dispose();

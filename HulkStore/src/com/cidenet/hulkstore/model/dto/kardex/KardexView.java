@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.kardex;
+package com.cidenet.hulkstore.model.dto.kardex;
 
 /** 
  * This class represents the kardex model.

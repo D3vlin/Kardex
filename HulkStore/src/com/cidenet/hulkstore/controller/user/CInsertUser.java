@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.controller.user;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoException;
 import com.cidenet.hulkstore.users.UsersDto;
@@ -24,7 +24,8 @@ import javax.swing.JTextField;
  */
 public final class CInsertUser
 {
-    private UIInsertUser window;
+    private final UIInsertUser window;
+    private final UsersDao usersDao = DaoFactory.createUsersDao();
     
     /**
      * Constructor.
@@ -42,8 +43,7 @@ public final class CInsertUser
     public void upload(JTextField txtUserId)
     {
         try {
-            UsersDao dao = DaoFactory.createUsersDao();
-            txtUserId.setText(dao.findNextUserId());
+            txtUserId.setText(usersDao.findNextUserId());
         
         } catch (UsersDaoException exception) {
             Logger.getLogger(CInsertUser.class.getName()).log(Level.SEVERE, null, exception);
@@ -68,7 +68,7 @@ public final class CInsertUser
         
         if(jrbAdmin.isSelected()) { userProfile = 1; }
         
-        UsersDto dto = new UsersDto(Integer.parseInt(txtUserId.getText()),
+        UsersDto usersDto = new UsersDto(Integer.parseInt(txtUserId.getText()),
                                     txtUserName.getText(),
                                     ftxIdentification.getText(),
                                     txtRealName.getText(),
@@ -81,10 +81,9 @@ public final class CInsertUser
             if(String.valueOf(pwdPass.getPassword()).length() >= 5 && String.valueOf(pwdPass.getPassword()).length() <= 12)
             {
                 try {
-                    dto.setUserPass(String.valueOf(pwdPass.getPassword()));
-                    UsersDao dao = DaoFactory.createUsersDao();
+                    usersDto.setUserPass(String.valueOf(pwdPass.getPassword()));
                     
-                    if(!dao.insert(dto).isUserIdNull())
+                    if(!usersDao.insert(usersDto).isUserIdNull())
                     {
                         JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
                         CUser cUser = new CUser();

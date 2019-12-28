@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.users;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;
 import static org.junit.Assert.assertTrue;
@@ -12,7 +12,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class UserDeleteTest
 {
-    private UsersDao usersDao = DaoFactory.createUsersDao();
+    private static final UsersDao USERSDAO = DaoFactory.createUsersDao();
     private int userId;
     private String userName;
     private String userPass;
@@ -50,7 +50,7 @@ public class UserDeleteTest
         try {
             UsersDto usersDto = new UsersDto(userId, userName, userPass, identification, realName, surname, userProfile, state);          
             
-            assertTrue(usersDao.update(usersDto.createPk(), usersDto));
+            assertTrue(USERSDAO.update(usersDto.createPk(), usersDto));
             
         } catch (UsersDaoException exception) { fail(exception.getMessage()); }
     } 

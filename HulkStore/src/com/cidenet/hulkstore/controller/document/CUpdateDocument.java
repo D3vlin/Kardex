@@ -3,7 +3,7 @@ package com.cidenet.hulkstore.controller.document;
 import com.cidenet.hulkstore.documents.DocumentDao;
 import com.cidenet.hulkstore.documents.DocumentDaoException;
 import com.cidenet.hulkstore.documents.DocumentDto;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.view.document.UIUpdateDocument;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -20,8 +20,8 @@ import javax.swing.JTextField;
 public final class CUpdateDocument
 {
     private UIUpdateDocument window;
-    private DocumentDao documentDao = DaoFactory.createDocumentDao();
-    private DocumentDto document;
+    private final DocumentDao documentDao = DaoFactory.createDocumentDao();
+    private DocumentDto documentDto;
     
     /**
      * Constructor.
@@ -31,10 +31,10 @@ public final class CUpdateDocument
     public CUpdateDocument(int documentId)
     {
         try {
-            document = documentDao.findByPrimaryKey(documentId);
+            documentDto = documentDao.findByPrimaryKey(documentId);
             window = new UIUpdateDocument(this);
             
-        } catch (Exception e) {}
+        } catch (DocumentDaoException e) {}
     }
 
     /**
@@ -45,8 +45,8 @@ public final class CUpdateDocument
      */
     public void upload(JTextField txtDocumentId, JTextField txtDescription)
     {
-        txtDocumentId.setText(String.valueOf(document.getDocumentId()));
-        txtDescription.setText(document.getDocumentDescription());
+        txtDocumentId.setText(String.valueOf(documentDto.getDocumentId()));
+        txtDescription.setText(documentDto.getDocumentDescription());
     }
 
     /**
@@ -57,9 +57,9 @@ public final class CUpdateDocument
     public void accept(JTextField txtDescription) {
         
         try {
-            document.setDocumentDescription(txtDescription.getText());
+            documentDto.setDocumentDescription(txtDescription.getText());
             
-            if(documentDao.update(document.createPk(), document))
+            if(documentDao.update(documentDto.createPk(), documentDto))
             {
                 JOptionPane.showMessageDialog(null, "Se ha modificado el registro", "MODIFICACIÓN", JOptionPane.INFORMATION_MESSAGE);
                 CDocument cDocument = new CDocument();

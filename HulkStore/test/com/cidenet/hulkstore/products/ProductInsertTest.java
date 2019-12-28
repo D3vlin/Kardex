@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.products;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;
 import static org.junit.Assert.assertEquals;
@@ -12,7 +12,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class ProductInsertTest
 {    
-    ProductDao productDao = DaoFactory.createProductDao();
+    private static final ProductDao PRODUCTDAO = DaoFactory.createProductDao();
     private int productId;
     private String productName;
     private int unityId;
@@ -44,7 +44,7 @@ public class ProductInsertTest
         try {
             ProductDto storeDto = new ProductDto(productId, productName, unityId, state);          
             
-            assertEquals(expected, productDao.insert(storeDto).productId);      
+            assertEquals(expected, PRODUCTDAO.insert(storeDto).productId);      
             
         } catch (ProductDaoException exception) { fail(exception.getMessage()); }
     } 

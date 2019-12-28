@@ -1,7 +1,7 @@
 package com.cidenet.hulkstore.controller.unity;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.units.UnityDao;
 import com.cidenet.hulkstore.units.UnityDaoException;
 import com.cidenet.hulkstore.units.UnityDto;
@@ -27,19 +27,19 @@ import javax.swing.table.TableModel;
  */
 public final class CUnity
 {
-    private UIUnity window;
-    private UnityDto[] units; 
+    private final UIUnity window;
+    private final UnityDao unityDao = DaoFactory.createUnityDao();
+    private UnityDto[] units;
+    private UnityDto unityDto;
+    private DefaultTableModel defaultTableModel;
     
     /**
      * Empty Constructor.
      */
     public CUnity()
     {
-        try {
-            UnityDao dao = DaoFactory.createUnityDao();
-            units = dao.findAll();
-            
-        } catch (UnityDaoException exception) {}        
+        try { units = unityDao.findAll(); }
+        catch (UnityDaoException exception) {}        
         
         window = new UIUnity(this);
     }
@@ -51,16 +51,24 @@ public final class CUnity
      */
     public void upload(JTable tblUnit)
     {
-        DefaultTableModel model = (DefaultTableModel) tblUnit.getModel();
-        model.setRowCount(0);   
+        defaultTableModel = (DefaultTableModel) tblUnit.getModel();
+        defaultTableModel.setRowCount(0);   
         String state;
         
         for(UnityDto unity: units) {
-            if (unity.getState() == 1) { state = "A"; }
-            else if (unity.getState() == 2) { state = "I"; }
-            else { state = "*"; }
+            switch (unity.getState()) {
+                case 1:
+                    state = "A";
+                    break;
+                case 2:
+                    state = "I";
+                    break;
+                default:
+                    state = "*";
+                    break;
+            }
             
-            model.addRow(new Object[]{unity.getUnityId(), unity.getUnityDescription(), state});
+            defaultTableModel.addRow(new Object[]{unity.getUnityId(), unity.getUnityDescription(), state});
         }
     }
     /**
@@ -75,7 +83,7 @@ public final class CUnity
         
         if(i != -1)
         {
-            UnityDto unityDto = units[i];
+            unityDto = units[i];
             
             if(unityDto.getState() != 3)
             {
@@ -123,11 +131,11 @@ public final class CUnity
         
         if(i != -1)
         {
-            UnityDto dto = units[i];
+            unityDto = units[i];
             
-            if(dto.getState() == 1)
+            if(unityDto.getState() == 1)
             {
-                CUpdateUnity update = new CUpdateUnity(dto.getUnityId());
+                CUpdateUnity update = new CUpdateUnity(unityDto.getUnityId());
                 window.dispose();
             
             } else { JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE); }
@@ -146,21 +154,20 @@ public final class CUnity
         
         if(i != -1)
         {
-            UnityDto dto = units[i];
-            if(dto.getState() != 3)
+            unityDto = units[i];
+            if(unityDto.getState() != 3)
             {
                 if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {
                     try {
-                        UnityDao dao = DaoFactory.createUnityDao();
-                        dto.setState((short) 3);
-                        if(dao.update(dto.createPk(), dto)){
-                            DefaultTableModel model = (DefaultTableModel) tblUnit.getModel();
-                            model.setValueAt("*", i, 2);
+                        unityDto.setState((short) 3);
+                        if(unityDao.update(unityDto.createPk(), unityDto)){
+                            defaultTableModel = (DefaultTableModel) tblUnit.getModel();
+                            defaultTableModel.setValueAt("*", i, 2);
                             chkActive.setEnabled(false);
                         }
                         
-                    } catch (Exception exception) {}
+                    } catch (UnityDaoException exception) {}
                 }
             } else { JOptionPane.showMessageDialog(null, "El registro ya está eliminado", "ERROR", JOptionPane.ERROR_MESSAGE); }
             
@@ -176,24 +183,23 @@ public final class CUnity
     public void enableDisable(JTable tblUnit, JCheckBox chkActive) {
         int i = tblUnit.getSelectedRow();
         
-        DefaultTableModel model = (DefaultTableModel) tblUnit.getModel();
+        defaultTableModel = (DefaultTableModel) tblUnit.getModel();
         
         if(i != -1) {
-            UnityDto unityDto = units[i];
-            UnityDao unityDao = DaoFactory.createUnityDao();
+            unityDto = units[i];
             
             if(chkActive.isSelected())
             {
                 try {
                     unityDto.setState((short) 1);
-                    if(unityDao.update(unityDto.createPk(), unityDto)) { model.setValueAt("A", i, 2); }
+                    if(unityDao.update(unityDto.createPk(), unityDto)) { defaultTableModel.setValueAt("A", i, 2); }
                 
                 } catch (UnityDaoException exception) {}
             
             } else {
                 try {
                     unityDto.setState((short) 2);
-                    if(unityDao.update(unityDto.createPk(), unityDto)) { model.setValueAt("I", i, 2); }
+                    if(unityDao.update(unityDto.createPk(), unityDto)) { defaultTableModel.setValueAt("I", i, 2); }
                     
                 } catch (UnityDaoException exception) {}
             }

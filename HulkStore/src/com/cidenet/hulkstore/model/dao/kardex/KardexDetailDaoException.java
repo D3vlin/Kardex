@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.kardex;
+package com.cidenet.hulkstore.model.dao.kardex;
 
 import com.cidenet.hulkstore.exceptions.DaoException;
 

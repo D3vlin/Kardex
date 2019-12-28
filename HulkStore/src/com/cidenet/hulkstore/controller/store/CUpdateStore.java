@@ -1,5 +1,6 @@
 package com.cidenet.hulkstore.controller.store;
 
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.stores.StoreDaoException;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDto;
@@ -19,8 +20,8 @@ import javax.swing.JTextField;
 public final class CUpdateStore
 {
     private UIUpdateStore window;
-    private StoreDao dao = new StoreDao();
-    private StoreDto dto;
+    private StoreDao storeDao = DaoFactory.createStoreDao();
+    private StoreDto storeDto;
     
     /**
      * Constructor.
@@ -30,7 +31,7 @@ public final class CUpdateStore
     public CUpdateStore(int storeId)
     {
         try {
-            dto = dao.findByPrimaryKey(storeId);            
+            storeDto = storeDao.findByPrimaryKey(storeId);            
             window = new UIUpdateStore(this);
             
         } catch (StoreDaoException exception) {}       
@@ -44,9 +45,9 @@ public final class CUpdateStore
      * @param txtAddress 
      */
     public void upload(JTextField txtstoreId, JTextField txtStoreName, JTextField txtAddress) {
-        txtstoreId.setText(String.valueOf(dto.getStoreId()));
-        txtStoreName.setText(dto.getStoreName());
-        txtAddress.setText(dto.getAddress());
+        txtstoreId.setText(String.valueOf(storeDto.getStoreId()));
+        txtStoreName.setText(storeDto.getStoreName());
+        txtAddress.setText(storeDto.getAddress());
     }
 
     /**
@@ -57,10 +58,10 @@ public final class CUpdateStore
      */
     public void accept(JTextField txtStoreName, JTextField txtAddress) {
         try {
-            dto.setStoreName(txtStoreName.getText());
-            dto.setAddress(txtAddress.getText());
+            storeDto.setStoreName(txtStoreName.getText());
+            storeDto.setAddress(txtAddress.getText());
             
-            if(dao.update(dto.createPk(), dto)){
+            if(storeDao.update(storeDto.createPk(), storeDto)){
                 JOptionPane.showMessageDialog(null, "Se ha modificado el registro", "MODIFICACIÓN", JOptionPane.INFORMATION_MESSAGE);
                 CStore cStore = new CStore();
                 window.dispose();

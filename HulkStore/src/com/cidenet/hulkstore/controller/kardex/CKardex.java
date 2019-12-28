@@ -5,15 +5,12 @@ import com.cidenet.hulkstore.controller.reports.CReports;
 import com.cidenet.hulkstore.documents.DocumentDao;
 import com.cidenet.hulkstore.documents.DocumentDto;
 import com.cidenet.hulkstore.exceptions.DaoException;
-import com.cidenet.hulkstore.factory.DaoFactory;
-import com.cidenet.hulkstore.kardex.KardexDao;
-import com.cidenet.hulkstore.kardex.KardexDaoException;
-import com.cidenet.hulkstore.kardex.KardexDetailDao;
-import com.cidenet.hulkstore.kardex.KardexDetailDaoException;
-import com.cidenet.hulkstore.kardex.KardexDetailDto;
-import com.cidenet.hulkstore.kardex.KardexDetailView;
-import com.cidenet.hulkstore.kardex.KardexDto;
-import com.cidenet.hulkstore.kardex.KardexView;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
+import com.cidenet.hulkstore.model.dao.kardex.*;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailDto;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailView;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDto;
+import com.cidenet.hulkstore.model.dto.kardex.KardexView;
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDaoException;
 import com.cidenet.hulkstore.products.ProductDto;
@@ -43,10 +40,13 @@ import javax.swing.table.DefaultTableModel;
 public final class CKardex
 {
     private UIKardex window;
-    private KardexDao kardexDao = DaoFactory.createKardexDao();  
+    private final KardexDao kardexDao = DaoFactory.createKardexDao();  
+    private final KardexDetailDao kardexDetailDao = DaoFactory.createKardexDetailDao();
     private KardexDto[] kardex;
-    private KardexDetailDao kardexDetailDao = DaoFactory.createKardexDetailDao();
+    private KardexDto kardexDto;
     private KardexDetailDto[] kardexDetails;
+    private KardexDetailDto kardexDetailDto;
+    private DefaultTableModel tableModel;
     private int productId;
     private int storeId;   
         
@@ -72,8 +72,8 @@ public final class CKardex
      */
     public void uploadKardex(JTable tblKardex) throws DaoException
     {
-        DefaultTableModel model = (DefaultTableModel) tblKardex.getModel();
-        model.setRowCount(0);
+        tableModel = (DefaultTableModel) tblKardex.getModel();
+        tableModel.setRowCount(0);
         
         ProductDto product;
         ProductDao productDao = DaoFactory.createProductDao();
@@ -91,7 +91,7 @@ public final class CKardex
                 if(kardex[i].getState() == 1) { state = "A"; }
                 else { state = "*"; }
                 
-                model.addRow(new Object[]{ product.getProductId(),
+                tableModel.addRow(new Object[]{ product.getProductId(),
                                            product.getProductName(),
                                            store.getStoreId(),
                                            store.getStoreName(),
@@ -114,8 +114,8 @@ public final class CKardex
     public void uploadKardexDetails(JTable tblKardex, JTable tblKardexDetails, JTextField txtQuantity, JTextField txtUnityValue, JTextField txtTotalValue)
     {
         try {
-            DefaultTableModel model = (DefaultTableModel) tblKardexDetails.getModel();
-            model.setRowCount(0);
+            tableModel = (DefaultTableModel) tblKardexDetails.getModel();
+            tableModel.setRowCount(0);
             int i = tblKardex.getSelectedRow();
             
             txtQuantity.setText(String.valueOf(kardex[i].getQuantity()));
@@ -137,7 +137,7 @@ public final class CKardex
                 if(kardexDetails[i].getState()== 1) { state = "A"; }
                 else { state = "*"; }
                 
-                model.addRow(new Object[]{ kardexDetails[i].getDetailId(),
+                tableModel.addRow(new Object[]{ kardexDetails[i].getDetailId(),
                     kardexDetails[i].getKardexDetailDate(),
                     operation,
                     kardexDetails[i].getQuantity(),
@@ -225,7 +225,7 @@ public final class CKardex
         int i = tblKardex.getSelectedRow();
         
         if(i != -1) {
-            KardexDto kardexDto = kardex[i];
+            kardexDto = kardex[i];
             
             if(kardexDto.getState() != 3 && 
                 JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
@@ -234,15 +234,15 @@ public final class CKardex
                     kardexDto.setState((short) 3);
                     
                     if(kardexDao.update(kardexDto.createPk(), kardexDto)) {
-                        DefaultTableModel model = (DefaultTableModel) tblKardex.getModel();
-                        model.setValueAt("*", i, 4);
+                        tableModel = (DefaultTableModel) tblKardex.getModel();
+                        tableModel.setValueAt("*", i, 4);
                         
                         if(tblKardexDetails.getSelectedRow() != -1) { txtState.setText("Eliminado"); }
                         
                         kardexDetails = kardexDetailDao.findWhereProductIdAndStoreIdEquals(productId, storeId);                        
-                        for (KardexDetailDto kardexDetailDto : kardexDetails) {
-                            kardexDetailDto.setState((short) 3);
-                            kardexDetailDao.update(kardexDetailDto.createPk(), kardexDetailDto);
+                        for (KardexDetailDto kardexDetail : kardexDetails) {
+                            kardexDetail.setState((short) 3);
+                            kardexDetailDao.update(kardexDetail.createPk(), kardexDetail);
                         }
                     }
                     
@@ -263,7 +263,7 @@ public final class CKardex
         int i = tblKardex.getSelectedRow();
         
         if(i != -1) {
-            KardexDto kardexDto = kardex[i];
+            kardexDto = kardex[i];
             
             if(kardexDto.getState() == 1) {                
                 CInsertKardexDetails cInsertKardexDetails = new CInsertKardexDetails(productId, storeId);
@@ -285,7 +285,7 @@ public final class CKardex
         
         if(i != -1) {
             try {
-                KardexDetailDto kardexDetailDto = kardexDetailDao.findLastKardexDetail(kardex[i].getProductId(), kardex[i].getStoreId());
+                kardexDetailDto = kardexDetailDao.findLastKardexDetail(kardex[i].getProductId(), kardex[i].getStoreId());
                 
                 if(kardexDetailDto.getState() == 1) {        
                     CUpdateKardexDetails cUpdateKardexDetails = new CUpdateKardexDetails(kardexDetailDto);
@@ -309,7 +309,7 @@ public final class CKardex
         
         if(i != -1) {
             try {
-                KardexDetailDto kardexDetailDto = kardexDetailDao.findLastKardexDetail(kardex[i].getProductId(), kardex[i].getStoreId());
+                kardexDetailDto = kardexDetailDao.findLastKardexDetail(kardex[i].getProductId(), kardex[i].getStoreId());
                 
                 if(kardexDetailDto.getState() != 3) {
                     
@@ -347,7 +347,7 @@ public final class CKardex
         
         if(i != -1)
         {
-            KardexDto kardexDto = kardex[i];
+            kardexDto = kardex[i];
             if(kardexDto.getState() == 1)
             {
                 try {

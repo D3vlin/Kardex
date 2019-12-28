@@ -1,6 +1,10 @@
 package com.cidenet.hulkstore.kardex;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDao;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailPk;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailDto;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;
 import static org.junit.Assert.assertEquals;

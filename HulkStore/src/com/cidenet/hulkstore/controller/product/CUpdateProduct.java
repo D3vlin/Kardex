@@ -2,7 +2,7 @@ package com.cidenet.hulkstore.controller.product;
 
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDaoException;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.products.ProductDto;
 import com.cidenet.hulkstore.units.UnityDao;
 import com.cidenet.hulkstore.units.UnityDaoException;
@@ -24,7 +24,7 @@ import javax.swing.JTextField;
 public final class CUpdateProduct
 {
     private UIUpdateProduct window;
-    private ProductDao productDao = DaoFactory.createProductDao();
+    private final ProductDao productDao = DaoFactory.createProductDao();
     private ProductDto product;    
     private UnityDto[] units;
     

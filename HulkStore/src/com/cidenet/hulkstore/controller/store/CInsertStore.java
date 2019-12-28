@@ -1,5 +1,6 @@
 package com.cidenet.hulkstore.controller.store;
 
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.stores.StoreDaoException;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDto;
@@ -18,7 +19,8 @@ import javax.swing.JTextField;
  */
 public final class CInsertStore
 {
-    private UIInsertStore window;
+    private final UIInsertStore window;
+    private final StoreDao storeDao = DaoFactory.createStoreDao();
     
     /**
      * Empty Constructor.
@@ -32,11 +34,8 @@ public final class CInsertStore
      */
     public void upload(JTextField txtStoreId) 
     {        
-        try {
-            StoreDao dao = new StoreDao();
-            txtStoreId.setText(dao.findNextStoreId());
-            
-        } catch (StoreDaoException exception) {}
+        try { txtStoreId.setText(storeDao.findNextStoreId()); }
+        catch (StoreDaoException exception) {}
     }
 
     /**
@@ -50,9 +49,8 @@ public final class CInsertStore
     {                
         try {
             StoreDto dto = new StoreDto(Integer.parseInt(txtStoreId.getText()), txtStoreName.getText(), txtAddress.getText());
-            StoreDao dao = new StoreDao();
             
-            if(!dao.insert(dto).isStoreIdNull()){
+            if(!storeDao.insert(dto).isStoreIdNull()){
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
                 CStore cStore = new CStore();
                 window.dispose();

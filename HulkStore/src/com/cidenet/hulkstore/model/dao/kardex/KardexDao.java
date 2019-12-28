@@ -1,5 +1,8 @@
-package com.cidenet.hulkstore.kardex;
+package com.cidenet.hulkstore.model.dao.kardex;
 
+import com.cidenet.hulkstore.model.dto.kardex.KardexDto;
+import com.cidenet.hulkstore.model.dto.kardex.KardexPk;
+import com.cidenet.hulkstore.model.dto.kardex.KardexView;
 import com.cidenet.hulkstore.jdbc.AbstractDAO;
 import com.cidenet.hulkstore.jdbc.ResourceManager;
 import java.sql.Connection;
@@ -97,7 +100,7 @@ public final class KardexDao extends AbstractDAO
      * 
      * @param kardexDto
      * @return KardexPk
-     * @throws com.cidenet.hulkstore.kardex.KardexDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDaoException
      */
     public KardexPk insert(KardexDto kardexDto) throws KardexDaoException
     {
@@ -130,7 +133,7 @@ public final class KardexDao extends AbstractDAO
             reset(kardexDto);
             return kardexDto.createPk();
         
-        } catch (Exception exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
+        } catch (SQLException exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
         
         } finally {
             ResourceManager.close(statement);
@@ -144,7 +147,7 @@ public final class KardexDao extends AbstractDAO
      * @param kardexPk
      * @param kardexDto
      * @return boolean
-     * @throws com.cidenet.hulkstore.kardex.KardexDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDaoException
      */
     public boolean update(KardexPk kardexPk, KardexDto kardexDto) throws KardexDaoException
     {
@@ -179,7 +182,7 @@ public final class KardexDao extends AbstractDAO
             
             return rows > 0;
             
-        } catch (Exception _e) { throw new KardexDaoException( "Exception: " + _e.getMessage(), _e );
+        } catch (SQLException exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
         
         } finally {
             ResourceManager.close(statement);
@@ -192,7 +195,7 @@ public final class KardexDao extends AbstractDAO
      * 
      * @param kardexPk
      * @return boolean
-     * @throws com.cidenet.hulkstore.kardex.KardexDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDaoException
      */
     public boolean delete(KardexPk kardexPk) throws KardexDaoException
     {
@@ -216,7 +219,7 @@ public final class KardexDao extends AbstractDAO
             
             return rows > 0;
         
-        } catch (Exception exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
+        } catch (SQLException exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
         
         } finally {
             ResourceManager.close(statement);
@@ -228,7 +231,7 @@ public final class KardexDao extends AbstractDAO
      * Returns all rows from the kardex table that match the criteria ''.
      * 
      * @return KardexDto
-     * @throws com.cidenet.hulkstore.kardex.KardexDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDaoException
      */
     public KardexDto[] findAll() throws KardexDaoException
     {
@@ -375,7 +378,7 @@ public final class KardexDao extends AbstractDAO
      * @param sql
      * @param sqlParams
      * @return KardexDto
-     * @throws com.cidenet.hulkstore.kardex.KardexDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDaoException
      */
     public KardexDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws KardexDaoException
     {
@@ -404,7 +407,7 @@ public final class KardexDao extends AbstractDAO
             // fetch the results
             return fetchKardexDto(resulSet);
         
-        } catch (Exception exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
+        } catch (SQLException exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
         
         } finally {
             ResourceManager.close(resulSet);
@@ -419,7 +422,7 @@ public final class KardexDao extends AbstractDAO
      * @param sql
      * @param sqlParams
      * @return KardexDto
-     * @throws com.cidenet.hulkstore.kardex.KardexDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDaoException
      */
     public KardexDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws KardexDaoException
     {
@@ -451,7 +454,7 @@ public final class KardexDao extends AbstractDAO
             // fetch the results
             return fetchKardexDto(resulSet);
             
-        } catch (Exception exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
+        } catch (SQLException exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
         
         } finally {
             ResourceManager.close(resulSet);
@@ -466,7 +469,7 @@ public final class KardexDao extends AbstractDAO
      * @param productId
      * @param storeId
      * @return KardexView
-     * @throws com.cidenet.hulkstore.kardex.KardexDaoException
+     * @throws com.cidenet.hulkstore.model.dao.kardex.KardexDaoException
      */
     public KardexView[] getKardexView(int productId, int storeId) throws KardexDaoException {
         // declare variables
@@ -493,7 +496,7 @@ public final class KardexDao extends AbstractDAO
             // fetch the results
             return fetchKardexView(resultSet);
             
-        } catch (Exception _e) { throw new KardexDaoException( "Exception: " + _e.getMessage(), _e );
+        } catch (SQLException exception) { throw new KardexDaoException( "Exception: " + exception.getMessage(), exception );
         
         } finally {
             ResourceManager.close(resultSet);

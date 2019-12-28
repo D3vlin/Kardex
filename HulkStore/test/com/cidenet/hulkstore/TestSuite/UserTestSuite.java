@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.TestSuite;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
 import com.cidenet.hulkstore.users.UserDeleteTest;
 import com.cidenet.hulkstore.users.UserInsertTest;
@@ -27,7 +27,7 @@ import org.junit.runners.Suite;
 })
 public class UserTestSuite
 {
-    private static UsersDao usersDao = DaoFactory.createUsersDao();
+    private static final UsersDao USERSDAO = DaoFactory.createUsersDao();
     
     @BeforeClass
     public static void connect()
@@ -40,8 +40,8 @@ public class UserTestSuite
     public static void deleteDataTest()
     {
         try {            
-            assertTrue(usersDao.delete(new UsersPk(999999)));
-            assertTrue(usersDao.delete(new UsersPk(999998)));
+            assertTrue(USERSDAO.delete(new UsersPk(999999)));
+            assertTrue(USERSDAO.delete(new UsersPk(999998)));
             
         } catch (UsersDaoException exception) { fail(exception.getMessage()); }
     }  

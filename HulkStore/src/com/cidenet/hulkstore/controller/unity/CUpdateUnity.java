@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.controller.unity;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.units.UnityDao;
 import com.cidenet.hulkstore.units.UnityDaoException;
 import com.cidenet.hulkstore.units.UnityDto;
@@ -34,7 +34,7 @@ public final class CUpdateUnity
             unity = unityDao.findByPrimaryKey(unityId);
             window = new UIUpdateUnity(this);
             
-        } catch (Exception e) {}
+        } catch (UnityDaoException e) {}
     }
 
     /**

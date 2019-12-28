@@ -25,8 +25,8 @@ import javax.swing.JTextField;
 
 public final class CSettings
 {
-    private UISettings window;
-    private boolean returnToLogin;
+    private final UISettings window;
+    private final boolean returnToLogin;
     
     /**
      * Constructor.

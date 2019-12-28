@@ -1,8 +1,8 @@
-package com.cidenet.hulkstore.factory;
+package com.cidenet.hulkstore.model.dao;
 
 import com.cidenet.hulkstore.documents.DocumentDao;
-import com.cidenet.hulkstore.kardex.KardexDao;
-import com.cidenet.hulkstore.kardex.KardexDetailDao;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDao;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDao;
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.units.UnityDao;

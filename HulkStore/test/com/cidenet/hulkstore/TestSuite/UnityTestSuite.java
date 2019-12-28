@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.TestSuite;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
 import com.cidenet.hulkstore.units.UnityDao;
 import com.cidenet.hulkstore.units.UnityDaoException;
@@ -27,7 +27,7 @@ import org.junit.runners.Suite;
 })
 public class UnityTestSuite
 {
-    private static UnityDao unityDao = DaoFactory.createUnityDao();
+    private static final UnityDao UNITYDAO = DaoFactory.createUnityDao();
     
     @BeforeClass
     public static void connect()
@@ -40,8 +40,8 @@ public class UnityTestSuite
     public static void deleteDataTest()
     {
         try {            
-            assertTrue(unityDao.delete(new UnityPk(999999)));
-            assertTrue(unityDao.delete(new UnityPk(999998)));
+            assertTrue(UNITYDAO.delete(new UnityPk(999999)));
+            assertTrue(UNITYDAO.delete(new UnityPk(999998)));
             
         } catch (UnityDaoException exception) { fail(exception.getMessage()); }
     }    

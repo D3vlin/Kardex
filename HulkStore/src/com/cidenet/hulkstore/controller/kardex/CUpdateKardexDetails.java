@@ -3,9 +3,9 @@ package com.cidenet.hulkstore.controller.kardex;
 import com.cidenet.hulkstore.documents.DocumentDao;
 import com.cidenet.hulkstore.documents.DocumentDto;
 import com.cidenet.hulkstore.exceptions.DaoException;
-import com.cidenet.hulkstore.factory.DaoFactory;
-import com.cidenet.hulkstore.kardex.KardexDetailDao;
-import com.cidenet.hulkstore.kardex.KardexDetailDto;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDao;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailDto;
 import com.cidenet.hulkstore.view.kardex.UIUpdateKardexDetails;
 import com.cidenet.hulkstore.view.menu.UIMenu;
 import com.toedter.calendar.JDateChooser;
@@ -31,6 +31,7 @@ public final class CUpdateKardexDetails
     private KardexDetailDao kardexDetailDao = DaoFactory.createKardexDetailDao();
     private DocumentDto[] documents;
     private KardexDetailDto kardexDetailDto;
+    private Calendar calendar;
     
     /**
      * Builder that loads the kardex details.
@@ -75,7 +76,7 @@ public final class CUpdateKardexDetails
         txtTotalValue.setText(String.valueOf(kardexDetailDto.getTotalValue()));
         txaObservations.setText(kardexDetailDto.getObservations());
         
-        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         calendar.set(kardexDetailDto.getKardexDetailYear(), kardexDetailDto.getKardexDetailMonth() - 1, kardexDetailDto.getKardexDetailday());        
         dtcDate.setCalendar(calendar);
         
@@ -108,7 +109,7 @@ public final class CUpdateKardexDetails
      */
     public void accept(JTextField txtDetailId, JDateChooser dtcDate, JTextField txtDocumentId, JTextField txtDocumentNumber, JComboBox cmbOperation, JTextField txtQuantity, JTextField txtUnityValue, JTextField txtTotalValue, JTextArea txaObservations)
     {
-        Calendar calendar = dtcDate.getCalendar();
+        calendar = dtcDate.getCalendar();
         
         try
         {

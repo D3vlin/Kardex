@@ -4,10 +4,10 @@ import com.cidenet.hulkstore.documents.DocumentDao;
 import com.cidenet.hulkstore.documents.DocumentDaoException;
 import com.cidenet.hulkstore.documents.DocumentDto;
 import com.cidenet.hulkstore.exceptions.DaoException;
-import com.cidenet.hulkstore.factory.DaoFactory;
-import com.cidenet.hulkstore.kardex.KardexDetailDao;
-import com.cidenet.hulkstore.kardex.KardexDetailDaoException;
-import com.cidenet.hulkstore.kardex.KardexDetailDto;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDao;
+import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException;
+import com.cidenet.hulkstore.model.dto.kardex.KardexDetailDto;
 import com.cidenet.hulkstore.view.kardex.UIInsertKardexDetails;
 import com.cidenet.hulkstore.view.menu.UIMenu;
 import com.toedter.calendar.JDateChooser;
@@ -29,7 +29,8 @@ import javax.swing.JTextField;
 public final class CInsertKardexDetails 
 {
     private UIInsertKardexDetails window;
-    DocumentDto[] documents;
+    private final KardexDetailDao kardexDetailDao = DaoFactory.createKardexDetailDao();
+    private DocumentDto[] documents;
     private int productId;
     private int storeId; 
     
@@ -67,8 +68,7 @@ public final class CInsertKardexDetails
             {  
                 cmbDocumentDescription.insertItemAt(documents[i].getDocumentDescription(), i);
             }
-            KardexDetailDao kardexDetailsDao = DaoFactory.createKardexDetailDao();
-            txtDetailId.setText(kardexDetailsDao.findNextDetailId());
+            txtDetailId.setText(kardexDetailDao.findNextDetailId());
             txtProductId.setText(String.valueOf(productId));
             txtStoreId.setText(String.valueOf(storeId));
             
@@ -115,8 +115,7 @@ public final class CInsertKardexDetails
                                                                   txaObservations.getText()
                     
             );
-            
-            KardexDetailDao kardexDetailDao = DaoFactory.createKardexDetailDao();           
+                      
             if(!kardexDetailDao.insert(kardexDetailDto).isDetailIdNull()) {
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);
                 CKardex cKardex = new CKardex();

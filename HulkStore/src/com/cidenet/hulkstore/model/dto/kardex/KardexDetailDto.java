@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.kardex;
+package com.cidenet.hulkstore.model.dto.kardex;
 
 import java.io.Serializable;
 
@@ -103,6 +103,7 @@ public final class KardexDetailDto extends KardexDetail implements Serializable
      * 
      * @param userId
      */
+    @Override
     public void setUserId(int userId)
     {
         this.userId = userId;
@@ -135,6 +136,7 @@ public final class KardexDetailDto extends KardexDetail implements Serializable
      * 
      * @return String
      */
+    @Override
     public String toString()
     {
         StringBuilder response = new StringBuilder();

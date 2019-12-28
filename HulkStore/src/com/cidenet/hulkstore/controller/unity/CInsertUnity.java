@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.controller.unity;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.units.UnityDao;
 import com.cidenet.hulkstore.units.UnityDaoException;
 import com.cidenet.hulkstore.units.UnityDto;
@@ -19,7 +19,8 @@ import javax.swing.JTextField;
  */
 public final class CInsertUnity
 {
-    private UIInsertUnity window;
+    private final UIInsertUnity window;
+    private final UnityDao unityDao = DaoFactory.createUnityDao();
     
     /**
      * Empty Constructor.
@@ -34,8 +35,7 @@ public final class CInsertUnity
     public void upload(JTextField txtUnityId)
     {
         try {
-            UnityDao dao = DaoFactory.createUnityDao();
-            txtUnityId.setText(dao.findNextUnityId());
+            txtUnityId.setText(unityDao.findNextUnityId());
             
         } catch (UnityDaoException exception) {}
     }
@@ -50,7 +50,6 @@ public final class CInsertUnity
     {      
         try {
             UnityDto unityDto = new UnityDto(Integer.parseInt(txtUnityId.getText()), txtUnityDescription.getText());
-            UnityDao unityDao = DaoFactory.createUnityDao();
             
             if(!unityDao.insert(unityDto).isUnityIdNull()){
                 JOptionPane.showMessageDialog(null, "Se ha agregado el registro nuevo", "INSERCION", JOptionPane.INFORMATION_MESSAGE);

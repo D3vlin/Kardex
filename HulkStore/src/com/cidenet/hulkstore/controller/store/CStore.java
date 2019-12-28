@@ -2,7 +2,7 @@ package com.cidenet.hulkstore.controller.store;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.reports.CReports;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.stores.StoreDaoException;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDto;
@@ -30,19 +30,19 @@ import javax.swing.table.TableModel;
  */
 public final class CStore
 {
-    private UIStore window;
+    private final UIStore window;
+    private final StoreDao storeDao = DaoFactory.createStoreDao();
     private StoreDto[] stores;
+    private StoreDto storeDto;
+    private DefaultTableModel defaultTableModel;
     
     /**
      * Empty Constructor.
      */
     public CStore()
     {
-        try {
-            StoreDao dao = DaoFactory.createStoreDao();
-            stores = dao.findAll();            
-        
-        } catch (Exception exception) {}
+        try { stores = storeDao.findAll(); }
+        catch (StoreDaoException exception) {}
         
         window = new UIStore(this);
     }    
@@ -55,17 +55,25 @@ public final class CStore
      */
     public void upload(JTable tblStore, JTextField txtSearch)
     {
-        DefaultTableModel model = (DefaultTableModel) tblStore.getModel();
-        model.setRowCount(0);
+        defaultTableModel = (DefaultTableModel) tblStore.getModel();
+        defaultTableModel.setRowCount(0);
         String state;
         
         for (StoreDto store : stores) 
         {
-            if (store.getState() == 1) { state = "A"; }
-            else if (store.getState() == 2) { state = "I"; }
-            else { state = "*"; }
+            switch (store.getState()) {
+                case 1:
+                    state = "A";
+                    break;
+                case 2:
+                    state = "I";
+                    break;
+                default:
+                    state = "*";
+                    break;
+            }
             
-            model.addRow(new Object[]{store.getStoreId(), store.getStoreName(), store.getAddress(), state});
+            defaultTableModel.addRow(new Object[]{store.getStoreId(), store.getStoreName(), store.getAddress(), state});
         }
     }
     
@@ -81,13 +89,13 @@ public final class CStore
         
         if(i != -1)
         {
-            StoreDto dto = stores[i];
+            storeDto = stores[i];
             
-            if(dto.getState() != 3)
+            if(storeDto.getState() != 3)
             {                
                 chkActive.setEnabled(true);
                 
-                if(dto.getState() == 1) {
+                if(storeDto.getState() == 1) {
                     chkActive.setSelected(true);}
                 else {
                     chkActive.setSelected(false);}
@@ -129,11 +137,11 @@ public final class CStore
         
         if(i != -1)
         {
-            StoreDto dto = stores[i];
+            storeDto = stores[i];
             
-            if(dto.getState() == 1)
+            if(storeDto.getState() == 1)
             {
-                CUpdateStore update = new CUpdateStore(dto.getStoreId());
+                CUpdateStore update = new CUpdateStore(storeDto.getStoreId());
                 window.dispose();
                 
             } else { JOptionPane.showMessageDialog(null, "Solo se permite modificar registros activos", "ERROR", JOptionPane.ERROR_MESSAGE); }
@@ -150,24 +158,23 @@ public final class CStore
     public void enableDisable(JTable tblStore, JCheckBox chkActive) {
         int i = tblStore.getSelectedRow();
         
-        DefaultTableModel model = (DefaultTableModel) tblStore.getModel();        
+        defaultTableModel = (DefaultTableModel) tblStore.getModel();        
         
         if(i != -1) {
-            StoreDto dto = stores[i];
-            StoreDao dao = new StoreDao();
+            storeDto = stores[i];
             
             if(chkActive.isSelected())
             {
                 try {
-                    dto.setState((short) 1);
-                    if(dao.update(dto.createPk(), dto)) { model.setValueAt("A", i, 3); }
+                    storeDto.setState((short) 1);
+                    if(storeDao.update(storeDto.createPk(), storeDto)) { defaultTableModel.setValueAt("A", i, 3); }
                     
                 } catch (StoreDaoException exception) {}
             
             } else {
                 try {
-                    dto.setState((short) 2);
-                    if(dao.update(dto.createPk(), dto)) { model.setValueAt("I", i, 3); }
+                    storeDto.setState((short) 2);
+                    if(storeDao.update(storeDto.createPk(), storeDto)) { defaultTableModel.setValueAt("I", i, 3); }
                     
                 } catch (StoreDaoException exception) {}
             }
@@ -186,17 +193,16 @@ public final class CStore
         
         if(i != -1)
         {
-            StoreDto dto = stores[i];
-            if(dto.getState() != 3)
+            storeDto = stores[i];
+            if(storeDto.getState() != 3)
             {
                 if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el registro?", "Eliminar", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
                 {                    
                     try {
-                        StoreDao dao = DaoFactory.createStoreDao();
-                        dto.setState((short) 3);
-                        if(dao.update(dto.createPk(), dto)){
-                            DefaultTableModel model = (DefaultTableModel) tblStore.getModel();
-                            model.setValueAt("*", i, 3);
+                        storeDto.setState((short) 3);
+                        if(storeDao.update(storeDto.createPk(), storeDto)){
+                            defaultTableModel = (DefaultTableModel) tblStore.getModel();
+                            defaultTableModel.setValueAt("*", i, 3);
                             chkActive.setEnabled(false);
                         }    
                     } catch (StoreDaoException ex) {}                    
@@ -212,8 +218,7 @@ public final class CStore
      */
     public void generateReport() {
         try {
-            StoreDao dao = DaoFactory.createStoreDao();
-            stores = dao.getViewStore();
+            stores = storeDao.getViewStore();
             
             CReports report = new CReports();
             report.generateStoreReport(stores);

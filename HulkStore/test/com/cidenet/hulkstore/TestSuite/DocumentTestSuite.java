@@ -7,7 +7,7 @@ import com.cidenet.hulkstore.documents.DocumentEnableDisableTest;
 import com.cidenet.hulkstore.documents.DocumentInsertTest;
 import com.cidenet.hulkstore.documents.DocumentPk;
 import com.cidenet.hulkstore.documents.DocumentUpdateTest;
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
 import java.sql.SQLException;
 import org.junit.AfterClass;
@@ -27,7 +27,7 @@ import org.junit.runners.Suite;
 })
 public class DocumentTestSuite {
     
-    private static DocumentDao documentDao = DaoFactory.createDocumentDao();
+    private static final DocumentDao DOCUMENTDAO = DaoFactory.createDocumentDao();
             
     @BeforeClass
     public static void connect()
@@ -40,8 +40,8 @@ public class DocumentTestSuite {
     public static void deleteDataTest()
     {
         try {
-            assertTrue(documentDao.delete(new DocumentPk(999999)));
-            assertTrue(documentDao.delete(new DocumentPk(999998)));
+            assertTrue(DOCUMENTDAO.delete(new DocumentPk(999999)));
+            assertTrue(DOCUMENTDAO.delete(new DocumentPk(999998)));
         
         } catch (DocumentDaoException exception) { fail(exception.getMessage()); }
     }   

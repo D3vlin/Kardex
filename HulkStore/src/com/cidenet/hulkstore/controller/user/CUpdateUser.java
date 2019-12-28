@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.controller.user;
 
-import com.cidenet.hulkstore.factory.DaoFactory;
+import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoException;
 import com.cidenet.hulkstore.users.UsersDto;
@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 public final class CUpdateUser
 {
     private UIUpdateUser window;
-    private UsersDao userDao = DaoFactory.createUsersDao();
+    private UsersDao usersDao = DaoFactory.createUsersDao();
     private UsersDto user;
     
     /**
@@ -34,10 +34,10 @@ public final class CUpdateUser
     public CUpdateUser(int userId)
     {
         try {
-            user = userDao.findByPrimaryKey(userId);
+            user = usersDao.findByPrimaryKey(userId);
             window = new UIUpdateUser(this);
             
-        } catch (Exception exception) {}
+        } catch (UsersDaoException exception) {}
         
     }
     
@@ -104,9 +104,8 @@ public final class CUpdateUser
             {
                 try {
                     user.setUserPass(String.valueOf(pwdPass.getPassword()));
-                    UsersDao dao = DaoFactory.createUsersDao();
                     
-                    if(dao.update(user.createPk(), user))
+                    if(usersDao.update(user.createPk(), user))
                     {
                         JOptionPane.showMessageDialog(null, "Se ha modificado el registro", "MODIFICACIÓN", JOptionPane.INFORMATION_MESSAGE);
                         CUser cUser = new CUser();

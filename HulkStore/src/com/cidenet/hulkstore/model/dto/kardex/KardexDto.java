@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.kardex;
+package com.cidenet.hulkstore.model.dto.kardex;
 
 import java.io.Serializable;
 
@@ -46,6 +46,7 @@ public final class KardexDto extends Kardex implements Serializable
      * 
      * @param totalValue
      */
+    @Override
     public void setTotalValue(double totalValue)
     {
         this.totalValue = totalValue;
@@ -79,6 +80,7 @@ public final class KardexDto extends Kardex implements Serializable
      * 
      * @return String
      */
+    @Override
     public String toString()
     {
         StringBuilder response = new StringBuilder();
