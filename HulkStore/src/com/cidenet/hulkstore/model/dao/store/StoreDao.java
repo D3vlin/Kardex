@@ -1,7 +1,9 @@
-package com.cidenet.hulkstore.stores;
+package com.cidenet.hulkstore.model.dao.store;
 
 import com.cidenet.hulkstore.model.dao.AbstractDao;
 import com.cidenet.hulkstore.model.dao.ResourceManager;
+import com.cidenet.hulkstore.model.dto.store.StoreDto;
+import com.cidenet.hulkstore.model.dto.store.StorePk;
 import java.sql.Connection;
 import java.util.Collection;
 import java.sql.PreparedStatement;
@@ -74,7 +76,7 @@ public final class StoreDao extends AbstractDao
      * Inserts a new row in the store table.
      * @param storeDto
      * @return StorePk
-     * @throws com.cidenet.hulkstore.stores.StoreDaoException
+     * @throws com.cidenet.hulkstore.model.dao.store.StoreDaoException
      */
     public StorePk insert(StoreDto storeDto) throws StoreDaoException
     {
@@ -122,7 +124,7 @@ public final class StoreDao extends AbstractDao
      * @param storePk
      * @param storeDto
      * @return boolean
-     * @throws com.cidenet.hulkstore.stores.StoreDaoException
+     * @throws com.cidenet.hulkstore.model.dao.store.StoreDaoException
      */
     public boolean update(StorePk storePk, StoreDto storeDto) throws StoreDaoException
     {
@@ -164,7 +166,7 @@ public final class StoreDao extends AbstractDao
      * 
      * @param storePk
      * @return boolean
-     * @throws com.cidenet.hulkstore.stores.StoreDaoException
+     * @throws com.cidenet.hulkstore.model.dao.store.StoreDaoException
      */
     public boolean delete(StorePk storePk) throws StoreDaoException
     {
@@ -201,7 +203,7 @@ public final class StoreDao extends AbstractDao
      * 
      * @param storePk
      * @return StoreDto
-     * @throws com.cidenet.hulkstore.stores.StoreDaoException
+     * @throws com.cidenet.hulkstore.model.dao.store.StoreDaoException
      */
     public StoreDto findByPrimaryKey(StorePk storePk) throws StoreDaoException
     {
@@ -213,7 +215,7 @@ public final class StoreDao extends AbstractDao
      * 
      * @param storeId
      * @return StoreDto
-     * @throws com.cidenet.hulkstore.stores.StoreDaoException
+     * @throws com.cidenet.hulkstore.model.dao.store.StoreDaoException
      */
     public StoreDto findByPrimaryKey(int storeId) throws StoreDaoException
     {
@@ -225,7 +227,7 @@ public final class StoreDao extends AbstractDao
      * Returns all rows from the store table that match the criteria ''.
      * 
      * @return StoreDto[]
-     * @throws com.cidenet.hulkstore.stores.StoreDaoException
+     * @throws com.cidenet.hulkstore.model.dao.store.StoreDaoException
      */
     public StoreDto[] findAll() throws StoreDaoException
     {
@@ -331,7 +333,7 @@ public final class StoreDao extends AbstractDao
      * @param sql
      * @param sqlParams
      * @return StoreDto[]
-     * @throws com.cidenet.hulkstore.stores.StoreDaoException
+     * @throws com.cidenet.hulkstore.model.dao.store.StoreDaoException
      */
     public StoreDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws StoreDaoException
     {
@@ -375,7 +377,7 @@ public final class StoreDao extends AbstractDao
      * @param sql
      * @param sqlParams
      * @return StoreDto[]
-     * @throws com.cidenet.hulkstore.stores.StoreDaoException
+     * @throws com.cidenet.hulkstore.model.dao.store.StoreDaoException
      */
     public StoreDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws StoreDaoException
     {

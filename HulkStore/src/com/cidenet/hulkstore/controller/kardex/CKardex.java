@@ -1,5 +1,6 @@
 package com.cidenet.hulkstore.controller.kardex;
 
+import com.cidenet.hulkstore.model.dao.store.*;
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.reports.CReports;
 import com.cidenet.hulkstore.model.dao.document.DocumentDao;
@@ -13,9 +14,7 @@ import com.cidenet.hulkstore.model.dto.kardex.KardexDetailView;
 import com.cidenet.hulkstore.model.dto.kardex.KardexDto;
 import com.cidenet.hulkstore.model.dto.kardex.KardexView;
 import com.cidenet.hulkstore.model.dto.product.ProductDto;
-import com.cidenet.hulkstore.stores.StoreDao;
-import com.cidenet.hulkstore.stores.StoreDaoException;
-import com.cidenet.hulkstore.stores.StoreDto;
+import com.cidenet.hulkstore.model.dto.store.StoreDto;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDto;
 import com.cidenet.hulkstore.view.kardex.UIKardex;

@@ -3,7 +3,7 @@ package com.cidenet.hulkstore.controller.reports;
 import com.cidenet.hulkstore.model.dto.kardex.KardexDetailView;
 import com.cidenet.hulkstore.model.dto.kardex.KardexView;
 import com.cidenet.hulkstore.model.dto.product.ProductView;
-import com.cidenet.hulkstore.stores.StoreDto;
+import com.cidenet.hulkstore.model.dto.store.StoreDto;
 import java.awt.Font;
 import java.io.FileOutputStream;
 import java.io.IOException;

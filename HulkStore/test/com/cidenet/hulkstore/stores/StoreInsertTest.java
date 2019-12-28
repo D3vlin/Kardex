@@ -1,5 +1,7 @@
 package com.cidenet.hulkstore.stores;
 
+import com.cidenet.hulkstore.model.dao.store.*;
+import com.cidenet.hulkstore.model.dto.store.StoreDto;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;
@@ -44,7 +46,7 @@ public class StoreInsertTest
         try {
             StoreDto storeDto = new StoreDto(storeId, storeName, address, state);          
             
-            assertEquals(expected, STOREDAO.insert(storeDto).storeId);      
+            assertEquals(expected, STOREDAO.insert(storeDto).getStoreId());      
             
         } catch (StoreDaoException exception) { fail(exception.getMessage()); }
     }    

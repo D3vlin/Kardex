@@ -1,13 +1,12 @@
 package com.cidenet.hulkstore.TestSuite;
 
+import com.cidenet.hulkstore.model.dao.store.*;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import static com.cidenet.hulkstore.model.dao.ResourceManager.setConnection;
-import com.cidenet.hulkstore.stores.StoreDao;
-import com.cidenet.hulkstore.stores.StoreDaoException;
 import com.cidenet.hulkstore.stores.StoreDeleteTest;
 import com.cidenet.hulkstore.stores.StoreEnableDisableTest;
 import com.cidenet.hulkstore.stores.StoreInsertTest;
-import com.cidenet.hulkstore.stores.StorePk;
+import com.cidenet.hulkstore.model.dto.store.StorePk;
 import com.cidenet.hulkstore.stores.StoreUpdateTest;
 import java.sql.SQLException;
 import org.junit.AfterClass;

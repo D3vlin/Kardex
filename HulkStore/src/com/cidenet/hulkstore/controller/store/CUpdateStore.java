@@ -1,9 +1,8 @@
 package com.cidenet.hulkstore.controller.store;
 
+import com.cidenet.hulkstore.model.dao.store.*;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
-import com.cidenet.hulkstore.stores.StoreDaoException;
-import com.cidenet.hulkstore.stores.StoreDao;
-import com.cidenet.hulkstore.stores.StoreDto;
+import com.cidenet.hulkstore.model.dto.store.StoreDto;
 import com.cidenet.hulkstore.view.store.UIUpdateStore;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;

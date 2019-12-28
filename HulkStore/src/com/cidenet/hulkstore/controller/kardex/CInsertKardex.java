@@ -1,14 +1,13 @@
 package com.cidenet.hulkstore.controller.kardex;
 
+import com.cidenet.hulkstore.model.dao.store.*;
 import com.cidenet.hulkstore.model.dao.DaoException;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.model.dao.kardex.KardexDao;
 import com.cidenet.hulkstore.model.dto.kardex.KardexDto;
 import com.cidenet.hulkstore.model.dao.product.*;
 import com.cidenet.hulkstore.model.dto.product.ProductDto;
-import com.cidenet.hulkstore.stores.StoreDao;
-import com.cidenet.hulkstore.stores.StoreDaoException;
-import com.cidenet.hulkstore.stores.StoreDto;
+import com.cidenet.hulkstore.model.dto.store.StoreDto;
 import com.cidenet.hulkstore.view.kardex.UIInsertKardex;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
