@@ -1,7 +1,7 @@
 package com.cidenet.hulkstore.TestSuite;
 
 import com.cidenet.hulkstore.model.dao.DaoFactory;
-import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
+import static com.cidenet.hulkstore.model.dao.ResourceManager.setConnection;
 import com.cidenet.hulkstore.stores.StoreDao;
 import com.cidenet.hulkstore.stores.StoreDaoException;
 import com.cidenet.hulkstore.stores.StoreDeleteTest;

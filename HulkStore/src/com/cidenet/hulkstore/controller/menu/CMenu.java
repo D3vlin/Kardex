@@ -8,7 +8,7 @@ import com.cidenet.hulkstore.controller.settings.CSettings;
 import com.cidenet.hulkstore.controller.store.CStore;
 import com.cidenet.hulkstore.controller.unity.CUnity;
 import com.cidenet.hulkstore.controller.user.CUser;
-import com.cidenet.hulkstore.exceptions.DaoException;
+import com.cidenet.hulkstore.model.dao.DaoException;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.users.UsersDao;
 import com.cidenet.hulkstore.users.UsersDaoException;

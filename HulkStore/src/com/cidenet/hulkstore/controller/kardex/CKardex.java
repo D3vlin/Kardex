@@ -2,9 +2,9 @@ package com.cidenet.hulkstore.controller.kardex;
 
 import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.controller.reports.CReports;
-import com.cidenet.hulkstore.documents.DocumentDao;
-import com.cidenet.hulkstore.documents.DocumentDto;
-import com.cidenet.hulkstore.exceptions.DaoException;
+import com.cidenet.hulkstore.model.dao.document.DocumentDao;
+import com.cidenet.hulkstore.model.dto.document.DocumentDto;
+import com.cidenet.hulkstore.model.dao.DaoException;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.model.dao.kardex.*;
 import com.cidenet.hulkstore.model.dto.kardex.KardexDetailDto;
@@ -52,7 +52,7 @@ public final class CKardex
         
     /**
      * Empty Contructor.
-     * @throws com.cidenet.hulkstore.exceptions.DaoException
+     * @throws com.cidenet.hulkstore.model.dao.DaoException
      */
     public CKardex() throws DaoException
     {
@@ -68,7 +68,7 @@ public final class CKardex
      * Upload the kardex registered in the database to the form table and set their status.
      * 
      * @param tblKardex 
-     * @throws com.cidenet.hulkstore.exceptions.DaoException 
+     * @throws com.cidenet.hulkstore.model.dao.DaoException 
      */
     public void uploadKardex(JTable tblKardex) throws DaoException
     {

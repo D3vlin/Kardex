@@ -3,8 +3,8 @@ package com.cidenet.hulkstore.model.dao.kardex;
 import com.cidenet.hulkstore.model.dto.kardex.KardexDto;
 import com.cidenet.hulkstore.model.dto.kardex.KardexPk;
 import com.cidenet.hulkstore.model.dto.kardex.KardexView;
-import com.cidenet.hulkstore.jdbc.AbstractDAO;
-import com.cidenet.hulkstore.jdbc.ResourceManager;
+import com.cidenet.hulkstore.model.dao.AbstractDao;
+import com.cidenet.hulkstore.model.dao.ResourceManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2019-11-24
  */
-public final class KardexDao extends AbstractDAO
+public final class KardexDao extends AbstractDao
 {
     /** 
      * The factory class for this DAO has two versions of the create() method - one that

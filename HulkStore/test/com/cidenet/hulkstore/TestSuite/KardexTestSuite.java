@@ -1,11 +1,11 @@
 package com.cidenet.hulkstore.TestSuite;
 
-import com.cidenet.hulkstore.documents.DocumentDao;
-import com.cidenet.hulkstore.documents.DocumentDto;
-import com.cidenet.hulkstore.documents.DocumentPk;
-import com.cidenet.hulkstore.exceptions.DaoException;
+import com.cidenet.hulkstore.model.dao.document.DocumentDao;
+import com.cidenet.hulkstore.model.dto.document.DocumentDto;
+import com.cidenet.hulkstore.model.dto.document.DocumentPk;
+import com.cidenet.hulkstore.model.dao.DaoException;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
-import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
+import static com.cidenet.hulkstore.model.dao.ResourceManager.setConnection;
 import com.cidenet.hulkstore.model.dao.kardex.KardexDao;
 import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDao;
 import com.cidenet.hulkstore.kardex.KardexDetailInsertTest;

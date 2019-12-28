@@ -1,7 +1,7 @@
 package com.cidenet.hulkstore.products;
 
-import com.cidenet.hulkstore.jdbc.AbstractDAO;
-import com.cidenet.hulkstore.jdbc.ResourceManager;
+import com.cidenet.hulkstore.model.dao.AbstractDao;
+import com.cidenet.hulkstore.model.dao.ResourceManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2019-11-15
  */
-public final class ProductDao extends AbstractDAO
+public final class ProductDao extends AbstractDao
 {
     /** 
      * The factory class for this DAO has two versions of the create() method - one that

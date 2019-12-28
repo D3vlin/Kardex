@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.documents;
+package com.cidenet.hulkstore.model.dto.document;
 
 import java.io.Serializable;
 

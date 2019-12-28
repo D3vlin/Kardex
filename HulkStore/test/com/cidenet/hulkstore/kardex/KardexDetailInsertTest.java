@@ -16,7 +16,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class KardexDetailInsertTest 
 {
-    private static KardexDetailDao kardexDetailDao = DaoFactory.createKardexDetailDao();
+    private static final KardexDetailDao KARDEXDETAILDAO = DaoFactory.createKardexDetailDao();
     private int detailId;
     private int productId;
     private int storeId;
@@ -71,7 +71,7 @@ public class KardexDetailInsertTest
         try {
             KardexDetailDto kardexDetailDto = new KardexDetailDto(detailId, productId, storeId, kardexDetailYear, kardexDetailMonth, kardexDetailday, userId, documentId, documentNumber, operation, quantity, unityValue, totalValue, observations, state);
             
-            assertEquals(expected, kardexDetailDao.insert(kardexDetailDto));      
+            assertEquals(expected, KARDEXDETAILDAO.insert(kardexDetailDto));      
             
         } catch (KardexDetailDaoException exception) { fail(exception.getMessage()); }
     } 

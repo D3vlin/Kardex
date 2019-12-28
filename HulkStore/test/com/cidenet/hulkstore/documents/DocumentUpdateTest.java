@@ -1,5 +1,8 @@
 package com.cidenet.hulkstore.documents;
 
+import com.cidenet.hulkstore.model.dto.document.DocumentDto;
+import com.cidenet.hulkstore.model.dao.document.DocumentDaoException;
+import com.cidenet.hulkstore.model.dao.document.DocumentDao;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,7 +15,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class DocumentUpdateTest
 {    
-    DocumentDao documentDao = DaoFactory.createDocumentDao();
+    private static final DocumentDao DOCUMENTDAO = DaoFactory.createDocumentDao();
     private int documentId;
     private String documentDescription;
     private short state;
@@ -40,7 +43,7 @@ public class DocumentUpdateTest
         try {
             DocumentDto documentDto = new DocumentDto(documentId, documentDescription, state);          
             
-            assertTrue(documentDao.update(documentDto.createPk(), documentDto));
+            assertTrue(DOCUMENTDAO.update(documentDto.createPk(), documentDto));
             
         } catch (DocumentDaoException exception) { fail(exception.getMessage()); }
     } 

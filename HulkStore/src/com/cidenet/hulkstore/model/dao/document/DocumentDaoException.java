@@ -1,6 +1,6 @@
-package com.cidenet.hulkstore.documents;
+package com.cidenet.hulkstore.model.dao.document;
 
-import com.cidenet.hulkstore.exceptions.DaoException;
+import com.cidenet.hulkstore.model.dao.DaoException;
 
 /** 
  * This class controls possible exceptions with documents.

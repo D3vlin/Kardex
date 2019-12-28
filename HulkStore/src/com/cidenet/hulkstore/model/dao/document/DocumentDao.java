@@ -1,7 +1,9 @@
-package com.cidenet.hulkstore.documents;
+package com.cidenet.hulkstore.model.dao.document;
 
-import com.cidenet.hulkstore.jdbc.AbstractDAO;
-import com.cidenet.hulkstore.jdbc.ResourceManager;
+import com.cidenet.hulkstore.model.dto.document.DocumentDto;
+import com.cidenet.hulkstore.model.dto.document.DocumentPk;
+import com.cidenet.hulkstore.model.dao.AbstractDao;
+import com.cidenet.hulkstore.model.dao.ResourceManager;
 import java.sql.Connection;
 import java.util.Collection;
 import java.sql.PreparedStatement;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2019-11-24
  */
-public final class DocumentDao extends AbstractDAO
+public final class DocumentDao extends AbstractDao
 {
     /** 
      * The factory class for this DAO has two versions of the create() method - one that
@@ -68,7 +70,7 @@ public final class DocumentDao extends AbstractDAO
      * 
      * @param documentDto
      * @return DocumentPk
-     * @throws com.cidenet.hulkstore.documents.DocumentDaoException
+     * @throws com.cidenet.hulkstore.model.dao.document.DocumentDaoException
      */
     public DocumentPk insert(DocumentDto documentDto) throws DocumentDaoException
     {
@@ -116,7 +118,7 @@ public final class DocumentDao extends AbstractDAO
      * @param documentPk
      * @param documentDto
      * @return boolean
-     * @throws com.cidenet.hulkstore.documents.DocumentDaoException
+     * @throws com.cidenet.hulkstore.model.dao.document.DocumentDaoException
      */
     public boolean update(DocumentPk documentPk, DocumentDto documentDto) throws DocumentDaoException
     {
@@ -157,7 +159,7 @@ public final class DocumentDao extends AbstractDAO
      * 
      * @param documentPk
      * @return boolean
-     * @throws com.cidenet.hulkstore.documents.DocumentDaoException
+     * @throws com.cidenet.hulkstore.model.dao.document.DocumentDaoException
      */
     public boolean delete(DocumentPk documentPk) throws DocumentDaoException
     {
@@ -193,7 +195,7 @@ public final class DocumentDao extends AbstractDAO
      * 
      * @param documentPk
      * @return DocumentDto
-     * @throws com.cidenet.hulkstore.documents.DocumentDaoException
+     * @throws com.cidenet.hulkstore.model.dao.document.DocumentDaoException
      */
     public DocumentDto findByPrimaryKey(DocumentPk documentPk) throws DocumentDaoException
     {
@@ -205,7 +207,7 @@ public final class DocumentDao extends AbstractDAO
      * 
      * @param documentId
      * @return DocumentDto
-     * @throws com.cidenet.hulkstore.documents.DocumentDaoException 
+     * @throws com.cidenet.hulkstore.model.dao.document.DocumentDaoException 
      */
     public DocumentDto findByPrimaryKey(int documentId) throws DocumentDaoException
     {
@@ -217,7 +219,7 @@ public final class DocumentDao extends AbstractDAO
      * Returns all rows from the document table that match the criteria ''.
      * 
      * @return DocumentDto[]
-     * @throws com.cidenet.hulkstore.documents.DocumentDaoException
+     * @throws com.cidenet.hulkstore.model.dao.document.DocumentDaoException
      */
     public DocumentDto[] findAll() throws DocumentDaoException
     {
@@ -229,7 +231,7 @@ public final class DocumentDao extends AbstractDAO
      * 
      * @param state
      * @return DocumentDto[]
-     * @throws com.cidenet.hulkstore.documents.DocumentDaoException
+     * @throws com.cidenet.hulkstore.model.dao.document.DocumentDaoException
      */
     public DocumentDto[] findWhereStateEquals(short state) throws DocumentDaoException
     {
@@ -316,7 +318,7 @@ public final class DocumentDao extends AbstractDAO
      * @param sql
      * @param sqlParams
      * @return DocumentDto[]
-     * @throws com.cidenet.hulkstore.documents.DocumentDaoException
+     * @throws com.cidenet.hulkstore.model.dao.document.DocumentDaoException
     */
     private DocumentDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws DocumentDaoException
     {
@@ -358,7 +360,7 @@ public final class DocumentDao extends AbstractDAO
      * Returns the next available id for the next document.
      * 
      * @return String
-     * @throws com.cidenet.hulkstore.documents.DocumentDaoException
+     * @throws com.cidenet.hulkstore.model.dao.document.DocumentDaoException
     */
     public String findNextDocumentId() throws DocumentDaoException {
         // declare variables

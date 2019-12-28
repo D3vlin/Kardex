@@ -1,9 +1,9 @@
 package com.cidenet.hulkstore.controller.kardex;
 
-import com.cidenet.hulkstore.documents.DocumentDao;
-import com.cidenet.hulkstore.documents.DocumentDaoException;
-import com.cidenet.hulkstore.documents.DocumentDto;
-import com.cidenet.hulkstore.exceptions.DaoException;
+import com.cidenet.hulkstore.model.dao.document.DocumentDao;
+import com.cidenet.hulkstore.model.dao.document.DocumentDaoException;
+import com.cidenet.hulkstore.model.dto.document.DocumentDto;
+import com.cidenet.hulkstore.model.dao.DaoException;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDao;
 import com.cidenet.hulkstore.model.dao.kardex.KardexDetailDaoException;

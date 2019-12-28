@@ -1,8 +1,8 @@
 package com.cidenet.hulkstore.TestSuite;
 
-import com.cidenet.hulkstore.exceptions.DaoException;
+import com.cidenet.hulkstore.model.dao.DaoException;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
-import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
+import static com.cidenet.hulkstore.model.dao.ResourceManager.setConnection;
 import com.cidenet.hulkstore.products.ProductDao;
 import com.cidenet.hulkstore.products.ProductDeleteTest;
 import com.cidenet.hulkstore.products.ProductEnableDisableTest;

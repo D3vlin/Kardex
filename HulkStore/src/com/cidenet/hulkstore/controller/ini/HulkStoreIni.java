@@ -1,7 +1,7 @@
-package com.cidenet.hulkstore.ini;
+package com.cidenet.hulkstore.controller.ini;
 
 import com.cidenet.hulkstore.controller.login.CLogin;
-import static com.cidenet.hulkstore.jdbc.ResourceManager.setConnection;
+import static com.cidenet.hulkstore.model.dao.ResourceManager.setConnection;
 import java.sql.SQLException;
 import javax.swing.UIManager;
 

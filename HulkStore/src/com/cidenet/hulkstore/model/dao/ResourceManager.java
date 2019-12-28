@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.jdbc;
+package com.cidenet.hulkstore.model.dao;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.exceptions;
+package com.cidenet.hulkstore.model.dao;
 
 /** 
  * This class controls possible exceptions.

@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.jdbc;
+package com.cidenet.hulkstore.model.dao;
 
 import java.io.*;
 import java.sql.*;
@@ -10,7 +10,7 @@ import java.sql.*;
  * @version 1.0
  * @since 2019-11-24
  */
-public class AbstractDAO
+public class AbstractDao
 {
 
     public byte[] getBlobColumn(ResultSet rs, int columnIndex)

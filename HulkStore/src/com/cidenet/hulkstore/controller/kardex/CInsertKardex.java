@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.controller.kardex;
 
-import com.cidenet.hulkstore.exceptions.DaoException;
+import com.cidenet.hulkstore.model.dao.DaoException;
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import com.cidenet.hulkstore.model.dao.kardex.KardexDao;
 import com.cidenet.hulkstore.model.dto.kardex.KardexDto;

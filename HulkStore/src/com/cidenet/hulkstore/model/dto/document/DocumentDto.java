@@ -1,5 +1,6 @@
-package com.cidenet.hulkstore.documents;
+package com.cidenet.hulkstore.model.dto.document;
 
+import com.cidenet.hulkstore.model.dto.document.DocumentPk;
 import java.io.Serializable;
 
 /**

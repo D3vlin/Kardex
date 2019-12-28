@@ -1,7 +1,7 @@
 package com.cidenet.hulkstore.view.kardex;
 
 import com.cidenet.hulkstore.controller.kardex.CKardex;
-import com.cidenet.hulkstore.exceptions.DaoException;
+import com.cidenet.hulkstore.model.dao.DaoException;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.ListSelectionModel;
@@ -25,7 +25,7 @@ public class UIKardex extends javax.swing.JFrame
      * Constructor.
      * 
      * @param controller 
-     * @throws com.cidenet.hulkstore.exceptions.DaoException 
+     * @throws com.cidenet.hulkstore.model.dao.DaoException 
      */
     public UIKardex(CKardex controller) throws DaoException
     {

@@ -1,6 +1,6 @@
 package com.cidenet.hulkstore.users;
 
-import com.cidenet.hulkstore.exceptions.DaoException;
+import com.cidenet.hulkstore.model.dao.DaoException;
 
 /**
  * This class controls possible exceptions with user table.
