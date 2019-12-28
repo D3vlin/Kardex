@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.units;
+package com.cidenet.hulkstore.model.dto.unity;
 
 import java.io.Serializable;
 

@@ -1,9 +1,8 @@
 package com.cidenet.hulkstore.controller.unity;
 
 import com.cidenet.hulkstore.model.dao.DaoFactory;
-import com.cidenet.hulkstore.units.UnityDao;
-import com.cidenet.hulkstore.units.UnityDaoException;
-import com.cidenet.hulkstore.units.UnityDto;
+import com.cidenet.hulkstore.model.dao.unity.*;
+import com.cidenet.hulkstore.model.dto.unity.UnityDto;
 import com.cidenet.hulkstore.view.unity.UIInsertUnity;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;

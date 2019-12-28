@@ -1,4 +1,4 @@
-package com.cidenet.hulkstore.units;
+package com.cidenet.hulkstore.model.dao.unity;
 
 import com.cidenet.hulkstore.model.dao.DaoException;
 

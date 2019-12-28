@@ -2,12 +2,11 @@ package com.cidenet.hulkstore.TestSuite;
 
 import com.cidenet.hulkstore.model.dao.DaoFactory;
 import static com.cidenet.hulkstore.model.dao.ResourceManager.setConnection;
-import com.cidenet.hulkstore.units.UnityDao;
-import com.cidenet.hulkstore.units.UnityDaoException;
+import com.cidenet.hulkstore.model.dao.unity.*;
 import com.cidenet.hulkstore.units.UnityDeleteTest;
 import com.cidenet.hulkstore.units.UnityEnableDisableTest;
 import com.cidenet.hulkstore.units.UnityInsertTest;
-import com.cidenet.hulkstore.units.UnityPk;
+import com.cidenet.hulkstore.model.dto.unity.UnityPk;
 import com.cidenet.hulkstore.units.UnityUpdateTest;
 import java.sql.SQLException;
 import org.junit.AfterClass;

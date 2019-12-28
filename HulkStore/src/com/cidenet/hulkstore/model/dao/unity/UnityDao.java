@@ -1,7 +1,9 @@
-package com.cidenet.hulkstore.units;
+package com.cidenet.hulkstore.model.dao.unity;
 
 import com.cidenet.hulkstore.model.dao.AbstractDao;
 import com.cidenet.hulkstore.model.dao.ResourceManager;
+import com.cidenet.hulkstore.model.dto.unity.UnityDto;
+import com.cidenet.hulkstore.model.dto.unity.UnityPk;
 import java.sql.Connection;
 import java.util.Collection;
 import java.sql.PreparedStatement;
@@ -74,7 +76,7 @@ public final class UnityDao extends AbstractDao
      * 
      * @param unityDto
      * @return UnityPk
-     * @throws com.cidenet.hulkstore.units.UnityDaoException 
+     * @throws com.cidenet.hulkstore.model.dao.unity.UnityDaoException 
      */
     public UnityPk insert(UnityDto unityDto) throws UnityDaoException
     {
@@ -122,7 +124,7 @@ public final class UnityDao extends AbstractDao
      * @param unityPk
      * @param unityDto
      * @return boolean
-     * @throws com.cidenet.hulkstore.units.UnityDaoException
+     * @throws com.cidenet.hulkstore.model.dao.unity.UnityDaoException
      */
     public boolean update(UnityPk unityPk, UnityDto unityDto) throws UnityDaoException
     {
@@ -163,7 +165,7 @@ public final class UnityDao extends AbstractDao
      * 
      * @param unityPk
      * @return boolean
-     * @throws com.cidenet.hulkstore.units.UnityDaoException
+     * @throws com.cidenet.hulkstore.model.dao.unity.UnityDaoException
      */
     public boolean delete(UnityPk unityPk) throws UnityDaoException
     {
@@ -199,7 +201,7 @@ public final class UnityDao extends AbstractDao
      * 
      * @param unityPk
      * @return UnityDto
-     * @throws com.cidenet.hulkstore.units.UnityDaoException
+     * @throws com.cidenet.hulkstore.model.dao.unity.UnityDaoException
      */
     public UnityDto findByPrimaryKey(UnityPk unityPk) throws UnityDaoException
     {
@@ -211,7 +213,7 @@ public final class UnityDao extends AbstractDao
      * 
      * @param unityId
      * @return UnityDto
-     * @throws com.cidenet.hulkstore.units.UnityDaoException
+     * @throws com.cidenet.hulkstore.model.dao.unity.UnityDaoException
      */
     public UnityDto findByPrimaryKey(int unityId) throws UnityDaoException
     {
@@ -223,7 +225,7 @@ public final class UnityDao extends AbstractDao
      * Returns all rows from the unity table that match the criteria ''.
      * 
      * @return UnityDto[]
-     * @throws com.cidenet.hulkstore.units.UnityDaoException
+     * @throws com.cidenet.hulkstore.model.dao.unity.UnityDaoException
      */
     public UnityDto[] findAll() throws UnityDaoException
     {
@@ -235,7 +237,7 @@ public final class UnityDao extends AbstractDao
      * 
      * @param state
      * @return UnityDto[]
-     * @throws com.cidenet.hulkstore.units.UnityDaoException
+     * @throws com.cidenet.hulkstore.model.dao.unity.UnityDaoException
      */
     public UnityDto[] findWhereStateEquals(short state) throws UnityDaoException
     {
@@ -342,7 +344,7 @@ public final class UnityDao extends AbstractDao
      * @param sql
      * @param sqlParams
      * @return UnityDto[]
-     * @throws com.cidenet.hulkstore.units.UnityDaoException
+     * @throws com.cidenet.hulkstore.model.dao.unity.UnityDaoException
      */
     public UnityDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws UnityDaoException
     {
@@ -386,7 +388,7 @@ public final class UnityDao extends AbstractDao
      * @param sql
      * @param sqlParams
      * @return UnityDto[]
-     * @throws com.cidenet.hulkstore.units.UnityDaoException
+     * @throws com.cidenet.hulkstore.model.dao.unity.UnityDaoException
      */
     public UnityDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws UnityDaoException
     {
