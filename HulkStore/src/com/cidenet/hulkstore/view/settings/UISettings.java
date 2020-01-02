@@ -1,6 +1,7 @@
 package com.cidenet.hulkstore.view.settings;
 
 import com.cidenet.hulkstore.controller.settings.CSettings;
+import org.apache.log4j.Logger;
 
 /**
  * Main view of the settings
@@ -12,7 +13,8 @@ import com.cidenet.hulkstore.controller.settings.CSettings;
 
 public class UISettings extends javax.swing.JFrame {
 
-    private CSettings controller;
+    private static final Logger LOG = Logger.getLogger(UISettings.class.getName());
+    private final CSettings controller;
     
     /**
      * Constructor.
@@ -27,6 +29,7 @@ public class UISettings extends javax.swing.JFrame {
         
         this.controller = controller;
         controller.upload(this.txtHost, this.txtUser);
+        LOG.info("view UISettings loaded");        
     }
 
     /**

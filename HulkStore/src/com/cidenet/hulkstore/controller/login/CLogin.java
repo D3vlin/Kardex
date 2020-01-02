@@ -10,6 +10,7 @@ import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import org.apache.log4j.Logger;
 
 /**
  * Login view controller.
@@ -21,15 +22,17 @@ import javax.swing.JTextField;
  * @since 2019-11-06
  */
 
-public final class CLogin
-{
+public final class CLogin {
+    
+    private static final Logger LOG = Logger.getLogger(CLogin.class.getName());
     private final UILogin window;
     
     /**
      * Empty Constructor.
      */
-    public CLogin()
-    {
+    public CLogin() {
+        
+        LOG.info("Initializing view UILogin...");
         this.window = new UILogin(this);
     }
     

@@ -3,6 +3,7 @@ package com.cidenet.hulkstore.view.login;
 import com.cidenet.hulkstore.controller.login.CLogin;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  * Main view of the User Login
@@ -14,7 +15,8 @@ import javax.swing.JOptionPane;
 
 public class UILogin extends javax.swing.JFrame {
 
-    private CLogin controller;
+    private static final Logger LOG = Logger.getLogger(UILogin.class.getName());
+    private final CLogin controller;
     
     /**
      * Constructor.
@@ -22,12 +24,14 @@ public class UILogin extends javax.swing.JFrame {
      * @param controller 
      */
     public UILogin(CLogin controller) {
+        
         initComponents();
         this.setVisible(true);
         this.setTitle("LOGIN - HulkStore");
-        setLocationRelativeTo(null);
-        
+        setLocationRelativeTo(null);        
         this.controller = controller;
+        LOG.info("view UILogin loaded");        
+        
     }
 
     /**
@@ -162,7 +166,10 @@ public class UILogin extends javax.swing.JFrame {
     }//GEN-LAST:event_mniCloseActionPerformed
 
     private void mniAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAboutActionPerformed
-        ImageIcon icon = new ImageIcon(getClass().getResource("/com/cidenet/hulkstore/resources/images/login_icon.png"));
+        String imagePath = "/com/cidenet/hulkstore/resources/images/login_icon.png";
+        LOG.debug("Loading image = " + imagePath);
+        ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));        
+        LOG.info("Show information pop-up window");
         JOptionPane.showMessageDialog(null, "Sistema de Control de Inventarios\nHulkStore - 2019\nCIDENET S.A.S", "Acerca de...", JOptionPane.INFORMATION_MESSAGE, icon);
     }//GEN-LAST:event_mniAboutActionPerformed
 
