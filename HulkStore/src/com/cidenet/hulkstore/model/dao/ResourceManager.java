@@ -16,14 +16,13 @@ import org.apache.log4j.Logger;
  * @version 1.0
  * @since 2019-11-24
  */
-public final class ResourceManager
-{
+public final class ResourceManager {
+    
     private static final Logger LOG = Logger.getLogger(ResourceManager.class.getName());
     private static final String JDBC_DRIVER   = "com.mysql.cj.jdbc.Driver";
     private static String JDBC_URL;
     private static String JDBC_USER;
     private static String JDBC_PASSWORD;
-
     private static Driver driver = null;
     
     /**
@@ -31,10 +30,10 @@ public final class ResourceManager
      * 
      * @return String[]
      */
-    public static String[] getDataConnection(){
+    public static String[] getDataConnection() {
         String[] data = null;
-        LOG.debug("Getting connection data...");                
         
+        LOG.debug("Getting connection data...");                        
         try {
             data = new String[3];
             FileReader fReader = new FileReader("connection.dat");
@@ -42,17 +41,14 @@ public final class ResourceManager
             String line;
             int number = 0;
 
-            while((line = bReader.readLine()) != null)
-            {
+            while((line = bReader.readLine()) != null) {
                 data[number] = line.substring(line.indexOf("=") + 1, line.length());
                 number++;
-                if(number > 2)
-                    break;
+                if(number > 2) { break; }
             }
             LOG.debug("Connection data loaded");
          
-        } catch (IOException exception) {
-            
+        } catch (IOException exception) {            
             LOG.fatal("Error accessing connection.dat file = " + exception);
             JOptionPane.showMessageDialog(null, "Error al acceder al archivo connection.dat", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -67,14 +63,14 @@ public final class ResourceManager
      * @param user
      * @param pass 
      */
-    public static void setDataConnection(String host, String user, String pass) {
-        
-        LOG.info("Error accessing connection.dat file = ");
+    public static void setDataConnection(String host, String user, String pass) {        
+        LOG.info("Setting connection data...");
         try (PrintWriter pWritter = new PrintWriter("connection.dat")) {            
             pWritter.print("host=" + host +
                         "\nusuario=" + user +
                         "\npassword=" + pass +
                         "\n\nNo editar este archivo.");
+            LOG.info("Connection data saved");
         
         } catch (FileNotFoundException exception) {
             LOG.fatal("Error accessing connection.dat file = " + exception);
@@ -90,14 +86,12 @@ public final class ResourceManager
      * @param pass
      * @return boolean
      */
-    public static boolean testConnection(String host, String user, String pass) {
-        
+    public static boolean testConnection(String host, String user, String pass) {        
         boolean ok = false;
         Driver dvr;
         
         LOG.info("validating connection parameters...");
-        try {
-            
+        try {            
             Class jdbcDriverClass = Class.forName( JDBC_DRIVER );
             LOG.debug("Driver loaded = " + JDBC_DRIVER);
             dvr = (Driver) jdbcDriverClass.newInstance();
@@ -107,9 +101,8 @@ public final class ResourceManager
             ok = true;
             LOG.info("Correct configuration");
         
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException exception) {    
-            
-            LOG.fatal("Connection failed = " + exception);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException exception) {              
+            LOG.error("Connection failed = " + exception);
             JOptionPane.showMessageDialog(null, "Falló test de conexión a la base de datos.\nConfigure la conexión correctamente", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         
@@ -122,8 +115,7 @@ public final class ResourceManager
      * @return boolean
      * @throws SQLException 
      */
-    public static boolean setConnection() throws SQLException {
-        
+    public static boolean setConnection() throws SQLException {        
         boolean ok = false;
         
         LOG.info("Establishing connection...");
@@ -135,14 +127,12 @@ public final class ResourceManager
             JDBC_USER = dataConection[1];
             JDBC_PASSWORD = dataConection[2];
 
-            try {
-                
+            try {                
                 close(getConnection());            
                 ok = true;
                 LOG.info("Established connection");
                 
-            } catch (SQLException exception) {
-                
+            } catch (SQLException exception) {                
                 LOG.fatal("Connection failed = " + exception);
                 JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos.\nConfigure la conexión correctamente", "ERROR", JOptionPane.ERROR_MESSAGE);                
             }
@@ -157,29 +147,21 @@ public final class ResourceManager
      * @return Connection
      * @throws SQLException 
      */
-    public static synchronized Connection getConnection() throws SQLException {
-        
-        if (driver == null) {
-            
+    public static synchronized Connection getConnection() throws SQLException {        
+        if (driver == null) {    
             LOG.debug("Initializing Driver...");
-            try {
-                
+            try {                
                 Class jdbcDriverClass = Class.forName( JDBC_DRIVER );
                 driver = (Driver) jdbcDriverClass.newInstance();
                 DriverManager.registerDriver( driver );
                 LOG.debug("Driver loaded = " + JDBC_DRIVER);
             
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException exception) {
-                
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException exception) {                
                 LOG.fatal("Failed to initialise JDBC driver = " + JDBC_DRIVER + " / " + exception);
             }
         }
 
-        return DriverManager.getConnection (
-            JDBC_URL,
-            JDBC_USER,
-            JDBC_PASSWORD
-        );
+        return DriverManager.getConnection (JDBC_URL, JDBC_USER, JDBC_PASSWORD);
     }
 
     /**
@@ -187,8 +169,7 @@ public final class ResourceManager
      * 
      * @param conn 
      */
-    public static void close(Connection conn) {
-        
+    public static void close(Connection conn) {        
         LOG.debug("Closing connection...");
         try { 
             if (conn != null) conn.close();
@@ -204,12 +185,11 @@ public final class ResourceManager
      * 
      * @param stmt 
      */
-    public static void close(PreparedStatement stmt) {
-        
+    public static void close(PreparedStatement stmt) {        
         LOG.debug("Closing preparedStatement...");
         try {
             if (stmt != null) stmt.close(); 
-            LOG.debug("Connection preparedStatement");
+            LOG.debug("preparedStatement closed");
         
         } catch (SQLException exception) {
             LOG.fatal("Couldn't close preparedStatement = " + exception );
@@ -221,12 +201,11 @@ public final class ResourceManager
      * 
      * @param rs 
      */
-    public static void close(ResultSet rs) {
-        
+    public static void close(ResultSet rs) {        
         LOG.debug("Closing resultSet...");
         try {
             if (rs != null) rs.close(); 
-            LOG.debug("Connection resultSet");
+            LOG.debug("resultSet closed");
         
         } catch (SQLException exception) {
             LOG.fatal("Couldn't close resultSet = " + exception );

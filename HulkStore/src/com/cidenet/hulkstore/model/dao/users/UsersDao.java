@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  * This class handles queries to the user table.
@@ -19,8 +20,10 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2019-11-19
  */
-public final class UsersDao extends AbstractDao
-{
+public final class UsersDao extends AbstractDao {
+    
+    private static final Logger LOG = Logger.getLogger(UsersDao.class.getName());
+    
     /** 
      * The factory class for this DAO has two versions of the create() method - one that
      * takes no arguments and one that takes a Connection argument. If the Connection version
@@ -83,8 +86,7 @@ public final class UsersDao extends AbstractDao
      * @return UsersPk
      * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
-    public UsersPk insert(UsersDto usersDto) throws UsersDaoException
-    {
+    public UsersPk insert(UsersDto usersDto) throws UsersDaoException {
         long t1 = System.currentTimeMillis();
         // declare variables
         final boolean isConnSupplied = (userConn != null);
@@ -136,8 +138,7 @@ public final class UsersDao extends AbstractDao
      * @return boolean
      * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
-    public boolean update(UsersPk usersPk, UsersDto usersDto) throws UsersDaoException
-    {
+    public boolean update(UsersPk usersPk, UsersDto usersDto) throws UsersDaoException {
         // declare variables
         long t1 = System.currentTimeMillis();
         final boolean isConnSupplied = (userConn != null);
@@ -182,8 +183,7 @@ public final class UsersDao extends AbstractDao
      * @return boolean
      * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
-    public boolean delete(UsersPk usersPk) throws UsersDaoException
-    {
+    public boolean delete(UsersPk usersPk) throws UsersDaoException {
         // declare variables
         long t1 = System.currentTimeMillis();
         final boolean isConnSupplied = (userConn != null);
@@ -218,8 +218,7 @@ public final class UsersDao extends AbstractDao
      * @return UsersDto
      * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
-    public UsersDto findByPrimaryKey(UsersPk usersPk) throws UsersDaoException
-    {
+    public UsersDto findByPrimaryKey(UsersPk usersPk) throws UsersDaoException {
         return findByPrimaryKey( usersPk.getUserId() );
     }
 
@@ -230,8 +229,7 @@ public final class UsersDao extends AbstractDao
      * @return UsersDto
      * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
-    public UsersDto findByPrimaryKey(int userId) throws UsersDaoException
-    {
+    public UsersDto findByPrimaryKey(int userId) throws UsersDaoException {
         UsersDto ret[] = findByDynamicSelect( SQL_SELECT + " WHERE userId = ?", new Object[] {userId} );
         return ret.length==0 ? null : ret[0];
     }
@@ -242,8 +240,7 @@ public final class UsersDao extends AbstractDao
      * @return UsersDto[]
      * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
-    public UsersDto[] findAll() throws UsersDaoException
-    {
+    public UsersDto[] findAll() throws UsersDaoException {
         return findByDynamicSelect( SQL_SELECT + " ORDER BY userId", null );
     }
 
@@ -254,8 +251,7 @@ public final class UsersDao extends AbstractDao
      * @return UsersDto[]
      * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
-    public UsersDto[] findWhereUserIdEquals(int userId) throws UsersDaoException
-    {
+    public UsersDto[] findWhereUserIdEquals(int userId) throws UsersDaoException {
         return findByDynamicSelect( SQL_SELECT + " WHERE userId = ? ORDER BY userId", new Object[] {userId} );
     }
 
@@ -299,8 +295,7 @@ public final class UsersDao extends AbstractDao
      * @return UsersDto[]
      * @throws java.sql.SQLException
      */
-    protected UsersDto fetchSingleResult(ResultSet resultSet) throws SQLException
-    {
+    protected UsersDto fetchSingleResult(ResultSet resultSet) throws SQLException {
         if (resultSet.next()) {
             UsersDto usersDto = new UsersDto();
             populateDto( usersDto, resultSet);
@@ -316,8 +311,7 @@ public final class UsersDao extends AbstractDao
      * @return 
      * @throws java.sql.SQLException
      */
-    protected UsersDto[] fetchMultiResults(ResultSet resultSet) throws SQLException
-    {
+    protected UsersDto[] fetchMultiResults(ResultSet resultSet) throws SQLException {
         Collection resultList = new ArrayList();
         while (resultSet.next()) {
             UsersDto usersDto = new UsersDto();
@@ -337,8 +331,7 @@ public final class UsersDao extends AbstractDao
      * @param resultSet
      * @throws java.sql.SQLException
      */
-    protected void populateDto(UsersDto usersDto, ResultSet resultSet) throws SQLException
-    {
+    protected void populateDto(UsersDto usersDto, ResultSet resultSet) throws SQLException {
         usersDto.setUserId( resultSet.getInt( COLUMN_USER_ID ) );
         usersDto.setUserName( resultSet.getString( COLUMN_USER_NAME ) );
         usersDto.setUserPass( resultSet.getString( COLUMN_USER_PASS ) );
@@ -364,8 +357,7 @@ public final class UsersDao extends AbstractDao
      * @return UsersDto[]
      * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
-    public UsersDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws UsersDaoException
-    {
+    public UsersDto[] findByDynamicSelect(String sql, Object[] sqlParams) throws UsersDaoException {
         // declare variables
         final boolean isConnSupplied = (userConn != null);
         Connection connection = null;
@@ -408,8 +400,7 @@ public final class UsersDao extends AbstractDao
      * @return UsersDto[]
      * @throws com.cidenet.hulkstore.model.dao.users.UsersDaoException
      */
-    public UsersDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws UsersDaoException
-    {
+    public UsersDto[] findByDynamicWhere(String sql, Object[] sqlParams) throws UsersDaoException {
         // declare variables
         final boolean isConnSupplied = (userConn != null);
         Connection connection = null;
@@ -422,8 +413,8 @@ public final class UsersDao extends AbstractDao
 
             // construct the SQL statement
             final String SQL = SQL_SELECT + " WHERE " + sql;
-
-            System.out.println( "Executing " + SQL );
+            
+            LOG.debug("Executing " + SQL);
             // prepare statement
             statement = connection.prepareStatement( SQL );
             statement.setMaxRows( maxRows );
@@ -452,15 +443,21 @@ public final class UsersDao extends AbstractDao
      * 
      * @param userName
      * @param userPass
-     * @return
+     * @return UsersDto
      * @throws UsersDaoException 
      */
-    public UsersDto validateUser(String userName, String userPass) throws UsersDaoException
-    {
-        UsersDto rsp[] = findByDynamicWhere( "userName = ? and userPass = MD5(?) and state = 1 ORDER BY userPass", new Object[] { userName, userPass } );  
+    public UsersDto validateUser(String userName, String userPass) throws UsersDaoException {
+        LOG.info("Validating user...");
+        UsersDto rsp[] = findByDynamicWhere( "userName = ? and userPass = MD5(?) and state = 1 ORDER BY userPass", new Object[] { userName, userPass } );          
         
-        if (rsp.length != 0){ return rsp[0]; }
-        else { return null; }
+        if (rsp.length != 0) {
+            LOG.info("Valid user");
+            return rsp[0]; 
+            
+        } else {
+            LOG.info("Invalid user");
+            return null;
+        }
     }
 
     /**
@@ -469,8 +466,7 @@ public final class UsersDao extends AbstractDao
      * @return String
      * @throws UsersDaoException 
      */
-    public String findNextUserId() throws UsersDaoException
-    {
+    public String findNextUserId() throws UsersDaoException {
         // declare variables
         final boolean isConnSupplied = (userConn != null);
         Connection conn = null;

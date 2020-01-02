@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
  * @version 1.0
  * @since 2019-11-06
  */
-
 public class UILogin extends javax.swing.JFrame {
 
     private static final Logger LOG = Logger.getLogger(UILogin.class.getName());
@@ -23,8 +22,7 @@ public class UILogin extends javax.swing.JFrame {
      * 
      * @param controller 
      */
-    public UILogin(CLogin controller) {
-        
+    public UILogin(CLogin controller) {        
         initComponents();
         this.setVisible(true);
         this.setTitle("LOGIN - HulkStore");

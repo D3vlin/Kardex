@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 public final class HulkStoreIni {
     
     private static final Logger LOG = Logger.getLogger(HulkStoreIni.class.getName());
-    //private static final String CLASS_NAME = HulkStoreIni.class.getName();
     
     /**
      * Start the application.
@@ -31,22 +30,18 @@ public final class HulkStoreIni {
      * 
      * @throws java.sql.SQLException
      */
-    public HulkStoreIni() throws SQLException
-    {   
+    public HulkStoreIni() throws SQLException {   
         //log(CLASS_NAME, "info", Initializing HulkStore...");
         LOG.info("Initializing HulkStore...");
-        try { 
-            
+        try {             
             UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
             LOG.info("LookAndFeel loaded = 'com.jtattoo.plaf.noire.NoireLookAndFeel'");            
             
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-        
-            LOG.error("LookAndFeel Not charged = 'com.jtattoo.plaf.noire.NoireLookAndFeel': " + ex);
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException exception) {        
+            LOG.error("LookAndFeel Not charged = 'com.jtattoo.plaf.noire.NoireLookAndFeel': " + exception);
         }
         
-        if (setConnection()) { 
-            
+        if (setConnection()) {             
             LOG.info("HulkStore run");
             CLogin cLogin = new CLogin(); 
         }        

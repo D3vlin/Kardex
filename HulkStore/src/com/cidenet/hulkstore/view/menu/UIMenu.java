@@ -4,6 +4,7 @@ import com.cidenet.hulkstore.controller.menu.CMenu;
 import com.cidenet.hulkstore.model.dto.users.UsersDto;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  * Main Menu View.
@@ -12,8 +13,9 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @since 2019-11-12
  */
-public class UIMenu extends javax.swing.JFrame
-{
+public class UIMenu extends javax.swing.JFrame {
+    
+    private static final Logger LOG = Logger.getLogger(UIMenu.class.getName());
     public static int userId; // Store the user id that uses the menu.
     private CMenu controller;
     
@@ -40,6 +42,7 @@ public class UIMenu extends javax.swing.JFrame
             this.btnProductEntry,
             this.btnProductExit
         );
+        LOG.info("view UIMenu loaded");
     }
 
     /**

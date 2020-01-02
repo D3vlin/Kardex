@@ -23,7 +23,6 @@ import org.apache.log4j.Logger;
  * @version 1.0
  * @since 2019-11-08
  */
-
 public final class CSettings {
     
     private static final Logger LOG = Logger.getLogger(CSettings.class.getName());
@@ -35,8 +34,7 @@ public final class CSettings {
      * 
      * @param returnToLogin 
      */
-    public CSettings(boolean returnToLogin) {
-        
+    public CSettings(boolean returnToLogin) {        
         LOG.info("Initializing view UISettings...");
         this.returnToLogin = returnToLogin;
         window = new UISettings(this);
@@ -48,8 +46,7 @@ public final class CSettings {
      * @param txtHost
      * @param txtUser 
      */
-    public void upload(JTextField txtHost, JTextField txtUser) {
-        
+    public void upload(JTextField txtHost, JTextField txtUser) {        
         String[] dataConection = getDataConnection();
         txtHost.setText(dataConection[0]);
         txtUser.setText(dataConection[1]);
@@ -58,12 +55,12 @@ public final class CSettings {
     /**
      * Return to the initial menu.
      */
-    public void cancel() {
+    public void cancel() {             
+        LOG.info("Closed UISettings view...");
+        window.dispose();   
         
         if(returnToLogin) { CLogin login = new CLogin(); }
         else { CMenu cMenu = new CMenu(); }
-        
-        window.dispose();
     }
 
     /**
@@ -74,15 +71,12 @@ public final class CSettings {
      * @param pwdPass
      * @param lblState 
      */
-    public void validate(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState) {                
-                
+    public void validate(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState) {          
         if(testConnection(txtHost.getText(), txtUser.getText(), pwdPass.getText())) {
-            
             lblState.setForeground(new Color(0, 150, 0));
             lblState.setText("Configuración correcta");
         
         } else {
-            
             lblState.setForeground(new Color(255, 0, 0));
             lblState.setText("Configuración incorrecta");
         }
@@ -96,13 +90,14 @@ public final class CSettings {
      * @param pwdPass
      * @param lblState 
      */
-    public void accept(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState)  {
-        
+    public void accept(JTextField txtHost, JTextField txtUser, JPasswordField pwdPass, JLabel lblState)  {        
         if(lblState.getText().equals("Configuración correcta")) {
+            LOG.info("Accept connection parameters...");
             setDataConnection(txtHost.getText(), txtUser.getText(), pwdPass.getText());
             cancel();
             
         } else {
+            LOG.debug("This connection did not pass the test");
             JOptionPane.showMessageDialog(null, "Esta conexión no pasó el test.\nConfigure la conexión correctamente", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }    

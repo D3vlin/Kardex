@@ -17,6 +17,7 @@ import java.awt.HeadlessException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 /**
  * Main Menu Controller.
@@ -28,15 +29,15 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @since 2019-11-12
  */
-public final class CMenu
-{
+public final class CMenu {
+    
+    private static final Logger LOG = Logger.getLogger(CMenu.class.getName());
     private UIMenu window;
     
     /**
      * Empty Constructor,
      */
-    public CMenu() 
-   {
+    public CMenu() {
         try {
             UsersDao dao = DaoFactory.createUsersDao();
             UsersDto user = dao.findWhereUserIdEquals(UIMenu.userId)[0];
@@ -52,7 +53,10 @@ public final class CMenu
      * 
      * @param user 
      */
-    public CMenu(UsersDto user) { window = new UIMenu(this, user); }
+    public CMenu(UsersDto user) { 
+        LOG.info("Initializing view UIMenu...");
+        window = new UIMenu(this, user);
+    }
     
     /**
      * Upload the user information logged in and enable the functions according to your profile.

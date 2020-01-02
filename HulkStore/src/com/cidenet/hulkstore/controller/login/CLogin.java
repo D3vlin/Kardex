@@ -21,18 +21,18 @@ import org.apache.log4j.Logger;
  * @version 1.0
  * @since 2019-11-06
  */
-
 public final class CLogin {
     
     private static final Logger LOG = Logger.getLogger(CLogin.class.getName());
+    private int entryAttempts;
     private final UILogin window;
     
     /**
      * Empty Constructor.
      */
-    public CLogin() {
-        
+    public CLogin() {        
         LOG.info("Initializing view UILogin...");
+        entryAttempts = 0;
         this.window = new UILogin(this);
     }
     
@@ -42,32 +42,47 @@ public final class CLogin {
      * @param txtUser
      * @param pwdPass 
      */
-    public void validate(JTextField txtUser, JPasswordField pwdPass)
-    {
+    public void validate(JTextField txtUser, JPasswordField pwdPass) {        
         try {
             UsersDao dao = DaoFactory.createUsersDao();
             UsersDto user = dao.validateUser(txtUser.getText(), pwdPass.getText());
             
             if (user != null) {
-                CMenu cMenu = new CMenu(user);
+                LOG.info("Closed UILogin view...");
                 window.dispose();
+                CMenu cMenu = new CMenu(user);
             
-            } else { JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE, null); }
+            } else {
+                entryAttempts++;
+                LOG.info("Username or password incorrect, Entry Attempts = " + entryAttempts);
+                JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE, null);
+                
+                if(entryAttempts >= 3) {
+                    LOG.info("The number of attempts exceeded");
+                    JOptionPane.showMessageDialog(null, "A superado el número de intentos", "Info", JOptionPane.INFORMATION_MESSAGE, null);
+                    close();
+                }
+            }
         
-        } catch (UsersDaoException | HeadlessException exception) {}
+        } catch (UsersDaoException | HeadlessException exception) {
+            LOG.fatal("Error validating user = " + exception);
+        }
     }
     
     /**
      * Show the configuration form.
      */
-    public void setting()
-    {
+    public void setting() {
+        LOG.info("Closed UILogin view...");
+        window.dispose(); 
         CSettings cSettings = new CSettings(true);
-        window.dispose();
     }
     
     /**
      * Close the form and finish the application.
      */
-    public void close() { window.dispose(); }
+    public void close() { 
+        LOG.info("Closed UILogin view...");
+        window.dispose(); 
+    }
 }
